@@ -21,4 +21,58 @@
         font-weight: 700;
         font-size: 46px;
     }
+    div{
+        font-weight: 400;
+        font-size: 20px;
+    }
+}
+
+#coverAvatar{
+    height: 140px;
+}
+.avatarName{
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.picture{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+
+    button{
+        height: 40px;
+        width: 150px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 700;
+        color:#444DF2;
+        background-color: white;
+        outline: 1px solid #444DF2;
+    }
+}
+
+
+.next{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+
+    button{
+        height: 40px;
+        width: 150px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 20px;
+        color: white;
+        background-color: #444DF2;
+        margin-right: 25px;
+    }
 }

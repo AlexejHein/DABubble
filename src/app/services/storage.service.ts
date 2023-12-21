@@ -19,6 +19,16 @@ export class StorageService {
     return this.step
   }
 
+  sendEmailStep(){
+    this.step=4;
+    return this.step
+  }
+
+  resetPasswordStep(){
+    this.step=5;
+    return this.step
+  }
+
   getStep(){
     return this.step
   }
