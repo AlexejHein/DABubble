@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { SendEmailComponent } from './send-email/send-email.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import  { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
