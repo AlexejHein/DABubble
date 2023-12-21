@@ -7,7 +7,7 @@ export class StorageService {
 
   constructor() { }
 
-  step:number=1;
+  step:number=5;
 
   plusStep(){
     this.step++
@@ -26,6 +26,11 @@ export class StorageService {
 
   resetPasswordStep(){
     this.step=5;
+    return this.step
+  }
+
+  logInStep(){
+    this.step=1;
     return this.step
   }
 

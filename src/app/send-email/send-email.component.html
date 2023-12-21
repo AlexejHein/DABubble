@@ -1,1 +1,23 @@
-<p>send-email works!</p>
+<div class="sendEmail">
+
+    <h2>Passwort zurücksetzen</h2>
+
+    <img src="./assets/img/arrow_back.png" id="backarrowEmail" (click)="storageService.logInStep()">
+
+    <div class="sendEmail-description">
+       Bitte geben Sie Ihre E-Mail-Adresse ein.
+    </div>
+
+    <input id="sendEmailInput" type="email" placeholder="beispielname@email.com">
+
+
+    <div class="sendEmail-bottom-description">
+       wir senden Ihnen eine E-mail, über die Sie Ihre Passwort ändern können
+    </div>
+
+
+    <div class="sendEmail-btn">
+        <button >E-Mail senden</button>
+    </div>
+
+</div>
