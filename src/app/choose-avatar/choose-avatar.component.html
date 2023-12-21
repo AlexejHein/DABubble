@@ -1,1 +1,37 @@
-<p>choose-avatar works!</p>
+<div class="choose-avatar-container">
+    
+    <h2>Wähle deinen Avatar</h2>
+
+    <img src="./assets/img/arrow_back.png" id="backarrowAvatar" (click)="storageService.minusStep()">
+
+    <img src="./assets/img/81. Profile.png" (click)="storageService.minusStep()">
+
+    <div>
+        Max  Muster
+    </div>
+
+    <div>
+        <div>Aus der Liste Wählen</div>
+        <div>
+            <img src="./../../assets/img/80. avatar interaction.png">
+            <img src="./../../assets/img/80. avatar interaction (1).png">
+            <img src="./../../assets/img/80. avatar interaction (2).png">
+            <img src="./../../assets/img/80. avatar interaction (3).png">
+            <img src="./../../assets/img/80. avatar interaction (4).png">
+            <img src="./../../assets/img/80. avatar interaction (5).png">
+
+        </div>
+    </div>
+
+    <div class="picture">
+        <div>eigenes Bild verwenden</div>
+        <button>Datei Hochladen</button>
+    </div>
+
+
+
+    <div class="next">
+        <button (click)="storageService.plusStep()">Weiter</button>
+    </div>
+
+</div>
