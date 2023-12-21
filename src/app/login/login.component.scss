@@ -1,0 +1,112 @@
+.login-container{
+    height: calc(100vh - 200px);
+    width: 700px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+
+
+    h2{
+        color: #444DF2;
+        font-weight: 700;
+        font-size: 46px;
+        
+    }
+
+    div{
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    input{
+        background-color: #eceefe;
+        border: none;
+        border-radius: 15px;
+        height: 40px ;
+        width: 80%;
+        box-sizing: border-box;
+        padding-left: 50px;
+        
+        &:focus {
+            outline:none;
+        }
+    }
+
+}
+
+#passLogin{
+    background: #eceefe url(./../../assets/img/lock.png)  left no-repeat;
+    background-position-x: 15px; 
+}
+
+#emailLogin{
+    background: #eceefe url(./../../assets/img/mail.png)  left no-repeat;
+    background-position-x: 15px; 
+}
+
+.login-description{
+    text-align: center;
+
+}
+
+.forget-password{
+    color: #444DF2;
+    font-size: 18px;
+}
+
+.or{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80%;
+}
+
+.line{
+    height: 1px;
+    background-color: #686868;
+    width: 40%;
+}
+
+.google-login{
+    background-color: #eceefe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    height: 40px;
+    border-radius: 15px;
+    cursor: pointer;
+    color: #444DF2;
+}
+
+.login-btns{
+
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    button{
+        height: 40px;
+        width: 150px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+}
+
+#loginBtn{
+    color: white;
+    background-color: #444DF2;
+}
+
+#guestBtn{
+    color:#444DF2;
+    outline: 1px solid #444DF2;
+}
