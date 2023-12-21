@@ -1,4 +1,10 @@
-<div class="main-container">
+<div class="intro" *ngIf="!animationOver">
+    <img src="./assets/img/Logo (1).png">
+
+</div>
+
+
+<div class="main-container" *ngIf="animationOver">
     <div class="DAbubble-container">
         <img src="./assets/img/1. Logo animation.png">
     </div>
