@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./choose-avatar.component.scss']
 })
 export class ChooseAvatarComponent {
+  constructor( public storageService:StorageService){}
 
 }

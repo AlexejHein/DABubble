@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-register',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  constructor( public storageService:StorageService){}
 
 }

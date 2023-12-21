@@ -1,1 +1,27 @@
-<p>register works!</p>
+<div class="register">
+
+    <h2>Konto erstellen</h2>
+
+    <img src="./assets/img/arrow_back.png" id="backarrow" (click)="storageService.minusStep()">
+
+    <div class="register-description">
+        wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.
+    </div>
+
+    <input id="textRegister" type="text" placeholder="Name und Nachname">
+
+    <input id="emailRegister" type="email" placeholder="beispielname@email.com">
+
+    <input id="passRegister" type="password" placeholder="passwort">
+
+    <div class="checkboxSection">
+        <input type="checkbox">
+        <div> ich stimme der <span>Datenschutzerklärung</span> zu</div>
+    </div>
+
+
+    <div class="register-btn">
+        <button (click)="storageService.plusStep()">Weiter</button>
+    </div>
+
+</div>

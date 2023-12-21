@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-start-screen',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./start-screen.component.scss']
 })
 export class StartScreenComponent {
-step:number=1;
+
+      
+  constructor( public storageService:StorageService){}
+
 }

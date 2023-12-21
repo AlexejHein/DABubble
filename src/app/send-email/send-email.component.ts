@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-send-email',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./send-email.component.scss']
 })
 export class SendEmailComponent {
+  constructor( public storageService:StorageService){}
 
 }

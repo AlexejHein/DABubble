@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent {
-
+  constructor( public storageService:StorageService){}
 }

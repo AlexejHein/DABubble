@@ -3,9 +3,9 @@
         <img src="./assets/img/1. Logo animation.png">
     </div>
 
-    <div class="regiter-container">
+    <div class="regiter-container" *ngIf="storageService.getStep()==1" >
         <div>Neu bei DABubble?</div>
-        <p>konto erstellen</p>
+        <p (click)="storageService.plusStep()">konto erstellen</p>
     </div>
 
     <div class="legal-container">
@@ -13,19 +13,19 @@
         <p>Datenschutz</p>
     </div>
 
-    <div *ngIf="step==1" class="component">
+    <div *ngIf="storageService.getStep()==1" class="component">
         <app-login></app-login>
     </div>
-    <div *ngIf="step==2">
+    <div *ngIf="storageService.getStep()==2">
         <app-register></app-register>
     </div>
-    <div *ngIf="step==3">
+    <div *ngIf="storageService.getStep()==3">
         <app-choose-avatar></app-choose-avatar>
     </div>
-    <div *ngIf="step==4">
+    <div *ngIf="storageService.getStep()==4">
         <app-send-email></app-send-email>
     </div>
-    <div *ngIf="step==5">
+    <div *ngIf="storageService.getStep()==5">
         <app-reset-password></app-reset-password>
     </div>
 
