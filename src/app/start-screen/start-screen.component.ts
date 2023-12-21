@@ -15,7 +15,7 @@ export class StartScreenComponent implements OnInit{
 
    setTimeout(() => {
     this.animationOver=true;
-   }, 2000);  
+   }, 2500);  
 
   }
 
