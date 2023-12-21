@@ -7,7 +7,7 @@ export class StorageService {
 
   constructor() { }
 
-  step:number=5;
+  step:number=1;
 
   plusStep(){
     this.step++
