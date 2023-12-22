@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { AngularFirestore} from "@angular/fire/compat/firestore";
 import { environment} from "../environment/environment";
 import { AngularFireModule } from "@angular/fire/compat";
+import { ImpressComponent } from './impress/impress.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AngularFireModule } from "@angular/fire/compat";
     RegisterComponent,
     ChooseAvatarComponent,
     SendEmailComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ImpressComponent
   ],
   imports: [
     BrowserModule,
