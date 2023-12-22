@@ -19,6 +19,9 @@ import { SearchComponent } from './dashboard/search/search.component';
 import { ThreadComponent } from './dashboard/thread/thread.component';
 import { WorkspaceMenuComponent } from './dashboard/workspace-menu/workspace-menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MyProfileComponent } from './dashboard/my-profile/my-profile.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { UserMenuComponent } from './dashboard/my-profile/user-menu/user-menu.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +36,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DashboardComponent,
     WorkspaceMenuComponent,
     ThreadComponent,
-    SearchComponent
+    SearchComponent,
+    MyProfileComponent,
+    UserMenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
