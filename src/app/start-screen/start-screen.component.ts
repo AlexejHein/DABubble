@@ -11,6 +11,7 @@ export class StartScreenComponent implements OnInit{
   constructor( public storageService:StorageService){}
 
   animationOver=false;
+  
   ngOnInit(): void {
 
    setTimeout(() => {

@@ -1,8 +1,8 @@
 export class User {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
+    id!: string;
+    name!: string;
+    email!: string;
+    password!: string;
 
     constructor(obj?: any) {
       if (obj) {
@@ -11,10 +11,7 @@ export class User {
         this.email = obj.email ?? '';
         this.password = obj.password ?? '';
       } else {
-        this.id = '';
-        this.name = '';
-        this.email = '';
-        this.password = '';
+
       }
     }
 

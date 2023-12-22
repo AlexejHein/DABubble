@@ -8,20 +8,31 @@
         wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.
     </div>
 
-    <input id="textRegister" type="text" placeholder="Name und Nachname">
-
-    <input id="emailRegister" type="email" placeholder="beispielname@email.com">
-
-    <input id="passRegister" type="password" placeholder="passwort">
-
-    <div class="checkboxSection">
-        <input type="checkbox">
-        <div> ich stimme der <span>Datenschutzerklärung</span> zu</div>
-    </div>
-
-
-    <div class="register-btn">
-        <button (click)="storageService.plusStep()">Weiter</button>
-    </div>
-
+    <form (submit)="send()">
+        <input required id="textRegister" type="text" placeholder="Name und Nachname" #nameField="ngModel" [(ngModel)]="user.name" name="name">
+        <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)">
+            <div *ngIf="nameField.errors?.['required']">Your Name is required.</div>
+        </div>
+    
+        <input required id="emailRegister" type="email" placeholder="beispielname@email.com" #emailField="ngModel" [(ngModel)]="user.email" name="email">
+        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
+            <div *ngIf="emailField.errors?.['required']">Email is required.</div>
+            <div *ngIf="emailField.errors?.['email']">Invalid email address.</div>
+        </div>
+    
+        <input required id="passRegister" type="password" placeholder="passwort" #passwordField="ngModel" [(ngModel)]="user.password" name="password">
+        <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">
+            <div *ngIf="passwordField.errors?.['required']">Password is required.</div>
+        </div>
+    
+        <div class="checkboxSection">
+            <input type="checkbox">
+            <div> ich stimme der <span>Datenschutzerklärung</span> zu</div>
+        </div>
+    
+        <div class="register-btn">
+            <button type="submit">Weiter</button>
+        </div>
+    </form>
+    
 </div>

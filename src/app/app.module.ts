@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { AngularFirestore} from "@angular/fire/compat/firestore";
 import { environment} from "../environment/environment";
 import { AngularFireModule } from "@angular/fire/compat";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AngularFireModule } from "@angular/fire/compat";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
