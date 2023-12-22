@@ -14,6 +14,7 @@ export class ChooseAvatarComponent implements OnInit {
   userName: string = 'Unbekannter Benutzer';
   avatarUrl = '';
   imageUrls = [1, 2, 3, 4, 5, 6].map(i => `assets/img/avatar${i}.png`);
+  currentAvatar =  'assets/img/profile.png';
 
   constructor(
     private storage: AngularFireStorage,
@@ -37,6 +38,7 @@ export class ChooseAvatarComponent implements OnInit {
   }
 
   selectAvatar(avatarName: string) {
+    this.currentAvatar = avatarName;
     this.saveAvatar(avatarName).catch(error => console.error('Error saving avatar:', error));
   }
 
