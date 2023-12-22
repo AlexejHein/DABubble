@@ -36,4 +36,26 @@ export class UserService {
       avatar: avatarUrl
     });
   }
+  async getCurrentUserId(): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      this.auth.authState.subscribe(user => {
+        if (user) {
+          resolve(user.uid); // Gibt die Benutzer-ID zurück, wenn vorhanden
+        } else {
+          reject('Kein Benutzer angemeldet.'); // oder resolve(null);
+        }
+      });
+    });
+  }
+  async getCurrentUserName(): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      this.auth.authState.subscribe(user => {
+        if (user) {
+          resolve(user.displayName); // oder user.email oder eine andere Benutzerinformation
+        } else {
+          resolve(null); // Kein Benutzer angemeldet
+        }
+      });
+    });
+  }
 }
