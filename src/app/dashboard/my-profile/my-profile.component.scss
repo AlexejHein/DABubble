@@ -1,0 +1,42 @@
+h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.my-profile {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        color: #797EF3;
+    }
+
+    &:hover .open-my-profile:after {
+        width: 30px;
+        height: 30px;
+        background: url(/assets/img/arrow-down-b.svg);
+        background-size: 100% auto;
+    }
+}
+
+
+.open-my-profile:after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background: url(/assets/img/arrow-down.svg);
+    background-size: 100% auto;
+    display: inline-block;
+}
+
+.open-my-profile:hover:after {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background: url(/assets/img/arrow-down-b.svg);
+    background-size: 100% auto;
+}
