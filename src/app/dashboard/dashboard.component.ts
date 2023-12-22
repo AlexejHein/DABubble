@@ -44,6 +44,7 @@ export class DashboardComponent {
   moveLeft = "";
   moveRight = "";
   menuString = "schließen";
+  menuState = "";
 
   constructor() {
 
@@ -53,11 +54,13 @@ export class DashboardComponent {
     if(this.workspaceMenuVisible == true) {
       this.workspaceMenuVisible = false;
       this.menuString = "öffnen";
+      this.menuState = "closed";
       this.moveLeft = "moveleft";
     }
     else {
       this.workspaceMenuVisible = true;
       this.menuString = "schließen";
+      this.menuState = "";
       this.moveLeft = "";
     }
   }

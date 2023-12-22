@@ -1,6 +1,10 @@
+html, body {
+    height: unset!important;
+}
+
 .container {
-    width: calc(100% - 40px);
-    max-width: 1920px;
+    // width: calc(100% - 40px);
+    // max-width: 1920px;
     margin-right: auto;
     margin-left: auto;
     padding-right: 20px;
@@ -48,7 +52,7 @@
 .main-body {
     display: flex;
     gap: 20px;
-    height: calc(100vH - 180px);
+    height: calc(100vH - 160px);
 }
 
 .message-container {
@@ -96,6 +100,65 @@
     padding-left: 0px;
 }
 
+.workspace-menu {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1em;
+    position: fixed;
+    left: -143px;
+    bottom: 25%;
+    padding: 14px 23px;
+    background: white;
+    box-shadow: -2px 4px 7px 0px #00000033;
+    border-radius: 0px 0px 30px 30px;
+    transform: rotate(270deg);
+    width: 296px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+    color: #535AF1;
+    font-weight: 700;
+    cursor: pointer;
+
+    span.close-menu:after {
+        width: 18px;
+        height: 18px;
+        background: url(/assets/img/menu-close-b.svg);
+        background-size: 100% auto;
+    }
+
+    span.close-menu.closed:after {
+        width: 18px;
+        height: 18px;
+        background: url(/assets/img/menu-closed-b.svg);
+        background-size: 100% auto;
+    }
+
+    }
+}
+
+span.close-menu:after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url(/assets/img/menu-close.svg);
+    background-size: 100% auto;
+    display: inline-block;
+    margin-left: 10px;
+    transform: rotate(90deg);
+    margin-bottom: -2px;
+}
+
+span.close-menu.closed:after {
+    width: 16px;
+    height: 16px;
+    background: url(/assets/img/menu-closed.svg);
+    background-size: 100% auto;
+}
+
 .chat-header {
     display: flex;
     align-items: center;
@@ -128,4 +191,27 @@ h3 {
     font-size: 24px;
     font-weight: 700;
     margin: 0px;
+}
+
+.thread-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.close-thread:after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: url(/assets/img/close.svg);
+    background-size: 100% auto;
+    display: inline-block;
+}
+
+.close-thread:hover:after {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(/assets/img/close-b.svg);
+    background-size: 100% auto;
 }

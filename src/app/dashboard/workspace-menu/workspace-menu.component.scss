@@ -10,3 +10,20 @@ h3 {
     font-weight: 700;
     margin: 0px;
 }
+
+.add-message:after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: url(/assets/img/edit-square.svg);
+    background-size: 100% auto;
+    display: inline-block;
+}
+
+.add-message:hover:after {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(/assets/img/edit-square-b.svg);
+    background-size: 100% auto;
+}
