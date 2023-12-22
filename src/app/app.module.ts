@@ -14,6 +14,11 @@ import { AngularFirestore} from "@angular/fire/compat/firestore";
 import { environment} from "../environment/environment";
 import { AngularFireModule } from "@angular/fire/compat";
 import { FormsModule } from '@angular/forms';
+import { ImpressComponent } from './impress/impress.component';
+import { SearchComponent } from './dashboard/search/search.component';
+import { ThreadComponent } from './dashboard/thread/thread.component';
+import { WorkspaceMenuComponent } from './dashboard/workspace-menu/workspace-menu.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     ChooseAvatarComponent,
     SendEmailComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ImpressComponent,
+    DashboardComponent,
+    WorkspaceMenuComponent,
+    ThreadComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

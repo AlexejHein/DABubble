@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { StorageService } from '../services/storage.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/User.class';
 
 @Component({
@@ -7,23 +8,31 @@ import { User } from '../models/User.class';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent  implements OnInit{
+export class RegisterComponent {
 
-  constructor( public storageService:StorageService){}
+  user:User= new User()
 
-  user:User=new User();
+  constructor(
+    public storageService: StorageService,
+    private userService: UserService
+  ) {}
 
+  async register() {
+    const name = (document.getElementById('textRegister') as HTMLInputElement).value;
+    const email = (document.getElementById('emailRegister') as HTMLInputElement).value;
+    const password = (document.getElementById('passRegister') as HTMLInputElement).value;
 
-  ngOnInit(){
+    const checkbox = (document.querySelector('.checkboxSection input') as HTMLInputElement);
+    if (!checkbox.checked) {
+      alert('Bitte stimme der Datenschutzerklärung zu.');
+      return;
+    }
 
-  }
-
-
-  send(){
-  // speichern firebase
-  console.log(this.user);
-  
-    
-    //this.storageService.plusStep()
+    try {
+      this.storageService.plusStep();
+      await this.userService.registerUser({ name, email, password });
+    } catch (error) {
+      console.error('Registrierungsfehler', error);
+    }
   }
 }

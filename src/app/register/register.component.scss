@@ -20,19 +20,19 @@
         font-size: 20px;
     }
 
-    input{
+      input {
         background-color: #eceefe;
         border: none;
         border-radius: 15px;
-        height: 40px ;
+        height: 40px;
         width: 80%;
         box-sizing: border-box;
         padding-left: 50px;
-        
+
         &:focus {
-            outline:none;
+          outline: none;
         }
-    }
+      }
 }
 
 #backarrow{
@@ -68,17 +68,17 @@
 
 #textRegister{
     background: #eceefe url(./../../assets/img/person_filled.png)  left no-repeat;
-    background-position-x: 15px; 
+    background-position-x: 15px;
 }
 
 #passRegister{
     background: #eceefe url(./../../assets/img/lock.png)  left no-repeat;
-    background-position-x: 15px; 
+    background-position-x: 15px;
 }
 
 #emailRegister{
     background: #eceefe url(./../../assets/img/mail.png)  left no-repeat;
-    background-position-x: 15px; 
+    background-position-x: 15px;
 }
 
 .checkboxSection{
@@ -105,9 +105,9 @@
     appearance: none;
     height: 25px;
     width:auto;
-    background-color: white; 
+    background-color: white;
     border: 1px solid #444DF2;
-    border-radius: 0;  
+    border-radius: 0;
 }
 
 .checkboxSection input[type="checkbox"]:checked::before {
@@ -115,6 +115,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px; 
-    color: #444DF2; 
+    font-size: 20px;
+    color: #444DF2;
 }

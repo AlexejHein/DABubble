@@ -1,37 +1,31 @@
 <div class="choose-avatar-container">
-    
-    <h2>Wähle deinen Avatar</h2>
+  <h2>Wähle deinen Avatar</h2>
+  <img src="./assets/img/arrow_back.png" id="backarrowAvatar" (click)="storageService.minusStep()">
+  <img [src]="currentAvatar" id="coverAvatar" (click)="storageService.minusStep()">
+  <div class="avatarName">
+    {{ userName }}
+  </div>
 
-    <img src="./assets/img/arrow_back.png" id="backarrowAvatar" (click)="storageService.minusStep()">
 
-    <img src="./assets/img/81. Profile.png" id="coverAvatar" (click)="storageService.minusStep()">
-
-    <div class="avatarName">
-        Max  Muster
-    </div>
-
+  <div>
+    <div>Aus der Liste Wählen</div>
     <div>
-        <div>Aus der Liste Wählen</div>
-        <div>
-            <img src="./../../assets/img/80. avatar interaction.png">
-            <img src="./../../assets/img/80. avatar interaction (1).png">
-            <img src="./../../assets/img/80. avatar interaction (2).png">
-            <img src="./../../assets/img/80. avatar interaction (3).png">
-            <img src="./../../assets/img/80. avatar interaction (4).png">
-            <img src="./../../assets/img/80. avatar interaction (5).png">
+      <img *ngFor="let avatar of imageUrls" [src]="avatar" (click)="selectAvatar(avatar)">
 
-        </div>
+
     </div>
-
-    <div class="picture">
-        <div>eigenes Bild verwenden</div>
-        <button>Datei Hochladen</button>
-    </div>
+  </div>
 
 
+  <div class="picture">
+    <div>eigenes Bild verwenden</div>
 
-    <div class="next">
-        <button>Weiter</button>
-    </div>
+    <input type="file" (change)="uploadFile($event)" hidden #fileInput>
+    <!-- Button that triggers file input for avatar upload -->
+    <button (click)="fileInput.click()">Datei Hochladen</button>
+  </div>
 
+  <div class="next">
+    <button (click)="goNext()">Weiter</button>
+  </div>
 </div>
