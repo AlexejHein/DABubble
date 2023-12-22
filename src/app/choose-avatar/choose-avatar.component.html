@@ -1,7 +1,7 @@
 <div class="choose-avatar-container">
   <h2>Wähle deinen Avatar</h2>
   <img src="./assets/img/arrow_back.png" id="backarrowAvatar" (click)="storageService.minusStep()">
-  <img src="./assets/img/81. Profile.png" id="coverAvatar" (click)="storageService.minusStep()">
+  <img [src]="currentAvatar" id="coverAvatar" (click)="storageService.minusStep()">
   <div class="avatarName">
     {{ userName }}
   </div>
