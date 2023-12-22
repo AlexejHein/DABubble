@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 
 const routes: Routes = [
-  {path:'',component:StartScreenComponent}
+  {path:'',component:StartScreenComponent},
+  {path:'dashboard',component:DashboardComponent}
 ];
 
 @NgModule({
