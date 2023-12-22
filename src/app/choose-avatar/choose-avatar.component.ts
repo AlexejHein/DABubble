@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { UserService } from '../services/user.service';
-import { StorageService } from '../services/storage.service';
-import {finalize} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {AngularFireStorage} from '@angular/fire/compat/storage';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {UserService} from '../services/user.service';
+import {StorageService} from '../services/storage.service';
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-choose-avatar',
   templateUrl: './choose-avatar.component.html',
   styleUrls: ['./choose-avatar.component.scss']
 })
-export class ChooseAvatarComponent {
+export class ChooseAvatarComponent implements OnInit {
+  userName: string = 'Unbekannter Benutzer';
+  avatarUrl = '';
+  imageUrls = [1, 2, 3, 4, 5, 6].map(i => `assets/img/avatar${i}.png`);
 
-  userName: string = '';
-  // Konstruktor mit Services
   constructor(
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
@@ -22,60 +23,54 @@ export class ChooseAvatarComponent {
   ) {}
 
   ngOnInit() {
-    this.loadUserName().then(r => {} );
+    this.loadUserName().then(r => console.log('Benutzername geladen'));
   }
 
   async loadUserName() {
-    this.userName = await this.userService.getCurrentUserName() || 'Unbekannter Benutzer';
-
-  }
-
-  // Funktion, um vorgegebene Avatare zu wählen
-  selectAvatar(avatarName: string) {
-    // Pfad zu den vorgegebenen Avataren
-    const avatarUrl = `./../../assets/img/${avatarName}.png`;
-    this.saveAvatar(avatarUrl).then(r => {});
-  }
-
-  // Funktion, um das Bild hochzuladen
-  async uploadFile(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      // Hier Upload-Logik implementieren und URL speichern
-      const filePath = `avatars/${new Date().getTime()}_${file.name}`;
-      const fileRef = this.storage.ref(filePath);
-      const task = this.storage.upload(filePath, file);
-
-      // Verfolge den Upload-Status und erhalte die URL
-      task.snapshotChanges().pipe(
-        finalize(async () => {
-          const downloadURL = await fileRef.getDownloadURL().toPromise();
-          await this.saveAvatar(downloadURL); // Speichere die URL des hochgeladenen Avatars
-        })
-      ).subscribe();
+    try {
+      const name = await this.userService.getCurrentUserName();
+      this.userName = name || 'Unbekannter Benutzer';
+    } catch (error) {
+      console.error('Fehler beim Laden des Benutzernamens', error);
+      // Handle the error appropriately
     }
   }
 
-  // Funktion, um die Avatar-URL im Benutzerprofil zu speichern
+  selectAvatar(avatarName: string) {
+    this.saveAvatar(avatarName).catch(error => console.error('Error saving avatar:', error));
+  }
+
+  async uploadFile(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const filePath = `avatars/${new Date().getTime()}_${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    task.snapshotChanges().pipe(
+      finalize(async () => {
+        this.avatarUrl = await fileRef.getDownloadURL().toPromise();
+        await this.saveAvatar(this.avatarUrl);
+      })
+    ).subscribe();
+  }
+
   async saveAvatar(avatarUrl: string) {
     try {
-      const userId = await this.userService.getCurrentUserId(); // Warte auf die UserID
+      const userId = await this.userService.getCurrentUserId();
       if (userId) {
-        await this.firestore.collection('users').doc(userId).update({
-          avatar: avatarUrl
-        });
-        // Weiterleitung oder Bestätigung hier
+        await this.firestore.collection('users').doc(userId).update({ avatar: avatarUrl });
+        this.avatarUrl = avatarUrl;
       } else {
-        // Behandle den Fall, dass keine Benutzer-ID vorhanden ist
+        console.error('No user ID found');
       }
     } catch (error) {
       console.error('Fehler beim Speichern des Avatars: ', error);
-      // Fehlerbehandlung hier
     }
   }
 
   goNext() {
     this.storageService.plusStep();
   }
-
 }

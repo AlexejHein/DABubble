@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from '../models/User.class'; // Pfad zu deinem User-Modell
+import { User } from '../models/User.class';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +20,8 @@ export class UserService {
           name: userData.name,
           email: userData.email,
         });
-
         await this.firestore.collection('users').doc(newUser.id).set(newUser.toJSON());
-        return newUser; // Rückgabe des neu erstellten Benutzers
+        return newUser;
       } else {
         throw new Error('Benutzer konnte nicht erstellt werden.');
       }
@@ -30,19 +29,13 @@ export class UserService {
       throw error;
     }
   }
-
-  async updateUserAvatar(userId: string, avatarUrl: string) {
-    await this.firestore.collection('users').doc(userId).update({
-      avatar: avatarUrl
-    });
-  }
   async getCurrentUserId(): Promise<string | null> {
     return new Promise((resolve, reject) => {
       this.auth.authState.subscribe(user => {
         if (user) {
-          resolve(user.uid); // Gibt die Benutzer-ID zurück, wenn vorhanden
+          resolve(user.uid);
         } else {
-          reject('Kein Benutzer angemeldet.'); // oder resolve(null);
+          reject('Kein Benutzer angemeldet.');
         }
       });
     });
@@ -50,12 +43,16 @@ export class UserService {
   async getCurrentUserName(): Promise<string | null> {
     return new Promise((resolve, reject) => {
       this.auth.authState.subscribe(user => {
+        console.log(user);
         if (user) {
-          resolve(user.displayName); // oder user.email oder eine andere Benutzerinformation
+          console.log('User Display Name: ', user.displayName);
+          resolve(user.displayName);
         } else {
-          resolve(null); // Kein Benutzer angemeldet
+          console.log('Kein Benutzer angemeldet');
+          resolve(null);
         }
       });
+
     });
   }
 }
