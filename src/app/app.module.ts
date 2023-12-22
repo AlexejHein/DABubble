@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { AngularFirestore} from "@angular/fire/compat/firestore";
 import { environment} from "../environment/environment";
 import { AngularFireModule } from "@angular/fire/compat";
+import { FormsModule } from '@angular/forms';
 import { ImpressComponent } from './impress/impress.component';
 import { SearchComponent } from './dashboard/search/search.component';
 import { ThreadComponent } from './dashboard/thread/thread.component';
@@ -38,6 +39,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],

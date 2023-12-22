@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { UserService } from '../services/user.service';
+import { User } from '../models/User.class';
 
 @Component({
   selector: 'app-register',
@@ -8,6 +9,9 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  user:User= new User()
+
   constructor(
     public storageService: StorageService,
     private userService: UserService
