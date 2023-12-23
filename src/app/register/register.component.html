@@ -1,38 +1,46 @@
-<div class="register">
+<form class="register" (submit)="register()">
 
-    <h2>Konto erstellen</h2>
+        <h2>Konto erstellen</h2>
 
-    <img src="./assets/img/arrow_back.png" id="backarrow" (click)="storageService.minusStep()">
+        <img src="./assets/img/arrow_back.png" id="backarrow" (click)="storageService.minusStep()">
 
-    <div class="register-description">
-        wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.
-    </div>
+        <div class="register-description">
+            wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.
+        </div>
 
-    <form (submit)="register()">
+
         <input required id="textRegister" type="text" placeholder="Name und Nachname" #nameField="ngModel" [(ngModel)]="user.name" name="name">
-        <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)">
-            <div *ngIf="nameField.errors?.['required']">Your Name is required.</div>
+        <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="alert">
+            <div *ngIf="nameField.errors?.['required']">Ihr Name ist erforderlich.</div>
         </div>
     
-        <input required id="emailRegister" type="email" placeholder="beispielname@email.com" #emailField="ngModel" [(ngModel)]="user.email" name="email">
-        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
-            <div *ngIf="emailField.errors?.['required']">Email is required.</div>
-            <div *ngIf="emailField.errors?.['email']">Invalid email address.</div>
+        <input required id="emailRegister" type="email" placeholder="beispielname@email.com" #emailField="ngModel" [(ngModel)]="user.email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9äöüÄÖÜß.-]+\.[a-zA-Z]{2,}">
+        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="alert">
+            <div *ngIf="emailField.errors?.['required']">Email ist erforderlich.</div>
+            <div *ngIf="emailField.errors?.['pattern']">Bitte geben Sie eine gültige E-Mail Adresse ein.</div>
         </div>
     
         <input required id="passRegister" type="password" placeholder="passwort" #passwordField="ngModel" [(ngModel)]="user.password" name="password">
-        <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">
-            <div *ngIf="passwordField.errors?.['required']">Password is required.</div>
+        <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)" class="alert">
+            <div *ngIf="passwordField.errors?.['required']">Password ist erforderlich.</div>
         </div>
+        <div *ngIf="user.password && !passwordField.invalid" [ngClass]="{ 'weak': isWeakPassword(), 'medium': isMediumPassword(), 'strong': isStrongPassword() }">
+            Passwortstärke: {{ calculatePasswordStrength(user.password) }}
+          </div>
     
         <div class="checkboxSection">
-            <input type="checkbox">
+            <input required type="checkbox" name="privacyPolicy" #checkedPP="ngModel" [(ngModel)]="privacyPolicyChecked">
             <div> ich stimme der <span>Datenschutzerklärung</span> zu</div>
+        </div>
+        <div *ngIf="checkedPP.invalid && checkedPP.dirty" [ngClass]="{alert:checkedPP.invalid}">
+            <div *ngIf="checkedPP.errors?.['required']"> Please accept the privacy policy</div>
         </div>
     
         <div class="register-btn">
-            <button type="submit">Weiter</button>
+            <button type="submit" [disabled]="nameField.invalid|| passwordField.invalid|| emailField.invalid || checkedPP.invalid  || disableForm"
+            [ngClass]="{incorrect:(nameField.invalid || passwordField.invalid || emailField.invalid || checkedPP.invalid),correct:!(nameField.invalid|| passwordField.invalid|| emailField.invalid|| checkedPP.invalid)}" >
+            Weiter</button>
         </div>
-    </form>
+
     
-</div>
+</form>
