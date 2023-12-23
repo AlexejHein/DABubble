@@ -1,29 +1,27 @@
-<div class="login-container" >
-    <h2>Anmeldung</h2>
-    <div class="login-description">
-        wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.
-    </div>
+<div class="login-container">
+  <h2>Anmeldung</h2>
+  <div class="login-description">
+    Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.
+  </div>
 
-    <input id="emailLogin" type="email" placeholder="beispielname@email.com">
+  <input [(ngModel)]="email" id="emailLogin" type="email" placeholder="beispielname@email.com" required>
+  <input [(ngModel)]="password" id="passLogin" type="password" placeholder="passwort" required>
 
-    <input id="passLogin" type="password" placeholder="passwort">
+  <div class="forget-password" (click)="storageService.sendEmailStep()">passwort vergessen ?</div>
 
-    <div class="forget-password" (click)="storageService.sendEmailStep()">passwort vergessen ?</div>
+  <div class="or">
+    <div class="line"></div>
+    <div>ODER</div>
+    <div class="line"></div>
+  </div>
 
-    <div class="or">
-        <div class="line"></div>
-        <div>ODER</div>
-        <div class="line"></div>
-    </div>
+  <div class="google-login" >
+    <img src="./assets/img/Google.png">
+    <div>Anmelden with Google</div>
+  </div>
 
-    <div class="google-login">
-        <img src="./assets/img/Google.png">
-        <div>Anmelden with Google</div>
-    </div>
-
-    <div class="login-btns">
-        <button id="loginBtn" >Anmelden</button>
-        <button id="guestBtn" >Gäste-Login</button>
-    </div>
-
+  <div class="login-btns">
+    <button id="loginBtn" (click)="login()">Anmelden</button>
+    <button id="guestBtn" (click)="fillGuestCredentials()" >Gäste-Login</button>
+  </div>
 </div>
