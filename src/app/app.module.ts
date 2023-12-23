@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { SendEmailComponent } from './send-email/send-email.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { AngularFirestore} from "@angular/fire/compat/firestore";
+import { AngularFirestore, AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import { environment} from "../environment/environment";
 import { AngularFireModule } from "@angular/fire/compat";
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyProfileComponent } from './dashboard/my-profile/my-profile.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserMenuComponent } from './dashboard/my-profile/user-menu/user-menu.component';
+import { UserListComponent } from './dashboard/user-list/user-list.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -39,7 +42,8 @@ import { UserMenuComponent } from './dashboard/my-profile/user-menu/user-menu.co
     ThreadComponent,
     SearchComponent,
     MyProfileComponent,
-    UserMenuComponent
+    UserMenuComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,16 @@ import { UserMenuComponent } from './dashboard/my-profile/user-menu/user-menu.co
     FormsModule,
     MatDialogModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp({ apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
+  authDomain: "dabubble-97d36.firebaseapp.com",
+  projectId: "dabubble-97d36",
+  storageBucket: "dabubble-97d36.appspot.com",
+  messagingSenderId: "7321163189",
+  appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"})),
+    provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
