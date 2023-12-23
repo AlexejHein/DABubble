@@ -73,6 +73,6 @@ export class ChooseAvatarComponent implements OnInit {
   }
 
   goNext() {
-    this.storageService.plusStep();
+    this.storageService.logInStep();
   }
 }
