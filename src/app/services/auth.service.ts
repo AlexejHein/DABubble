@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from "firebase/compat/app";
+import 'firebase/compat/auth';
 
 
 @Injectable({
@@ -16,6 +18,16 @@ export class AuthService {
       return result;
     } catch (error) {
       console.error('Error during login with email', error);
+      throw error;
+    }
+  }
+  async loginWithGoogle() {
+    try {
+      const result = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      console.log('You are Successfully logged in with Google!', result);
+      return result;
+    } catch (error) {
+      console.error('Error during login with Google', error);
       throw error;
     }
   }

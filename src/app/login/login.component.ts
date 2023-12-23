@@ -31,6 +31,20 @@ export class LoginComponent {
         console.error("Login failed:", error);
       });
   }
+  // In Ihrer LoginComponent-Klasse
+
+  loginWithGoogle() {
+    this.authService.loginWithGoogle()
+      .then((result) => {
+        // Hier navigieren Sie zum Dashboard oder einem anderen internen Bereich
+        this.router.navigate(['/dashboard']).then(r => console.log(r));
+      })
+      .catch((error) => {
+        console.error("Google Login failed:", error);
+        // Behandeln Sie Fehler und zeigen Sie vielleicht eine Benachrichtigung an
+      });
+  }
+
 
 
   fillGuestCredentials() {
