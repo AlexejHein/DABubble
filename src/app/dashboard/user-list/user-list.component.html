@@ -1,3 +1,9 @@
-<div *ngFor="let user of allUsers">
-    <div class="user-prev"><img src="{{user.avatar}}"><span>{{user.name}}</span></div>
+<div *ngFor="let user of allUsers" (click)="onUserClick(user)">
+  <div class="user-prev">
+    <img src="{{user.avatar}}" alt="User Avatar">
+    <span>{{user.name}}
+      <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
+    </span>
+  </div>
 </div>
+

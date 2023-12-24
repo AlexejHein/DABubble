@@ -3,6 +3,7 @@ export class User {
   name: string;
   email: string;
   password: string;
+  avatar?: string;
 
   constructor(obj?: any) {
     if (obj) {
@@ -10,11 +11,13 @@ export class User {
       this.name = obj.name ?? '';
       this.email = obj.email ?? '';
       this.password = obj.password ?? '';
+      this.avatar = obj.avatar ?? '';
     } else {
       this.id = '';
       this.name = '';
       this.email = '';
       this.password = '';
+      this.avatar = '';
     }
   }
 
@@ -23,7 +26,8 @@ export class User {
       id: this.id,
       name: this.name,
       email: this.email,
-      password: this.password
+      password: this.password,
+      avatar: this.avatar
     };
   }
 }

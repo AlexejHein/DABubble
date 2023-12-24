@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/animations';
+import { UserService } from '../services/user.service';
+import {User} from "../models/User.class";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,7 @@ import {style, state, animate, transition, trigger} from '@angular/animations';
   styleUrls: ['./dashboard.component.scss'],
   animations: [
     trigger('fade', [
-      transition('void => active', [ 
+      transition('void => active', [
         style({ opacity: 0 }),
         animate(500, style({ opacity: 1 }))
       ]),
@@ -34,24 +36,43 @@ import {style, state, animate, transition, trigger} from '@angular/animations';
       ])
     ]),
     trigger('move', [
-     
+
     ])
  ]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   workspaceMenuVisible = true;
   threadVisible = true;
   moveLeft = "";
   moveRight = "";
   menuString = "schließen";
   menuState = "";
+  currentUser: User | undefined;
+  currentUserId: string | undefined | null;
 
-  constructor() {
+
+  constructor(private userService: UserService) {
+    this.userService.currentUser.subscribe((user: User | null) => {
+      console.log("Current user in DashboardComponent:", user);
+      if (user) {
+        this.currentUser = user;
+        this.currentUserId = user.id;
+        console.log("Current user ID:", this.currentUserId);
+      } else {
+        this.currentUser = undefined;
+        this.currentUserId = null;
+        console.log("User is null, thus no ID");
+      }
+    });
+
 
   }
 
+  ngOnInit(): void {
+    console.log("Current User ID:", this.currentUserId);
+  }
   closeWorkspaceMenu() {
-    if(this.workspaceMenuVisible == true) {
+    if(this.workspaceMenuVisible) {
       this.workspaceMenuVisible = false;
       this.menuString = "öffnen";
       this.menuState = "closed";
@@ -66,7 +87,7 @@ export class DashboardComponent {
   }
 
   closeThread() {
-    if(this.threadVisible == true) {
+    if(this.threadVisible) {
       this.threadVisible = false;
       this.moveRight = "moveright";
     }

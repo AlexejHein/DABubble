@@ -83,9 +83,9 @@ html, body {
     border-radius: 30px;
     transition: all linear .65s;
 }
-  
+
 .workspace-container.moveleft {
- 
+
     width: 0px!important;
     margin-left: -20px;
     padding-right: 0px;
@@ -93,7 +93,7 @@ html, body {
 }
 
 .thread-container.moveright {
- 
+
     width: 0px!important;
     margin-right: -20px;
     padding-right: 0px;
@@ -169,6 +169,11 @@ span.close-menu.closed:after {
     position: sticky;
     z-index: 1;
     background: white;
+    h3 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 }
 
 .chat-body {

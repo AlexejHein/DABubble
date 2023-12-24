@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/User.class';
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  currentUser = this.currentUserSubject.asObservable();
 
   constructor(private firestore: AngularFirestore, private auth: AngularFireAuth) {}
 
@@ -54,5 +58,9 @@ export class UserService {
       });
 
     });
+  }
+
+  setCurrentUser(user: User) {
+    this.currentUserSubject.next(user);
   }
 }
