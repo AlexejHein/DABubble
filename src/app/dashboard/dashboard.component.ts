@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/animations';
 import { UserService } from '../services/user.service';
 import {User} from "../models/User.class";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -47,29 +48,37 @@ export class DashboardComponent implements OnInit {
   moveRight = "";
   menuString = "schließen";
   menuState = "";
-  currentUser: User | undefined;
-  currentUserId: string | undefined | null;
+  currentUser: User | null | undefined;
+  currentUserId: string | null = "";
+  //selectedUserId: string | null = null;
+  private subscription: Subscription | null = null;
+  selectedUser:  User | null = null;
 
 
   constructor(private userService: UserService) {
-    this.userService.currentUser.subscribe((user: User | null) => {
-      console.log("Current user in DashboardComponent:", user);
-      if (user) {
-        this.currentUser = user;
-        this.currentUserId = user.id;
-        console.log("Current user ID:", this.currentUserId);
-      } else {
-        this.currentUser = undefined;
-        this.currentUserId = null;
-        console.log("User is null, thus no ID");
-      }
-    });
-
 
   }
 
+
+
   ngOnInit(): void {
-    console.log("Current User ID:", this.currentUserId);
+    this.userService.getCurrentUserId().then(id => {
+      this.currentUserId = id;
+      console.log("Current User ID:", this.currentUserId);
+    }).catch(error => {
+      console.error("Error getting current user ID:", error);
+    });
+    this.subscription = this.userService.selectedUser.subscribe(user => {
+      this.selectedUser = user;
+      console.log('Selected user:', this.selectedUser);
+      console.log('Current user ID:', this.currentUserId);
+    });
+  }
+  ngOnDestroy(): void {
+    // Stellen Sie sicher, dass Sie das Abonnement kündigen, wenn die Komponente zerstört wird
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
   closeWorkspaceMenu() {
     if(this.workspaceMenuVisible) {
