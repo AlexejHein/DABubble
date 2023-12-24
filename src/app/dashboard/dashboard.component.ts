@@ -75,7 +75,6 @@ export class DashboardComponent implements OnInit {
     });
   }
   ngOnDestroy(): void {
-    // Stellen Sie sicher, dass Sie das Abonnement kündigen, wenn die Komponente zerstört wird
     if (this.subscription) {
       this.subscription.unsubscribe();
     }

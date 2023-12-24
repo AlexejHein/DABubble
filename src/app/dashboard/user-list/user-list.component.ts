@@ -43,10 +43,7 @@ constructor(
     });
   }
 
-  // In Ihrer UserListComponent
-
   onUserClick(selectedUser: User): void {
-    // Setzen des ausgewählten Benutzers im UserService; NICHT den currentUser ändern
     this.userService.setSelectedUser(selectedUser);
     console.log("Selected User:", selectedUser);
   }
