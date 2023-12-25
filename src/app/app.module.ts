@@ -25,6 +25,7 @@ import { UserMenuComponent } from './dashboard/my-profile/user-menu/user-menu.co
 import { UserListComponent } from './dashboard/user-list/user-list.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     BrowserAnimationsModule,
     FormsModule,
     MatDialogModule,
+    MatMenuModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp({ apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
