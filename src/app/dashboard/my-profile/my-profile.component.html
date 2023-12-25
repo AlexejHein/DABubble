@@ -1,3 +1,8 @@
-<div class="my-profile" (click)="openDialog()">
-    <h2>Frederik Beck</h2><span class="open-my-profile"></span>
+    <div mat-button [matMenuTriggerFor]="menu" class="my-profile"><h2>Frederik Beck</h2><span class="open-my-profile"></span></div>
+    <mat-menu #menu="matMenu">
+        <div class="menu-box">
+   <a href="#">Profil</a>
+   <a href="#">Logout</a>
 </div>
+    </mat-menu>
+

@@ -40,3 +40,8 @@ h2 {
     background: url(/assets/img/arrow-down-b.svg);
     background-size: 100% auto;
 }
+
+.cdk-overlay-connected-position-bounding-box {
+    align-items: flex-end!important;
+    margin-left: -20px!important;
+}
