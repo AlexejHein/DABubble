@@ -2,6 +2,6 @@
     <h3>Code learning</h3>
     <span class="add-message"></span>
 </div>
-<p>workspace-menu works!</p>
-<h4>Direktnachrichten</h4>
-<app-user-list></app-user-list>
+<h4 (click)="openChannelList()" class="expandmenu {{ channelListClass }}"><span class="dropdownarrow"></span><span class="channellisticon"></span>Channels</h4>
+<h4 (click)="openUserList()" class="expandmenu {{ userListClass }}"><span class="dropdownarrow"></span><span class="userlisticon"></span>Direktnachrichten</h4>
+<app-user-list *ngIf="userListState"></app-user-list>

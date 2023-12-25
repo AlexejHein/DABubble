@@ -1,4 +1,4 @@
-<div *ngFor="let user of allUsers" (click)="onUserClick(user)">
+<div *ngFor="let user of allUsers" class="user-list" (click)="onUserClick(user)">
   <div class="user-prev">
     <img src="{{user.avatar}}" alt="User Avatar">
     <span>{{user.name}}

@@ -11,6 +11,10 @@ h3 {
     margin: 0px;
 }
 
+h4 {
+    font-size: 20px;
+  }
+
 .add-message:after {
     content: "";
     width: 40px;
@@ -27,3 +31,86 @@ h3 {
     background: url(/assets/img/edit-square-b.svg);
     background-size: 100% auto;
 }
+
+.expandmenu {
+    cursor: pointer;  
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    &.open .dropdownarrow:before {
+        content: "";
+        width: 30px;
+        height: 30px;
+        background: url(/assets/img/arrow-drop-down.svg);
+        background-size: 100% auto;
+        display: flex;
+    }
+    &.close .dropdownarrow:before {
+        content: "";
+        width: 30px;
+        height: 30px;
+        background: url(/assets/img/arrow-drop-right.svg);
+        background-size: 100% auto;
+        display: flex;
+    }
+    &:hover {
+        color: #535AF1;
+
+        &.open .dropdownarrow:before {
+            content: "";
+            width: 30px;
+            height: 30px;
+            background: url(/assets/img/arrow-drop-down-b.svg);
+            background-size: 100% auto;
+        }
+
+        &.close .dropdownarrow:before {
+            content: "";
+            width: 30px;
+            height: 30px;
+            background: url(/assets/img/arrow-drop-right-b.svg);
+            background-size: 100% auto;
+        }
+
+        .userlisticon:before {
+            background: url(/assets/img/user-list-b.svg);
+            background-size: 100% auto;
+        }
+
+        .channellisticon:before {
+            background: url(/assets/img/channels-b.svg);
+            background-size: 100% auto;
+        }
+    }
+
+    .userlisticon:before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(/assets/img/user-list.svg);
+        background-size: 100% auto;
+        display: flex;
+    }
+
+    .channellisticon:before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(/assets/img/channels.svg);
+        background-size: 100% auto;
+        display: flex;
+    }
+
+}
+
+span.userlisticon {
+    margin-left: 5px;
+    margin-right: 2px;
+}
+
+span.channellisticon {
+    margin-left: 5px;
+    margin-right: 2px;
+}
+
+
