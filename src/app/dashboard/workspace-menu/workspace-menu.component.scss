@@ -113,4 +113,58 @@ span.channellisticon {
     margin-right: 2px;
 }
 
+.channel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addchannel {
+    font-size: 18px;
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    margin-left: 40px;
+    &:before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(/assets/img/add-channel.svg);
+        background-size: 100% auto;
+        display: flex;
+    }
+    &:hover {
+        color: #535AF1;
+    }
+    &:hover:before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(/assets/img/add-channel-b.svg);
+        background-size: 100% auto;
+        display: flex;
+    } 
+}
+
+.addchannelplusicon:before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: url(/assets/img/add-channel-plus.svg);
+    background-size: 100% auto;
+    display: flex;
+}
+
+.addchannelplusicon {
+    cursor: pointer; 
+    &:hover:before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(/assets/img/add-channel-plus-b.svg);
+        background-size: 100% auto;
+    }
+}
+
 

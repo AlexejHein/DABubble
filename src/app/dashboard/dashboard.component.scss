@@ -179,6 +179,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 777;
 
     &:hover {
     color: #535AF1;

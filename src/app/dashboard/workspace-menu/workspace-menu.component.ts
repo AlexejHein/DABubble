@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddChannelComponent } from 'src/app/dialog-add-channel/dialog-add-channel.component';
 
 @Component({
   selector: 'app-workspace-menu',
@@ -10,6 +12,10 @@ userListState = true;
 channelListState = true;
 userListClass = "open";
 channelListClass = "open";
+
+constructor(public dialog: MatDialog) {
+
+}
 
 ngOnInit(){
 }
@@ -34,6 +40,10 @@ ngOnInit(){
       this.channelListState = true;
       this.channelListClass = "open";
     }
+  }
+
+  addChannel() {
+    this.dialog.open(DialogAddChannelComponent);
   }
  
 
