@@ -27,6 +27,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from "@angular/material/icon";
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {MatIconModule} from "@angular/material/icon";
     SearchComponent,
     MyProfileComponent,
     UserMenuComponent,
-    UserListComponent
+    UserListComponent,
+    DialogAddChannelComponent
   ],
   imports: [
     BrowserModule,
