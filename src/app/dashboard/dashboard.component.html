@@ -21,14 +21,24 @@
   </div>
 
   <div class="chat-body">
-
+    <div class="messageOutput">
+      <div *ngFor="let message of messages">
+        <!-- Hier kannst du gestalten, wie jede Nachricht angezeigt wird -->
+        <div class="message-item">
+          <p>{{ message.body }}</p>
+          <small>{{ message.createdAt | date }}</small>
+        </div>
+      </div>
+    </div>
 
   </div>
 
   <div class="message">
     <div class="chat-box">
-    <div class="message-input">
-      <textarea placeholder="Nachricht an ..."></textarea>
+
+
+      <div class="message-input">
+      <textarea [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>
     </div>
     <div class="message-send">
       <div class="message-icons">
@@ -37,7 +47,7 @@
         <mat-icon>insert_emoticon</mat-icon>
         <mat-icon>alternate_email</mat-icon>
       </div>
-      <mat-icon class="send-btn">send</mat-icon>
+      <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
     </div>
     </div>
   </div>

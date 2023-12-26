@@ -3,6 +3,8 @@ import {style, state, animate, transition, trigger} from '@angular/animations';
 import { UserService } from '../services/user.service';
 import {User} from "../models/User.class";
 import {Subscription} from "rxjs";
+import {MessagesService} from "../services/messages.service";
+import {Message} from "../models/message.class";
 
 @Component({
   selector: 'app-dashboard',
@@ -52,9 +54,12 @@ export class DashboardComponent implements OnInit {
   currentUserId: string | null = "";
   private subscription: Subscription | null = null;
   selectedUser:  User | null = null;
+  messages: Message[] = [];
+  message: any = {};
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private messagesService: MessagesService) {
 
   }
 
@@ -72,7 +77,35 @@ export class DashboardComponent implements OnInit {
       console.log('Selected user:', this.selectedUser);
       console.log('Current user ID:', this.currentUserId);
     });
+    this.loadMessages();
   }
+
+  loadMessages() {
+    this.messagesService.getMessages().subscribe(data => {
+      this.messages = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as {}
+        } as Message;
+      });
+      console.log('Messages:', this.messages);
+    });
+  }
+
+  saveMessage() {
+    if (this.currentUserId && this.message.body.trim() !== '') {
+      this.message.user = this.currentUserId;
+      this.messagesService.saveMessage(this.message).then(() => {
+        console.log('Message saved successfully');
+        this.message.body = ''; // Setze das Textfeld zurück
+      }).catch(error => {
+        console.error('Error saving message:', error);
+      });
+    } else {
+      console.error('No current user ID available or message is empty');
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -103,6 +136,4 @@ export class DashboardComponent implements OnInit {
       this.moveRight = "";
     }
   }
-
-
 }
