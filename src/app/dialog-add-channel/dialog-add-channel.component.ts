@@ -26,7 +26,7 @@ export class DialogAddChannelComponent implements OnInit {
 console.log(this.thread);
 this.loading = true;
 console.log(this.loading);
-    addDoc(collection(this.firestore, 'thread'), this.thread.toJSON());
+    addDoc(collection(this.firestore, 'threads'), this.thread.toJSON());
     this.loading = false;
     console.log(this.loading);
   }
