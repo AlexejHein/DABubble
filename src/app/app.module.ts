@@ -26,6 +26,7 @@ import { UserListComponent } from './dashboard/user-list/user-list.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -55,13 +56,16 @@ import {MatMenuModule} from '@angular/material/menu';
     MatMenuModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    provideFirebaseApp(() => initializeApp({ apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
-  authDomain: "dabubble-97d36.firebaseapp.com",
-  projectId: "dabubble-97d36",
-  storageBucket: "dabubble-97d36.appspot.com",
-  messagingSenderId: "7321163189",
-  appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"})),
-    provideFirestore(() => getFirestore())
+    provideFirebaseApp(() => initializeApp({
+      apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
+      authDomain: "dabubble-97d36.firebaseapp.com",
+      projectId: "dabubble-97d36",
+      storageBucket: "dabubble-97d36.appspot.com",
+      messagingSenderId: "7321163189",
+      appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
+    })),
+    provideFirestore(() => getFirestore()),
+    MatIconModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
