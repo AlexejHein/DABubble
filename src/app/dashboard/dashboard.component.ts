@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
   menuState = "";
   currentUser: User | null | undefined;
   currentUserId: string | null = "";
-  //selectedUserId: string | null = null;
   private subscription: Subscription | null = null;
   selectedUser:  User | null = null;
 

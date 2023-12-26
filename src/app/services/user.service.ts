@@ -59,8 +59,11 @@ export class UserService {
           resolve(null);
         }
       });
-
     });
+  }
+
+  getUserDetails(userId: string) {
+    return this.firestore.collection('users').doc(userId).valueChanges();
   }
 
   setCurrentUser(user: User) {
