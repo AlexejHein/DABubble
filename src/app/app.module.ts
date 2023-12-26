@@ -27,6 +27,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 
 
@@ -56,6 +57,7 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
     FormsModule,
     MatDialogModule,
     MatMenuModule,
+    MatFormFieldModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp({
