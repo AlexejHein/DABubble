@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router} from "@angular/router";
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth';
 
@@ -9,7 +10,8 @@ import 'firebase/compat/auth';
 })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth,
+              private router: Router) { }
 
   async loginWithEmail(email: string, password: string) {
     try {
@@ -28,6 +30,17 @@ export class AuthService {
       return result;
     } catch (error) {
       console.error('Error during login with Google', error);
+      throw error;
+    }
+  }
+
+  async logout() {
+    try {
+      await this.afAuth.signOut();
+      console.log('You are Successfully logged out!');
+      await this.router.navigate(['']);
+    } catch (error) {
+      console.error('Error during logout', error);
       throw error;
     }
   }

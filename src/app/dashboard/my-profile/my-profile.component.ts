@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import  { UserService } from '../../services/user.service';
+import { AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-my-profile',
@@ -15,7 +16,9 @@ export class MyProfileComponent implements OnInit{
 
 
   constructor(public dialog: MatDialog,
-              private userService: UserService) {}
+              private userService: UserService,
+              private authService: AuthService
+) {}
 
   ngOnInit(): void {
     this.userService.getCurrentUserId().then(id => {
@@ -31,6 +34,9 @@ export class MyProfileComponent implements OnInit{
     });
   }
 
+  logout(){
+    this.authService.logout().then(r => {}).catch(error => {});
+  }
 
   openDialog(){
     this.dialog.open(UserMenuComponent);

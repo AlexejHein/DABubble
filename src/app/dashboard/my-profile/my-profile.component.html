@@ -1,8 +1,8 @@
     <div mat-button [matMenuTriggerFor]="menu" class="my-profile"><h2>{{ currentUserDetails?.name }}</h2><span class="open-my-profile"></span></div>
-    <mat-menu #menu="matMenu" xPosition="before">
-        <div class="menu-box">
+    <mat-menu class="menu-box" #menu="matMenu" xPosition="before">
+        <div>
    <a href="#">Profil</a>
-   <a href="#">Logout</a>
+   <a href="#" (click)="logout(); $event.preventDefault()">Logout</a>
 </div>
     </mat-menu>
 
