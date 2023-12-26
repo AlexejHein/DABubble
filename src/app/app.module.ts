@@ -29,6 +29,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
     MyProfileComponent,
     UserMenuComponent,
     UserListComponent,
-    DialogAddChannelComponent
+    DialogAddChannelComponent,
+    ThreadListComponent
   ],
   imports: [
     BrowserModule,
