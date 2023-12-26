@@ -1,1 +1,5 @@
-<p>thread-list works!</p>
+<div *ngFor="let thread of allThreads" class="thread-list" (click)="onThreadClick(thread)">
+    <div class="thread-prev">
+      <span class="thread-icon"></span><span>{{thread.title}}</span>
+    </div>
+  </div>
