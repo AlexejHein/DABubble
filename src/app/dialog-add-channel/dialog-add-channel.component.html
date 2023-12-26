@@ -1,1 +1,19 @@
-<p>dialog-add-channel works!</p>
+<div class="dialog-container">
+  
+  <h1 mat-dialog-title>Channel erstellen</h1>
+  <div mat-dialog-content class="dialog-content">
+      <mat-form-field class="mr-20" appearance="outline">
+          <h4>Channel-Name</h4>
+          <input [disabled]="loading" [(ngModel)]="thread.title" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <h4>Beschreibung</h4>
+          <input [disabled]="loading" [(ngModel)]="thread.description" matInput>
+        </mat-form-field>
+      
+  </div>
+  <mat-dialog-actions align="end">
+      <button [disabled]="loading" mat-button (click)="saveThread()" [mat-dialog-close]="true" cdkFocusInitial>Erstellen</button>
+    </mat-dialog-actions>
+  
+  </div>
