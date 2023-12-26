@@ -62,6 +62,19 @@ export class UserService {
     });
   }
 
+  async setUserOnline(userId: string, isOnline: boolean) {
+    try {
+      const userRef = this.firestore.collection('users').doc(userId);
+      await userRef.update({ isOnline });
+    } catch (error) {
+      console.error('Failed to update user online status', error);
+      throw error;
+    }
+  }
+
+
+
+
   getUserDetails(userId: string) {
     return this.firestore.collection('users').doc(userId).valueChanges();
   }
@@ -72,4 +85,5 @@ export class UserService {
   setSelectedUser(user: User | null) {
     this.selectedUserSubject.next(user);
   }
+
 }

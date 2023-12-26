@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router} from "@angular/router";
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth';
+import {UserService} from "./user.service";
 
 
 @Injectable({
@@ -11,7 +12,8 @@ import 'firebase/compat/auth';
 export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService) { }
 
   async loginWithEmail(email: string, password: string) {
     try {
@@ -36,7 +38,12 @@ export class AuthService {
 
   async logout() {
     try {
-      await this.afAuth.signOut();
+      const userId = await this.userService.getCurrentUserId(); // Ensure this method gets the current user ID
+      if (userId) {
+        await this.userService.setUserOnline(userId, false); // Set isOnline to false before logging out
+      }
+
+      await this.afAuth.signOut(); // Proceed with sign out
       console.log('You are Successfully logged out!');
       await this.router.navigate(['']);
     } catch (error) {

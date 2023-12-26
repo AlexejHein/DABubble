@@ -1,6 +1,7 @@
 <div *ngFor="let user of allUsers" class="user-list" (click)="onUserClick(user)">
   <div class="user-prev">
     <img src="{{user.avatar}}" alt="User Avatar">
+    <div class="online-indicator" [ngStyle]="{'background-color': user.isOnline ? '#00FF00' : '#006400'}"></div>
     <span>{{user.name}}
       <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
     </span>
