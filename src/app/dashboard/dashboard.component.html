@@ -23,10 +23,11 @@
   <div class="chat-body">
     <div class="messageOutput">
       <div *ngFor="let message of messages">
-        <!-- Hier kannst du gestalten, wie jede Nachricht angezeigt wird -->
+        <div>{{ currentUser?.name}}</div>
+        <small>{{ message.createdAt | date }}</small>
         <div class="message-item">
           <p>{{ message.body }}</p>
-          <small>{{ message.createdAt | date }}</small>
+
         </div>
       </div>
     </div>
