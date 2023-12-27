@@ -58,10 +58,11 @@ export class DashboardComponent implements OnInit {
   selectedUser:  User | null = null;
   messages: Message[] = [];
   message: any = {};
-  selectedThread: string | undefined;
+  selectedThread: Thread | null = null;
 
 
   constructor(private userService: UserService,
+              private threadsService: ThreadsService,
               private messagesService: MessagesService) {
 
   }
@@ -77,8 +78,14 @@ export class DashboardComponent implements OnInit {
     });
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
+      this.selectedThread = null;
       console.log('Selected user:', this.selectedUser);
       console.log('Current user ID:', this.currentUserId);
+    });
+    this.subscription = this.threadsService.selectedThread.subscribe(thread => {
+      this.selectedThread = thread;
+      this.selectedUser = null;
+      console.log('Selected thread:', this.selectedThread);
     });
     this.loadMessages();
   }
