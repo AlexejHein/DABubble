@@ -93,21 +93,28 @@ export class DashboardComponent implements OnInit {
   loadMessages() {
     this.messagesService.getMessages().subscribe(data => {
       this.messages = data.map(e => {
-        return {
+        const payloadData = e.payload.doc.data() as any;
+        const message: Message = {
           id: e.payload.doc.id,
-          ...e.payload.doc.data() as {}
-        } as Message;
+          ...payloadData
+        };
+        if (payloadData.createdAt && payloadData.createdAt.seconds) {
+          message.createdAt = new Date(payloadData.createdAt.seconds * 1000);
+        }
+        return message;
       });
       console.log('Messages:', this.messages);
     });
   }
 
+
   saveMessage() {
     if (this.currentUserId && this.message.body.trim() !== '') {
       this.message.user = this.currentUserId;
+      this.message.createdAt = new Date();
       this.messagesService.saveMessage(this.message).then(() => {
         console.log('Message saved successfully');
-        this.message.body = ''; // Setze das Textfeld zurück
+        this.message.body = '';
       }).catch(error => {
         console.error('Error saving message:', error);
       });
@@ -115,6 +122,7 @@ export class DashboardComponent implements OnInit {
       console.error('No current user ID available or message is empty');
     }
   }
+
 
   ngOnDestroy(): void {
     if (this.subscription) {
