@@ -20,14 +20,15 @@ import { ThreadComponent } from './dashboard/thread/thread.component';
 import { WorkspaceMenuComponent } from './dashboard/workspace-menu/workspace-menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyProfileComponent } from './dashboard/my-profile/my-profile.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { UserMenuComponent } from './dashboard/my-profile/user-menu/user-menu.component';
 import { UserListComponent } from './dashboard/user-list/user-list.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from "@angular/material/icon";
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from "@angular/material/icon";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
 
@@ -60,6 +61,7 @@ import { ThreadListComponent } from './dashboard/thread-list/thread-list.compone
     MatDialogModule,
     MatMenuModule,
     MatFormFieldModule,
+    MatInputModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp({
