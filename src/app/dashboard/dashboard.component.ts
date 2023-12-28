@@ -88,12 +88,14 @@ export class DashboardComponent implements OnInit {
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
       this.selectedThread = null;
+      this.loadMessages();
     });
     this.subscription = this.threadsService.selectedThread.subscribe(thread => {
       this.selectedThread = thread;
       this.selectedUser = null;
+
     });
-    this.loadMessages();
+
   }
 
   loadMessages() {
@@ -107,9 +109,16 @@ export class DashboardComponent implements OnInit {
         if (payloadData.createdAt && payloadData.createdAt.seconds) {
           message.createdAt = new Date(payloadData.createdAt.seconds * 1000);
         }
+
+
         return message;
       });
-      this.messages = allMessages.filter(m => m.user as unknown as string === this.currentUserId);
+      this.messages = allMessages.filter(m => {
+        const matchesCurrentUser = m.user as unknown === this.currentUserId;
+        const matchesSelectedUser = this.selectedUser ? m.user as unknown === this.selectedUser.id : false;
+        return matchesCurrentUser && matchesSelectedUser;
+      });
+
     });
   }
 
