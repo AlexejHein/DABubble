@@ -80,30 +80,25 @@ export class DashboardComponent implements OnInit {
     });
     this.userService.getUsers().subscribe(users => {
       this.currentUser = users.find(user => user.id === this.currentUserId);
-      console.log('test',this.currentUser);
       if (this.currentUser) {
         this.user = this.currentUser.name;
         this.currentUserAvatar = this.currentUser.avatar;
-        console.log('Avatar:', this.currentUserAvatar);
-        console.log('Current user:', this.user);
       }
     });
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
       this.selectedThread = null;
-      console.log('Selected user:', this.selectedUser);
     });
     this.subscription = this.threadsService.selectedThread.subscribe(thread => {
       this.selectedThread = thread;
       this.selectedUser = null;
-      console.log('Selected thread:', this.selectedThread);
     });
     this.loadMessages();
   }
 
   loadMessages() {
     this.messagesService.getMessages().subscribe(data => {
-      this.messages = data.map(e => {
+      const allMessages = data.map(e => {
         const payloadData = e.payload.doc.data() as any;
         const message: Message = {
           id: e.payload.doc.id,
@@ -114,9 +109,12 @@ export class DashboardComponent implements OnInit {
         }
         return message;
       });
-      console.log('Messages:', this.messages);
+      this.messages = allMessages.filter(m => m.user as unknown as string === this.currentUserId);
     });
   }
+
+
+
 
 
   saveMessage() {
