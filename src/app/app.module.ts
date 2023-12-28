@@ -31,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
+import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { ThreadListComponent } from './dashboard/thread-list/thread-list.compone
     UserMenuComponent,
     UserListComponent,
     DialogAddChannelComponent,
-    ThreadListComponent
+    ThreadListComponent,
+    DialogEditChannelComponent
   ],
   imports: [
     BrowserModule,
