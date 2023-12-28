@@ -52,8 +52,10 @@ export class DashboardComponent implements OnInit {
   moveRight = "";
   menuString = "schließen";
   menuState = "";
+  user: string | undefined | null = "";
   currentUser: User | null | undefined;
   currentUserId: string | null = "";
+  currentUserAvatar: string | undefined = "";
   private subscription: Subscription | null = null;
   selectedUser:  User | null = null;
   messages: Message[] = [];
@@ -69,18 +71,27 @@ export class DashboardComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.userService.getCurrentUserId().then(id => {
       this.currentUserId = id;
       console.log("Current User ID:", this.currentUserId);
     }).catch(error => {
       console.error("Error getting current user ID:", error);
     });
+    this.userService.getUsers().subscribe(users => {
+      this.currentUser = users.find(user => user.id === this.currentUserId);
+      console.log('test',this.currentUser);
+      if (this.currentUser) {
+        this.user = this.currentUser.name;
+        this.currentUserAvatar = this.currentUser.avatar;
+        console.log('Avatar:', this.currentUserAvatar);
+        console.log('Current user:', this.user);
+      }
+    });
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
       this.selectedThread = null;
       console.log('Selected user:', this.selectedUser);
-      console.log('Current user ID:', this.currentUserId);
     });
     this.subscription = this.threadsService.selectedThread.subscribe(thread => {
       this.selectedThread = thread;

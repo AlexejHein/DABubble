@@ -66,6 +66,20 @@ html, body {
   .messageOutput{
     width: 90%;
     overflow-y: scroll;
+    .message-card{
+      display: flex;
+      gap: 10px;
+      img{
+        width:50px;
+        height:50px;
+      }
+    }
+    .message-head{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+    }
     .message-item{
       width: 50%;
       background-color: #eceefe;

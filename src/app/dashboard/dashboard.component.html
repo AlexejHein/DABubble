@@ -22,12 +22,19 @@
 
   <div class="chat-body">
     <div class="messageOutput">
-      <div *ngFor="let message of messages">
-        <div>{{ currentUser?.name}}</div>
-        <small>{{ message.createdAt | date }}</small>
-        <div class="message-item">
-          <p>{{ message.body }}</p>
 
+      <div *ngFor="let message of messages">
+        <div class="message-card">
+          <img *ngIf="message.user.id !== currentUserId" [src]="currentUserAvatar" alt="Avatar" class="user-avatar">
+          <div>
+            <div class="message-head">
+            <div><b>{{ currentUser?.name}}</b></div>
+            <small>{{ message.createdAt | date }}</small>
+            </div>
+            <div class="message-item">
+              <p>{{ message.body }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

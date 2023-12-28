@@ -38,12 +38,11 @@ export class AuthService {
 
   async logout() {
     try {
-      const userId = await this.userService.getCurrentUserId(); // Ensure this method gets the current user ID
+      const userId = await this.userService.getCurrentUserId();
       if (userId) {
-        await this.userService.setUserOnline(userId, false); // Set isOnline to false before logging out
+        await this.userService.setUserOnline(userId, false);
       }
-
-      await this.afAuth.signOut(); // Proceed with sign out
+      await this.afAuth.signOut();
       console.log('You are Successfully logged out!');
       await this.router.navigate(['']);
     } catch (error) {

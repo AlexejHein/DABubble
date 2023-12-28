@@ -36,6 +36,11 @@ export class UserService {
       throw error;
     }
   }
+
+  // In der Datei src/app/services/user.service.ts
+  getUsers() {
+    return this.firestore.collection<User>('users').valueChanges({ idField: 'id' });
+  }
   async getCurrentUserId(): Promise<string | null> {
     return new Promise((resolve, reject) => {
       this.auth.authState.subscribe(user => {
