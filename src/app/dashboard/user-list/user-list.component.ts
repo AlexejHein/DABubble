@@ -35,8 +35,6 @@ constructor(
           this.currentUserId = id;
           this.userService.setUserOnline(id, true).then(r => {}); // assuming such a method exists
         }
-        console.log("Current User ID:", this.currentUserId);
-        console.log("All Users:", users);
         this.allUsers = [
           users.find(user => user.id === this.currentUserId),
           ...users.filter(user => user.id !== this.currentUserId)
@@ -48,7 +46,6 @@ constructor(
 
   onUserClick(selectedUser: User): void {
     this.userService.setSelectedUser(selectedUser);
-    console.log("Selected User:", selectedUser);
   }
 
 }

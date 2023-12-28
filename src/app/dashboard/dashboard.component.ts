@@ -93,7 +93,6 @@ export class DashboardComponent implements OnInit {
     this.subscription = this.threadsService.selectedThread.subscribe(thread => {
       this.selectedThread = thread;
       this.selectedUser = null;
-
     });
 
   }
@@ -111,10 +110,7 @@ export class DashboardComponent implements OnInit {
         }
         return message;
       });
-
-      // Filter messages either sent by the current user or sent to the current user
       this.messages = allMessages.filter(m => {
-        // Assumes m.user and m.toUser are storing user IDs
         const isFromCurrentUser = m.user as unknown as undefined === this.currentUserId; // Message was sent by the current user
         const isToCurrentUser = m.toUser as unknown as undefined === this.currentUserId; // Message was sent to the current user
         const isFromSelectedUser = this.selectedUser ? m.user as unknown as undefined === this.selectedUser.id : false; // Message was sent by the selected user

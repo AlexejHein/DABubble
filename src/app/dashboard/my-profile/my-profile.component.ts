@@ -26,7 +26,6 @@ export class MyProfileComponent implements OnInit{
       if(this.currentUserId) {
         this.userService.getUserDetails(this.currentUserId).subscribe(userDetails => {
           this.currentUserDetails = userDetails;
-          console.log("Current User Details:", this.currentUserDetails);
         });
       }
     }).catch(error => {
