@@ -109,26 +109,27 @@ export class DashboardComponent implements OnInit {
         if (payloadData.createdAt && payloadData.createdAt.seconds) {
           message.createdAt = new Date(payloadData.createdAt.seconds * 1000);
         }
-
-
         return message;
       });
-      this.messages = allMessages.filter(m => {
-        const matchesCurrentUser = m.user as unknown === this.currentUserId;
-        const matchesSelectedUser = this.selectedUser ? m.user as unknown === this.selectedUser.id : false;
-        return matchesCurrentUser && matchesSelectedUser;
-      });
 
+      // Filter messages either sent by the current user or sent to the current user
+      this.messages = allMessages.filter(m => {
+        // Assumes m.user and m.toUser are storing user IDs
+        const isFromCurrentUser = m.user as unknown as undefined === this.currentUserId; // Message was sent by the current user
+        const isToCurrentUser = m.toUser as unknown as undefined === this.currentUserId; // Message was sent to the current user
+        const isFromSelectedUser = this.selectedUser ? m.user as unknown as undefined === this.selectedUser.id : false; // Message was sent by the selected user
+        const isToSelectedUser = this.selectedUser ? m.toUser as unknown as undefined === this.selectedUser.id : false; // Message was sent to the selected user
+
+        return (isFromCurrentUser || isToCurrentUser) && (isFromSelectedUser || isToSelectedUser);
+      });
     });
   }
 
 
-
-
-
   saveMessage() {
-    if (this.currentUserId && this.message.body.trim() !== '') {
+    if (this.currentUserId && this.selectedUser && this.message.body.trim() !== '') {
       this.message.user = this.currentUserId;
+      this.message.toUser = this.selectedUser.id;
       this.message.createdAt = new Date();
       this.messagesService.saveMessage(this.message).then(() => {
         console.log('Message saved successfully');
@@ -137,9 +138,10 @@ export class DashboardComponent implements OnInit {
         console.error('Error saving message:', error);
       });
     } else {
-      console.error('No current user ID available or message is empty');
+      console.error('No current user ID or selected user available, or message is empty');
     }
   }
+
 
 
   ngOnDestroy(): void {
