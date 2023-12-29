@@ -11,8 +11,9 @@ import { Thread } from '../models/thread.class';
 export class DialogEditChannelComponent implements OnInit {
   firestore: Firestore = inject(Firestore);	
   thread: Thread = new Thread();
-  threadId:any = 'BXwTdTZRtd7Da9jpo2ey';
+  threadId:any = '';
   loading = false;
+  notEditing = true;
 
 
   constructor() {
