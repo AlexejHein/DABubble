@@ -292,6 +292,10 @@ h3 {
     justify-content: space-between;
 }
 
+.thread-title {
+  cursor: pointer;
+}
+
 .close-thread:after {
     content: "";
     width: 40px;
