@@ -16,6 +16,7 @@ export class ThreadListComponent implements OnInit {
   items$!: Observable<any[]>;
   allThreads: any[] = [];
   thread = new Thread();
+  threadId: any;
 
   constructor(  protected threadsService: ThreadsService,) {}
 
@@ -31,6 +32,8 @@ export class ThreadListComponent implements OnInit {
   onThreadClick(selectedThread: Thread): void {
     this.threadsService.setSelectedThread(selectedThread);
     console.log("Selected Thread:", selectedThread);
+    console.log("Selected Thread ID:", selectedThread.id);
+    this.threadId = selectedThread.id;
   }
 
 }
