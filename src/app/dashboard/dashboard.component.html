@@ -13,7 +13,7 @@
 
 <div class="message-container" [@move]>
   <div class="chat-header">
-    <h3><span *ngIf="selectedThread" class="thread-title"><span class="thread-title-icon"></span>{{ selectedThread.title }}</span>
+    <h3><span *ngIf="selectedThread" class="thread-title" (click)="editChannel()"><span class="thread-title-icon"></span>{{ selectedThread.title }}</span>
       <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
       {{ selectedUser ? selectedUser.name : '# Entwicklerteam' }}
       <span *ngIf="selectedUser?.id === currentUserId">(Du)</span>
