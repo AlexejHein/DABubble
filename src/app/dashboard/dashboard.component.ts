@@ -202,7 +202,9 @@ export class DashboardComponent implements OnInit {
   }
 
   saveEditedChannel(thread:any, threadId:any){
-    let dialog = this.dialog.open(DialogEditChannelComponent);
+    let dialog = this.dialog.open(DialogEditChannelComponent, {
+      width: '100%'
+  });
     dialog.componentInstance.thread = new Thread(this.thread.toJSON());
     dialog.componentInstance.threadId = this.threadId;
     console.log("thread to edit:", this.selectedThread);
