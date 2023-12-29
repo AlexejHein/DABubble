@@ -7,6 +7,11 @@ import {MessagesService} from "../services/messages.service";
 import {Message} from "../models/message.class";
 import { Thread } from '../models/thread.class';
 import { ThreadsService } from '../services/threads.service';
+import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
+import { MatDialog } from '@angular/material/dialog';
+import { docData } from '@angular/fire/firestore';
+import { collection } from 'firebase/firestore';
+import { Firestore, doc, addDoc, collectionData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dashboard',
@@ -61,11 +66,15 @@ export class DashboardComponent implements OnInit {
   messages: Message[] = [];
   message: any = {};
   selectedThread: Thread | null = null;
+  threadId:any = 'BXwTdTZRtd7Da9jpo2ey';
+  thread: Thread = new Thread();
 
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
-              private messagesService: MessagesService) {
+              private messagesService: MessagesService,
+              public dialog: MatDialog,
+              private firestore: Firestore) {
 
   }
 
@@ -170,4 +179,32 @@ export class DashboardComponent implements OnInit {
       this.moveRight = "";
     }
   }
+
+
+  getThread() {
+    
+  }
+
+  editChannel() {
+    let threadCollection = collection(this.firestore, 'threads');
+    let threadDoc = doc(threadCollection, this.threadId);
+
+    docData(threadDoc).subscribe((thread) => {
+
+      this.thread = new Thread(thread);
+      console.log('Current thread', this.thread);
+      console.log(this.thread.title)
+    });
+
+    this.saveEditedChannel(this.thread, this.threadId);
+
+  }
+
+  saveEditedChannel(thread:any, threadId:any){
+    let dialog = this.dialog.open(DialogEditChannelComponent);
+    dialog.componentInstance.thread = new Thread(this.thread.toJSON());
+    dialog.componentInstance.threadId = this.threadId;
+    console.log("thread to edit:", this.selectedThread);
+  }
+
 }
