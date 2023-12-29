@@ -48,6 +48,8 @@ export class DialogEditChannelComponent implements OnInit {
   }
 
   saveEditedTitle() {
+    const coll = doc(this.firestore, 'threads', this.threadId);
+    updateDoc(coll,  {title: this.thread.title});
     this.notEditingTitle = true;
     this.showSaveTitle = false;
     this.showEditTitle = true;
@@ -60,6 +62,8 @@ export class DialogEditChannelComponent implements OnInit {
     }
   
     saveEditedDesc() {
+      const coll = doc(this.firestore, 'threads', this.threadId);
+      updateDoc(coll,  {description: this.thread.description});
       this.notEditingDesc = true;
       this.showSaveDesc = false;
       this.showEditDesc = true;
