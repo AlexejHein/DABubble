@@ -192,6 +192,10 @@ html, body {
   }
 }
 
+.emoticon-menu{
+  cursor: pointer;
+}
+
 .workspace-container {
     width: calc(100% - 60px);
     max-width: 306px;

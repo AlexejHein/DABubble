@@ -58,7 +58,16 @@
       <div class="message-icons">
         <mat-icon>add</mat-icon>
         <div class="hr"></div>
-        <mat-icon>insert_emoticon</mat-icon>
+        <mat-icon class="emoticon-menu" [matMenuTriggerFor]="emoticonsMenu">insert_emoticon</mat-icon>
+        <mat-menu #emoticonsMenu="matMenu">
+          <button mat-menu-item (click)="addEmoticon('😀')">😀</button>
+          <button mat-menu-item (click)="addEmoticon('😂')">😂</button>
+          <button mat-menu-item (click)="addEmoticon('🤣')">🤣</button>
+          <button mat-menu-item (click)="addEmoticon('😍')">😍</button>
+          <button mat-menu-item (click)="addEmoticon('😘')">😘</button>
+          <button mat-menu-item (click)="addEmoticon('😎')">😎</button>
+          <button mat-menu-item (click)="addEmoticon('😛')">😛</button>
+        </mat-menu>
         <mat-icon>alternate_email</mat-icon>
       </div>
       <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
