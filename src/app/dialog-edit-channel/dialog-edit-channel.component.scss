@@ -1,0 +1,72 @@
+h1.dialog-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0px 0px 20px 0px;
+}
+
+.dialog-content {
+    font-size: 18px;
+}
+
+p.form-label {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form-field textarea,
+.form-field input {
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    padding: 20px;
+    border-radius: 30px;
+    border: 1px solid #ADB0D9;
+    width: calc(100% - 40px);
+}
+
+.form-field textarea:focus-visible,
+.form-field input:focus-visible {
+    border: 1px solid #535AF1;
+    outline: unset;
+}
+
+.form-field textarea {
+    min-height: calc(65px - 40px);
+    max-height: 200px;
+    resize: vertical;
+  }
+
+  .dialog-buttons button {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    font-family: Nunito, sans-serif;
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: 0px;
+    background: #444DF2;
+}
+
+.dialog-buttons button:focus-visible {
+    outline: unset!important
+}
+
+.form-field-prefix {
+    position: relative;
+}
+
+.form-field-prefix span {
+    position: absolute;
+    top: 22px;
+    left: 20px;
+}
+
+.form-field-prefix input {
+    padding-left: 40px!important;
+    width: calc(100% - 60px);
+}
+
+button:disabled{
+    cursor:not-allowed;
+    opacity:0.5
+  }
