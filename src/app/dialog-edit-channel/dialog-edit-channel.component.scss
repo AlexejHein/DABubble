@@ -58,11 +58,11 @@ p.form-label {
 .form-field-prefix span {
     position: absolute;
     /*top: 22px;*/
-    left: 20px;
+    left: 0px;
 }
 
 .form-field-prefix input {
-    padding-left: 40px!important;
+    padding-left: 20px!important;
     width: calc(100% - 60px);
 }
 
@@ -83,6 +83,7 @@ button:disabled{
     padding: 40px 20px 20px 20px;
 }
 
+.readonly textarea,
 .readonly input {
     margin-top: 20px;
 }
@@ -91,14 +92,23 @@ button:disabled{
     top: 20px;
 }
 
+.form-field textarea,
 .form-field input{
     border: 0px solid #ADB0D9;
+    background: transparent;
     border-radius: 20px;
     padding: 0px;
     margin-bottom: 0px;
 }
 
+.form-field textarea:focus-visible,
+.form-field input:focus-visible {
+    outline: unset;
+    border: 0px;
+}
+
 span.threadeditbtn {
+    cursor: pointer;
     position: absolute;
     top: 20px;
     right: 20px;

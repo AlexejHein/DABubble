@@ -60,7 +60,7 @@ export class DialogEditChannelComponent implements OnInit {
   }
 
   editDesc() {
-    this.readOnlyDesc = "";
+    this.readOnlyDesc = "editinput";
     this.notEditingDesc = false;
     this.showSaveDesc = true;
     this.showEditDesc = false;
