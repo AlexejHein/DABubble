@@ -1,1 +1,22 @@
-<p>dialog-edit-channel works!</p>
+<div class="dialog-container">
+  
+    <h1 class="dialog-title">Channel bearbeiten</h1>
+    <div class="dialog-content">
+      <p>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein  #marketing zum Beispiel.</p>
+        <div class="form-field" appearance="outline">
+            <p class="form-label">Channel-Name</p>
+            <div class="form-field-prefix"><input [disabled]="loading" [(ngModel)]="thread.title" required placeholder="z.B. Kooperationsprojekte" matInput>
+            <span matTextPrefix>#</span>
+          </div>
+        </div>
+        <div class="form-field" appearance="outline">
+          <p class="form-label">Beschreibung</p>
+            <textarea rows=1  [disabled]="loading" [(ngModel)]="thread.description" placeholder="Dein Text hier" matInput></textarea>
+        </div>
+        
+    </div>
+    <mat-dialog-actions class="dialog-buttons" align="end">
+        <button [disabled]="loading" mat-button (click)="saveThread()" [mat-dialog-close]="true" cdkFocusInitial>Channel verlassen</button>
+      </mat-dialog-actions>
+    
+    </div>
