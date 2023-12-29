@@ -5,6 +5,14 @@
     gap: 20px;
 }
 
+.workspace-body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 h3 {
     font-size: 24px;
     font-weight: 700;
