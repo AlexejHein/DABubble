@@ -3,19 +3,21 @@
     <h1 class="dialog-title"># {{thread.title}}</h1>
     <div class="dialog-content">
         <div class="form-field" appearance="outline">
+          <span *ngIf="showEditTitle" (click)="editTitle()">Bearbeiten</span><span *ngIf="showSaveTitle" (click)="saveEditedTitle()">Speichern</span>
             <p class="form-label">Channel-Name</p>
-            <div class="form-field-prefix"><input [disabled]="loading" [(ngModel)]="thread.title" required placeholder="z.B. Kooperationsprojekte" matInput>
+            <div class="form-field-prefix"><input [disabled]="notEditingTitle" [(ngModel)]="thread.title" required placeholder="z.B. Kooperationsprojekte" matInput>
             <span matTextPrefix>#</span>
           </div>
         </div>
         <div class="form-field" appearance="outline">
+          <span *ngIf="showEditDesc" (click)="editDesc()">Bearbeiten</span><span *ngIf="showSaveDesc" (click)="saveEditedDesc()">Speichern</span>
           <p class="form-label">Beschreibung</p>
-            <textarea rows=1  [disabled]="loading" [(ngModel)]="thread.description" placeholder="Dein Text hier" matInput></textarea>
+            <textarea rows=1  [disabled]="notEditingDesc" [(ngModel)]="thread.description" placeholder="Dein Text hier" matInput></textarea>
         </div>
         
     </div>
     <mat-dialog-actions class="dialog-buttons" align="end">
-        <button [disabled]="loading" mat-button (click)="saveThread()" [mat-dialog-close]="true" cdkFocusInitial>Channel verlassen</button>
+        <button mat-button (click)="saveThread()" [mat-dialog-close]="true" cdkFocusInitial>Channel verlassen</button>
       </mat-dialog-actions>
     
     </div>
