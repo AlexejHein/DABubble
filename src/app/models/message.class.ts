@@ -3,8 +3,8 @@ import {User} from "./User.class";
 export class Message{
     id: string;
     body: string;
-    user: User;
-    toUser: User;
+    user: string;
+    toUser: string;
     createdAt: Date;
     updatedAt: Date;
 
@@ -19,21 +19,12 @@ export class Message{
         } else {
             this.id = '';
             this.body = '';
-            this.user = new User();
-            this.toUser = new User();
+            this.user = '';
+            this.toUser = '';
             this.createdAt = new Date();
             this.updatedAt = new Date();
         }
     }
 
-    public toJSON(): any {
-        return {
-            id: this.id,
-            body: this.body,
-            user: this.user.toJSON(),
-            toUser: this.toUser.toJSON(),
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt
-        };
-    }
+
 }

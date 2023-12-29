@@ -55,6 +55,8 @@ html, body {
     height: calc(100vH - 160px);
 }
 
+
+
 .message-container {
     position: relative;
     flex-grow: 1;
@@ -66,26 +68,65 @@ html, body {
   .messageOutput{
     width: 90%;
     overflow-y: scroll;
-    .message-card{
-      display: flex;
-      gap: 10px;
-      img{
-        width:50px;
-        height:50px;
+    .message-left {
+      text-align: left;
+      .message-box {
+        display: flex;
+        gap: 40px;
+        img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+      .message-head {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+      }
+      .message-item {
+        width: 100%;
+        background-color: #eceefe;
+        padding: 6px 12px;
+        margin-bottom: 10px;
+        border-radius: 0 30px 30px 30px;
       }
     }
-    .message-head{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 10px;
-    }
-    .message-item{
-      width: 100%;
-      background-color: #eceefe;
-      padding: 6px 12px;
-      margin-bottom: 10px;
-      border-radius:0 30px 30px 30px;
+    .message-right {
+      text-align: right;
+      color: #ffffff;
+      .message-card {
+        display: flex;
+        gap: 10px;
+        flex-direction: row-reverse;
+        .message-box {
+          display: flex;
+          flex-direction: row-reverse;
+          gap: 40px;
+
+          img {
+            width: 50px;
+            height: 50px;
+          }
+
+          .message-head {
+            color: #000000;
+            text-align: right;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .message-item {
+            width: 100%;
+            background-color: #444DF2;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+            border-radius: 30px 0 30px 30px ;
+          }
+        }
+      }
     }
   }
   .message{

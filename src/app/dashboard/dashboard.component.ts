@@ -68,19 +68,21 @@ export class DashboardComponent implements OnInit {
   selectedThread: Thread | null = null;
   threadId:any = 'BXwTdTZRtd7Da9jpo2ey';
   thread: Thread = new Thread();
+  allUsers: User[] = [];
 
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
               private messagesService: MessagesService,
               public dialog: MatDialog,
-              private firestore: Firestore) {
-
-  }
-
+              private firestore: Firestore) {}
 
 
   async ngOnInit(): Promise<void> {
+    this.userService.getUsers().subscribe(users => {
+      this.allUsers = users;
+      console.log("All Users:", this.allUsers);
+    });
     this.userService.getCurrentUserId().then(id => {
       this.currentUserId = id;
       console.log("Current User ID:", this.currentUserId);
@@ -103,8 +105,8 @@ export class DashboardComponent implements OnInit {
       this.selectedThread = thread;
       this.selectedUser = null;
     });
-
   }
+
 
   loadMessages() {
     this.messagesService.getMessages().subscribe(data => {
@@ -119,14 +121,18 @@ export class DashboardComponent implements OnInit {
         }
         return message;
       });
-      this.messages = allMessages.filter(m => {
-        const isFromCurrentUser = m.user as unknown as undefined === this.currentUserId; // Message was sent by the current user
-        const isToCurrentUser = m.toUser as unknown as undefined === this.currentUserId; // Message was sent to the current user
-        const isFromSelectedUser = this.selectedUser ? m.user as unknown as undefined === this.selectedUser.id : false; // Message was sent by the selected user
-        const isToSelectedUser = this.selectedUser ? m.toUser as unknown as undefined === this.selectedUser.id : false; // Message was sent to the selected user
+      this.messages = this.filterMessages(allMessages);
+    });
+  }
 
-        return (isFromCurrentUser || isToCurrentUser) && (isFromSelectedUser || isToSelectedUser);
-      });
+
+  filterMessages(messages: any[]) {
+    return messages.filter(m => {
+      const isFromCurrentUser = m.user as unknown as undefined === this.currentUserId;
+      const isToCurrentUser = m.toUser as unknown as undefined === this.currentUserId;
+      const isFromSelectedUser = this.selectedUser ? m.user as unknown as undefined === this.selectedUser.id : false;
+      const isToSelectedUser = this.selectedUser ? m.toUser as unknown as undefined === this.selectedUser.id : false;
+      return (isFromCurrentUser || isToCurrentUser) && (isFromSelectedUser || isToSelectedUser);
     });
   }
 
@@ -147,13 +153,13 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
-
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
+
+
   closeWorkspaceMenu() {
     if(this.workspaceMenuVisible) {
       this.workspaceMenuVisible = false;
@@ -169,6 +175,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
   closeThread() {
     if(this.threadVisible) {
       this.threadVisible = false;
@@ -181,10 +188,6 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  getThread() {
-    
-  }
-
   editChannel() {
     let threadCollection = collection(this.firestore, 'threads');
     let threadDoc = doc(threadCollection, this.threadId);
@@ -195,9 +198,7 @@ export class DashboardComponent implements OnInit {
       console.log('Current thread', this.thread);
       console.log(this.thread.title)
     });
-
     this.saveEditedChannel(this.thread, this.threadId);
-
   }
 
   saveEditedChannel(thread:any, threadId:any){
