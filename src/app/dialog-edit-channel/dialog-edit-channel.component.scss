@@ -57,7 +57,7 @@ p.form-label {
 
 .form-field-prefix span {
     position: absolute;
-    top: 22px;
+    /*top: 22px;*/
     left: 20px;
 }
 
@@ -70,3 +70,57 @@ button:disabled{
     cursor:not-allowed;
     opacity:0.5
   }
+
+  .form-field {
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-field.readonly {
+    padding: 40px 20px 20px 20px;
+}
+
+.readonly input {
+    margin-top: 20px;
+}
+
+.readonly .form-field-prefix span {
+    top: 20px;
+}
+
+.form-field input{
+    border: 0px solid #ADB0D9;
+    border-radius: 20px;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+span.threadeditbtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.editinput .threadeditbtn {
+    top: -40px;
+    right: 0px;
+}
+
+p.form-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin-top: 0px;
+}
+
+.editinput p.form-label {
+    top: -40px;
+    left: 0px;
+}
+
+.editinput {
+    margin-top: 60px;
+}

@@ -25,6 +25,8 @@ export class DialogEditChannelComponent implements OnInit {
   showEditDesc = true;
   notEditingDesc = true;
   showSaveDesc = false;
+  readOnlyTitle = "readonly";
+  readOnlyDesc = "readonly";
 
   constructor() {
 
@@ -42,6 +44,7 @@ export class DialogEditChannelComponent implements OnInit {
    }
 
   editTitle() {
+  this.readOnlyTitle = "editinput";
   this.notEditingTitle = false;
   this.showSaveTitle = true;
   this.showEditTitle = false;
@@ -53,9 +56,11 @@ export class DialogEditChannelComponent implements OnInit {
     this.notEditingTitle = true;
     this.showSaveTitle = false;
     this.showEditTitle = true;
+    this.readOnlyTitle = "readonly";
   }
 
   editDesc() {
+    this.readOnlyDesc = "";
     this.notEditingDesc = false;
     this.showSaveDesc = true;
     this.showEditDesc = false;
@@ -67,6 +72,7 @@ export class DialogEditChannelComponent implements OnInit {
       this.notEditingDesc = true;
       this.showSaveDesc = false;
       this.showEditDesc = true;
+      this.readOnlyDesc = "readonly";
     }
 
 }
