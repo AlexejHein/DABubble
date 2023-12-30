@@ -1,4 +1,7 @@
-    <div mat-button [matMenuTriggerFor]="menu" class="my-profile"><h2>{{ currentUserDetails?.name }}</h2><span class="open-my-profile"></span></div>
+    <div mat-button [matMenuTriggerFor]="menu" class="my-profile">
+      <h2>{{ currentUserDetails?.name }}</h2>
+      <img [src]="currentUserDetails?.avatar" alt="user" />
+      <span class="open-my-profile"></span></div>
     <mat-menu class="menu-box" #menu="matMenu" xPosition="before">
         <div>
    <a href="#">Profil</a>

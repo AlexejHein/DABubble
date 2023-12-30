@@ -25,7 +25,6 @@
 
       <div *ngFor="let message of messages">
         <div [ngClass]="{'message-right': message.user === currentUserId, 'message-left': message.user !== currentUserId}">
-
         <div class="message-card">
           <div *ngFor="let user of allUsers">
             <div  class="message-box" *ngIf="user.id === message.user">
@@ -35,22 +34,19 @@
                 <b>{{ user.name }}</b>
                 <small>{{ message.createdAt | date }}</small>
               </div>
-              <p class="message-item">{{ message.body }}</p>
+              <div class="message-item">{{ message.body }}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
       </div>
-
     </div>
 
   </div>
 
   <div class="message">
     <div class="chat-box">
-
-
       <div class="message-input">
       <textarea [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>
     </div>
@@ -74,7 +70,6 @@
     </div>
     </div>
   </div>
-
 </div>
 
 <div class="thread-container {{ moveRight }}">

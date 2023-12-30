@@ -87,7 +87,7 @@ html, body {
       .message-item {
         width: 100%;
         background-color: #eceefe;
-        padding: 6px 12px;
+        padding: 16px 12px;
         margin-bottom: 10px;
         border-radius: 0 30px 30px 30px;
       }
@@ -97,7 +97,7 @@ html, body {
       color: #ffffff;
       .message-card {
         display: flex;
-        gap: 10px;
+        //gap: 10px;
         flex-direction: row-reverse;
         .message-box {
           display: flex;
@@ -108,7 +108,6 @@ html, body {
             width: 50px;
             height: 50px;
           }
-
           .message-head {
             color: #000000;
             text-align: right;
@@ -121,7 +120,7 @@ html, body {
           .message-item {
             width: 100%;
             background-color: #444DF2;
-            padding: 6px 12px;
+            padding: 16px 12px;
             margin-bottom: 10px;
             border-radius: 30px 0 30px 30px ;
           }
