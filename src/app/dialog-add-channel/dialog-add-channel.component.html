@@ -5,13 +5,13 @@
     <p>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein  #marketing zum Beispiel.</p>
       <div class="form-field" appearance="outline">
           <p class="form-label">Channel-Name</p>
-          <div class="form-field-prefix"><input [disabled]="loading" [(ngModel)]="thread.title" required placeholder="z.B. Kooperationsprojekte" matInput>
+          <div class="form-field-prefix"><input [disabled]="loading" [(ngModel)]="channel.title" required placeholder="z.B. Kooperationsprojekte" matInput>
           <span matTextPrefix>#</span>
         </div>
       </div>
       <div class="form-field" appearance="outline">
         <p class="form-label">Beschreibung</p>
-          <textarea rows=1  [disabled]="loading" [(ngModel)]="thread.description" placeholder="Dein Text hier" matInput></textarea>
+          <textarea rows=1  [disabled]="loading" [(ngModel)]="channel.description" placeholder="Dein Text hier" matInput></textarea>
       </div>
       
   </div>

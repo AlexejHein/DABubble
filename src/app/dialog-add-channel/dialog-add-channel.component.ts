@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Thread } from '../models/thread.class';
+import { Channel } from '../models/channel.class';
 import { Firestore, addDoc, collection, collectionData, doc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from "../models/User.class";
@@ -21,7 +21,7 @@ export class DialogAddChannelComponent implements OnInit {
 
   firestore: Firestore = inject(Firestore);	
 
-  thread = new Thread();
+  channel = new Channel();
   loading = false;
 
   constructor(private userService: UserService){
@@ -47,14 +47,14 @@ export class DialogAddChannelComponent implements OnInit {
   }
 
   saveThread(){
-console.log(this.thread);
+console.log(this.channel);
 console.log("current author name:", this.currentUserName);
 console.log("current author id:", this.currentUserId);
-this.thread.authorId = this.currentUserId;
-this.thread.authorName = this.currentUserName;
+this.channel.authorId = this.currentUserId;
+this.channel.authorName = this.currentUserName;
 this.loading = true;
 console.log(this.loading);
-    addDoc(collection(this.firestore, 'threads'), this.thread.toJSON());
+    addDoc(collection(this.firestore, 'threads'), this.channel.toJSON());
     this.loading = false;
     console.log(this.loading);
   }
