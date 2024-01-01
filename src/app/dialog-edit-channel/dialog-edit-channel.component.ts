@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Thread } from '../models/thread.class';
+import { Channel } from '../models/channel.class';
 import {
   FormControl,
   Validators,
@@ -17,8 +17,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 })
 export class DialogEditChannelComponent implements OnInit {
   firestore: Firestore = inject(Firestore);	
-  thread: Thread = new Thread();
-  threadId:any = '';
+  channel: Channel = new Channel();
+  channelId:any = '';
   showEditTitle = true;
   notEditingTitle = true;
   showSaveTitle = false;
@@ -37,10 +37,10 @@ export class DialogEditChannelComponent implements OnInit {
   }
 
   saveThread(){
-    console.log(this.thread);
+    console.log(this.channel);
   
-  const coll = doc(this.firestore, 'threads', this.threadId);
-  updateDoc(coll, this.thread.toJSON());
+  const coll = doc(this.firestore, 'threads', this.channelId);
+  updateDoc(coll, this.channel.toJSON());
    }
 
   editTitle() {
@@ -51,8 +51,8 @@ export class DialogEditChannelComponent implements OnInit {
   }
 
   saveEditedTitle() {
-    const coll = doc(this.firestore, 'threads', this.threadId);
-    updateDoc(coll,  {title: this.thread.title});
+    const coll = doc(this.firestore, 'threads', this.channelId);
+    updateDoc(coll,  {title: this.channel.title});
     this.notEditingTitle = true;
     this.showSaveTitle = false;
     this.showEditTitle = true;
@@ -67,8 +67,8 @@ export class DialogEditChannelComponent implements OnInit {
     }
   
     saveEditedDesc() {
-      const coll = doc(this.firestore, 'threads', this.threadId);
-      updateDoc(coll,  {description: this.thread.description});
+      const coll = doc(this.firestore, 'threads', this.channelId);
+      updateDoc(coll,  {description: this.channel.description});
       this.notEditingDesc = true;
       this.showSaveDesc = false;
       this.showEditDesc = true;

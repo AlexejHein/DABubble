@@ -1,18 +1,18 @@
 <div class="dialog-container">
   
-    <h1 class="dialog-title"># {{thread.title}}</h1>
+    <h1 class="dialog-title"># {{channel.title}}</h1>
     <div class="dialog-content">
         <div class="form-field {{ readOnlyTitle }}" appearance="outline">
           <span *ngIf="showEditTitle" class="threadeditbtn"  (click)="editTitle()">Bearbeiten</span><span *ngIf="showSaveTitle" class="threadeditbtn" (click)="saveEditedTitle()">Speichern</span>
             <p class="form-label">Channel-Name</p>
-            <div class="form-field-prefix"><input [disabled]="notEditingTitle" [(ngModel)]="thread.title" required placeholder="z.B. Kooperationsprojekte" matInput>
+            <div class="form-field-prefix"><input [disabled]="notEditingTitle" [(ngModel)]="channel.title" required placeholder="z.B. Kooperationsprojekte" matInput>
             <span matTextPrefix>#</span>
           </div>
         </div>
         <div class="form-field {{ readOnlyDesc }}" appearance="outline">
           <span *ngIf="showEditDesc" class="threadeditbtn"  (click)="editDesc()">Bearbeiten</span><span *ngIf="showSaveDesc" class="threadeditbtn"  (click)="saveEditedDesc()">Speichern</span>
           <p class="form-label">Beschreibung</p>
-            <textarea rows=1  [disabled]="notEditingDesc" [(ngModel)]="thread.description" placeholder="Dein Text hier" matInput></textarea>
+            <textarea rows=1  [disabled]="notEditingDesc" [(ngModel)]="channel.description" placeholder="Dein Text hier" matInput></textarea>
         </div>
         
     </div>
