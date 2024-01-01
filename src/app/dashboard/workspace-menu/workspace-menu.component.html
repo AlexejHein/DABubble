@@ -7,7 +7,7 @@
 <div class="channel-head"><h4 (click)="openChannelList()" class="expandmenu {{ channelListClass }}"><span class="dropdownarrow"></span><span class="channellisticon"></span>Channels</h4>
 <span class="addchannelplusicon" (click)="addChannel()"></span></div>
 <div *ngIf="channelListState">
-    <app-thread-list class="thread-list-section"></app-thread-list>
+    <app-channel-list class="thread-list-section"></app-channel-list>
     <div (click)="addChannel()" class="addchannel"><span class="addchannelicon"></span>Channel hinzufügen</div>
 </div>
 </div>
