@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Thread } from '../models/thread.class';
+import { Channel } from '../models/channel.class';
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThreadsService {
-  private selectedThreadSubject = new BehaviorSubject<Thread | null>(null);
-  selectedThread = this.selectedThreadSubject.asObservable();
+  private selectedChannelSubject = new BehaviorSubject<Channel | null>(null);
+  selectedChannel = this.selectedChannelSubject.asObservable();
 
   constructor() { }
 
-  setSelectedThread(thread: Thread | null) {
-   this.selectedThreadSubject.next(thread);
+  setSelectedChannel(channel: Channel | null) {
+   this.selectedChannelSubject.next(channel);
   }
 
 } 
