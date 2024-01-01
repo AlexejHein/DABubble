@@ -21,7 +21,7 @@ export class ChannelListComponent implements OnInit {
   constructor(  protected threadsService: ThreadsService,) {}
 
   ngOnInit(): void {
-    const aCollection = collection(this.firestore, 'threads')		
+    const aCollection = collection(this.firestore, 'channels')		
     this.items$ = collectionData(aCollection, { idField: 'id' });	
     this.items$.subscribe((channels) => { 
       this.allChannels = channels;

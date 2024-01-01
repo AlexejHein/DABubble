@@ -54,7 +54,7 @@ this.channel.authorId = this.currentUserId;
 this.channel.authorName = this.currentUserName;
 this.loading = true;
 console.log(this.loading);
-    addDoc(collection(this.firestore, 'threads'), this.channel.toJSON());
+    addDoc(collection(this.firestore, 'channels'), this.channel.toJSON());
     this.loading = false;
     console.log(this.loading);
   }

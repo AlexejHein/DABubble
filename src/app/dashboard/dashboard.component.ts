@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {style, state, animate, transition, trigger} from '@angular/animations';
+import { style, state, animate, transition, trigger } from '@angular/animations';
 import { UserService } from '../services/user.service';
-import {User} from "../models/User.class";
-import {Subscription} from "rxjs";
-import {MessagesService} from "../services/messages.service";
-import {Message} from "../models/message.class";
+import { User} from "../models/User.class";
+import { Subscription } from "rxjs";
+import { MessagesService } from "../services/messages.service";
+import { Message } from "../models/message.class";
 import { Channel } from '../models/channel.class';
 import { ThreadsService } from '../services/threads.service';
 import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
   messages: Message[] = [];
   message: any = {};
   selectedChannel: Channel | null = null;
-  channelId:any = 'BXwTdTZRtd7Da9jpo2ey';
+  channelId:any = 'rt2NJeozgOCVDrlvy2hw';
   channel: Channel = new Channel();
   allUsers: User[] = [];
 
@@ -189,7 +189,7 @@ export class DashboardComponent implements OnInit {
 
 
   editChannel() {
-    let threadCollection = collection(this.firestore, 'threads');
+    let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
 
     docData(threadDoc).subscribe((channel) => {
