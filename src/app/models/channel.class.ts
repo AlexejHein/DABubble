@@ -1,4 +1,4 @@
-export class Thread {
+export class Channel {
     id: string;
     authorName: string | null;
     authorId: string | null;
