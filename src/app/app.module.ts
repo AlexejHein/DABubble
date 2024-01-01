@@ -30,7 +30,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
-import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
+import { ChannelListComponent } from './dashboard/channel-list/channel-list.component';
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 
 
@@ -52,7 +52,7 @@ import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-ch
     UserMenuComponent,
     UserListComponent,
     DialogAddChannelComponent,
-    ThreadListComponent,
+    ChannelListComponent,
     DialogEditChannelComponent
   ],
   imports: [
