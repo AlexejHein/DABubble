@@ -5,7 +5,7 @@ import {User} from "../models/User.class";
 import {Subscription} from "rxjs";
 import {MessagesService} from "../services/messages.service";
 import {Message} from "../models/message.class";
-import { Thread } from '../models/thread.class';
+import { Channel } from '../models/channel.class';
 import { ThreadsService } from '../services/threads.service';
 import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -65,9 +65,9 @@ export class DashboardComponent implements OnInit {
   selectedUser:  User | null = null;
   messages: Message[] = [];
   message: any = {};
-  selectedThread: Thread | null = null;
-  threadId:any = 'BXwTdTZRtd7Da9jpo2ey';
-  thread: Thread = new Thread();
+  selectedChannel: Channel | null = null;
+  channelId:any = 'BXwTdTZRtd7Da9jpo2ey';
+  channel: Channel = new Channel();
   allUsers: User[] = [];
 
 
@@ -98,11 +98,11 @@ export class DashboardComponent implements OnInit {
     });
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
-      this.selectedThread = null;
+      this.selectedChannel = null;
       this.loadMessages();
     });
-    this.subscription = this.threadsService.selectedThread.subscribe(thread => {
-      this.selectedThread = thread;
+    this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
+      this.selectedChannel = channel;
       this.selectedUser = null;
     });
   }
@@ -190,24 +190,24 @@ export class DashboardComponent implements OnInit {
 
   editChannel() {
     let threadCollection = collection(this.firestore, 'threads');
-    let threadDoc = doc(threadCollection, this.threadId);
+    let threadDoc = doc(threadCollection, this.channelId);
 
-    docData(threadDoc).subscribe((thread) => {
+    docData(threadDoc).subscribe((channel) => {
 
-      this.thread = new Thread(thread);
-      console.log('Current thread', this.thread);
-      console.log(this.thread.title)
+      this.channel = new Channel(channel);
+      console.log('Current thread', this.channel);
+      console.log(this.channel.title)
     });
-    this.saveEditedChannel(this.thread, this.threadId);
+    this.saveEditedChannel(this.channel, this.channelId);
   }
 
-  saveEditedChannel(thread:any, threadId:any){
+  saveEditedChannel(channel:any, channelId:any){
     let dialog = this.dialog.open(DialogEditChannelComponent, {
       width: '100%'
   });
-    dialog.componentInstance.thread = new Thread(this.thread.toJSON());
-    dialog.componentInstance.threadId = this.threadId;
-    console.log("thread to edit:", this.selectedThread);
+    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    dialog.componentInstance.channelId = this.channelId;
+    console.log("thread to edit:", this.selectedChannel);
   }
 
   addEmoticon(emoticon: string) {
