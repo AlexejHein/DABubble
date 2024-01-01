@@ -1,0 +1,5 @@
+<div *ngFor="let channel of allChannels" class="thread-list" (click)="onThreadClick(channel)">
+    <div class="thread-prev">
+      <span class="thread-icon"></span><span>{{channel.title}}</span>
+    </div>
+  </div>
