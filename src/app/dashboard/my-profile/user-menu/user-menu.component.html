@@ -6,19 +6,29 @@
     
     <img [src]="currentUserDetails?.avatar" alt="user">
 
-    <div class="profileName">
+    <div class="profileName" *ngIf="!startEdit">
         <div>{{ currentUserDetails?.name }}</div>
-        <h6>bearbeiten</h6>
+        <h6 (click)="edit()">bearbeiten</h6>
     </div>
 
-    <div class="status">
+    <div class="status" *ngIf="!startEdit">
         <div>.</div>
         <h4>Active</h4>
     </div>
-    <div class="profileEmail">
+
+    <div class="profileEmail" *ngIf="!startEdit">
         <img src="./assets/img/mail (1).png" alt="">
         <div>E-Mail Adresse</div>
     </div>
-    <div class="realEmail">{{ currentUserDetails?.email }}</div>
+    <div class="realEmail" *ngIf="!startEdit">{{ currentUserDetails?.email }}</div>
+
+    <div *ngIf="startEdit">
+
+    </div>
+
+    <div class="edit-btns" *ngIf="startEdit">
+        <button id="cancelBtn" >Abbrechen</button>
+        <button id="saveBtn" >Speichern</button>
+    </div>
 
 </div>

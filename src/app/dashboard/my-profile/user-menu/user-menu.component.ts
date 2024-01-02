@@ -11,6 +11,7 @@ export class UserMenuComponent implements OnInit{
 
   currentUserId: any;
   currentUserDetails: any;
+  startEdit=false;
 
   constructor(public dialog: MatDialog,
     private userService: UserService,
@@ -29,4 +30,8 @@ export class UserMenuComponent implements OnInit{
     });
   }
 
+
+  edit(){
+   this.startEdit=true;
+  }
 }
