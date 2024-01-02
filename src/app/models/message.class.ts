@@ -25,6 +25,4 @@ export class Message{
             this.updatedAt = new Date();
         }
     }
-
-
 }

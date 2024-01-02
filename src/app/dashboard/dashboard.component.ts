@@ -211,7 +211,6 @@ export class DashboardComponent implements OnInit {
   }
 
   addEmoticon(emoticon: string) {
-    // Füge das ausgewählte Emoticon zum Nachrichtentext hinzu
     this.message.body = (this.message.body || '') + emoticon;
   }
 }

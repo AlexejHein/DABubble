@@ -190,6 +190,24 @@ html, body {
     }
   }
 }
+.date-hr{
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eceefe;
+    height: 2px;
+    span {
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #eceefe;
+      border-radius: 30px;
+      height: 30px;
+      background-color: #ffffff;
+    }
+}
 
 .emoticon-menu{
   cursor: pointer;
@@ -298,7 +316,7 @@ span.close-menu.closed:after {
     justify-content: space-between;
     box-shadow: 0 6px 6px -2px rgb(0 0 0 / 10%);
     padding: 25px 50px;
-    border-radius: 30px 30px 0px 0px;
+    border-radius: 30px 30px 0 0;
     position: sticky;
     z-index: 1;
     background: white;
