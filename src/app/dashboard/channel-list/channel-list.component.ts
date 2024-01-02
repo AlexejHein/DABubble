@@ -4,6 +4,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/app/models/channel.class';
 import { ThreadsService } from 'src/app/services/threads.service';
+import { Thread } from 'src/app/models/thread.class';
 
 @Component({
   selector: 'app-channel-list',
@@ -16,6 +17,7 @@ export class ChannelListComponent implements OnInit {
   items$!: Observable<any[]>;
   allChannels: any[] = [];
   channel = new Channel();
+  thread = new Thread();
   channelId: any;
 
   constructor(  protected threadsService: ThreadsService,) {}
@@ -29,11 +31,18 @@ export class ChannelListComponent implements OnInit {
       });
   }
 
-  onThreadClick(selectedChannel: Channel): void {
+  onChannelClick(selectedChannel: Channel): void {
     this.threadsService.setSelectedChannel(selectedChannel);
-    console.log("Selected Thread:", selectedChannel);
-    console.log("Selected Thread ID:", selectedChannel.id);
+    console.log("Selected Channel:", selectedChannel);
+    console.log("Selected Channel ID:", selectedChannel.id);
     this.channelId = selectedChannel.id;
   }
+
+
+   onThreadClick(selectedThread: Thread): void {
+    this.threadsService.setSelectedThread(selectedThread);
+    console.log("Selected Thread:", selectedThread.id);
+ 
+  } 
 
 }

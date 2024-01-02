@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
   messages: Message[] = [];
   message: any = {};
   selectedChannel: Channel | null = null;
-  channelId:any = 'rt2NJeozgOCVDrlvy2hw';
+  channelId:any/* = 'rt2NJeozgOCVDrlvy2hw'*/;
   channel: Channel = new Channel();
   allUsers: User[] = [];
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
@@ -102,9 +102,10 @@ export class DashboardComponent implements OnInit {
       this.selectedChannel = null;
       this.loadMessages();
     });
-    this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
+     this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
       this.selectedChannel = channel;
       this.selectedUser = null;
+      this.channelId = this.selectedChannel!.id;
     });
   }
 
@@ -207,7 +208,7 @@ export class DashboardComponent implements OnInit {
 
       this.channel = new Channel(channel);
       console.log('Current thread', this.channel);
-      console.log(this.channel.title)
+
     });
     this.saveEditedChannel(this.channel, this.channelId);
   }

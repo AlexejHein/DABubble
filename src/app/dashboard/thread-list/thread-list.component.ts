@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Thread } from 'src/app/models/thread.class';
 import { ThreadsService } from 'src/app/services/threads.service';
 
@@ -14,9 +14,13 @@ export class ThreadListComponent implements OnInit {
 
   firestore: Firestore = inject(Firestore)
   items$!: Observable<any[]>;
+  private subscription: Subscription | null = null;
   allThreads: any[] = [];
+  allThreadsFiltered: any[] = [];
   thread = new Thread();
   threadId: any;
+  selectedChannel: any;
+  selectedChannelId: any;
 
   constructor(  protected threadsService: ThreadsService,) {}
 
@@ -27,13 +31,17 @@ export class ThreadListComponent implements OnInit {
       this.allThreads = threads;
       console.log(threads);
       });
+      
+      this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
+        this.selectedChannel = channel;
+        this.selectedChannelId = channel?.id;
+        console.log('neu selected channel id: ', this.selectedChannelId);
+        console.log('all threads: ', this.allThreads);
+        this.allThreadsFiltered = this.allThreads.filter((f) => 
+        this.selectedChannelId === f.toChannel)
+      });
   }
 
-  onThreadClick(selectedThread: Thread): void {
-    this.threadsService.setSelectedThread(selectedThread);
-    console.log("Selected Thread:", selectedThread);
-    console.log("Selected Thread ID:", selectedThread.id);
-    this.threadId = selectedThread.id;
-  }
+
 
 }
