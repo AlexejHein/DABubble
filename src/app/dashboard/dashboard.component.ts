@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/animations';
 import { UserService } from '../services/user.service';
 import { User} from "../models/User.class";
@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
   channelId:any = 'rt2NJeozgOCVDrlvy2hw';
   channel: Channel = new Channel();
   allUsers: User[] = [];
+  @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
 
 
   constructor(private userService: UserService,
@@ -122,6 +123,7 @@ export class DashboardComponent implements OnInit {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
+      setTimeout(() => this.scrollToBottom(), 0);
     });
   }
 
@@ -136,6 +138,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  scrollToBottom(): void {
+    try {
+      if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      }
+    } catch(err) { }
+  }
 
   saveMessage() {
     if (this.currentUserId && this.selectedUser && this.message.body.trim() !== '') {
@@ -145,6 +154,8 @@ export class DashboardComponent implements OnInit {
       this.messagesService.saveMessage(this.message).then(() => {
         console.log('Message saved successfully');
         this.message.body = '';
+        setTimeout(() => this.scrollToBottom(), 0); // Scroll to bottom with a delay after saving a message
+
       }).catch(error => {
         console.error('Error saving message:', error);
       });

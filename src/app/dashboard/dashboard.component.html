@@ -20,14 +20,14 @@
     </h3>
   </div>
 
-  <div class="chat-body">
+  <div class="chat-body" >
     <div *ngIf="selectedChannel" class="thread-body">
       <div class="channel-description">{{ selectedChannel.description }}</div>
       <div class="channel-threads">
         <app-thread-list></app-thread-list>
       </div>
     </div>
-    <div class="messageOutput">
+    <div class="messageOutput" #myScrollContainer>
       <div *ngFor="let message of messages; let i = index">
         <div class="date-hr" *ngIf="i === 0 || (messages[i-1].createdAt | date) !== (message.createdAt | date)">
           <span><small>{{ message.createdAt | date }}</small></span>
@@ -41,7 +41,6 @@
                   <div class="message-head">
                     <b>{{ user.name }}</b>
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
-
                   </div>
                   <div class="message-item">{{ message.body }}</div>
                 </div>
@@ -49,6 +48,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div *ngIf="selectedUser && (!messages || messages.length === 0)" class="no-message-container">
+      <div class="no-message-container-header">
+      <img [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
+      <h4>{{ selectedUser.name }}</h4>
+      </div>
+      <div class="user-details">
+        <p>Diese Unterhaltung findet nur zwischen <span>@{{selectedUser.name}}</span> und dir statt.</p>
       </div>
     </div>
   </div>

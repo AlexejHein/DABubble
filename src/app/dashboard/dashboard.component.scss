@@ -126,6 +126,29 @@ html, body {
         }
       }
     }
+
+  }
+  .no-message-container{
+    position: absolute;
+    top: 50%;
+    width: 90%;
+    .no-message-container-header{
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      img{
+        width: 100px;
+        height: 100px;
+        margin-bottom: -15px;
+      }
+    }
+    h4{
+      font-weight: 900;
+      font-size: 24px;
+    }
+    span{
+      color: #444DF2;
+    }
   }
   .message{
     position: absolute;
@@ -332,10 +355,11 @@ span.close-menu.closed:after {
     flex-direction: column;
     align-items: center;
     height: calc(100% - 110px);
-  overflow-y: auto;
+    overflow-y: auto;
     gap: 20px;
     padding-top: 20px;
     background: white;
+  border-radius: 30px;
 }
 
 .chat-message {
