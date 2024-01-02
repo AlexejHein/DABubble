@@ -55,8 +55,6 @@ html, body {
     height: calc(100vH - 160px);
 }
 
-
-
 .message-container {
     position: relative;
     flex-grow: 1;
@@ -67,6 +65,7 @@ html, body {
     transition: all linear .65s;
   .messageOutput{
     width: 90%;
+    height: 70%;
     overflow-y: scroll;
     .message-left {
       text-align: left;
