@@ -1,1 +1,24 @@
-<p>user-menu works!</p>
+<div class="editProfile">
+    <div class="profileTitle">
+        <div>Profil</div>
+        <img src="./assets/img/close.png" [mat-dialog-close]="true">
+    </div>
+    
+    <img [src]="currentUserDetails?.avatar" alt="user">
+
+    <div class="profileName">
+        <div>{{ currentUserDetails?.name }}</div>
+        <h6>bearbeiten</h6>
+    </div>
+
+    <div class="status">
+        <div>.</div>
+        <h4>Active</h4>
+    </div>
+    <div class="profileEmail">
+        <img src="./assets/img/mail (1).png" alt="">
+        <div>E-Mail Adresse</div>
+    </div>
+    <div class="realEmail">{{ currentUserDetails?.email }}</div>
+
+</div>

@@ -38,7 +38,14 @@ export class MyProfileComponent implements OnInit{
   }
 
   openDialog(){
-    this.dialog.open(UserMenuComponent);
+    this.dialog.open(UserMenuComponent, {
+      height: '600px',
+      width: '500px',
+      position:{
+        top: '126px',
+        right: '50px',
+      }
+    });
   }
 
 }

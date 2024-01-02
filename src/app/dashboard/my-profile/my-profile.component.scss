@@ -45,6 +45,7 @@ h2 {
     margin-left: -20px!important;
 }
 
+
 .profileBubble{
     display: flex;
     justify-content: center;
@@ -53,9 +54,11 @@ h2 {
     font-weight: bold;
     font-size: 24px;
     height: 200px;
+    width: 200px;
     gap: 20px;
     a{
         text-decoration: none;
         color: black;
+        cursor: pointer;
     }
 }
