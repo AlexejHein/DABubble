@@ -91,4 +91,9 @@ export class UserService {
     this.selectedUserSubject.next(user);
   }
 
+
+
+  updateUserDetails(userId: string, updatedDetails: any): Promise<void> {
+    return this.firestore.collection('users').doc(userId).update(updatedDetails);
+  }
 }

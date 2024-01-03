@@ -28,7 +28,7 @@
                 <img src="./assets/img/account_circle.png" alt="">
                 <span>Vollständiger Name</span>
             </div>
-            <input type="text" [value]=currentUserDetails?.name>
+            <input type="text" [(ngModel)]=currentUserDetails.name>
         </div>
 
         <div class="alignLabel">
@@ -36,14 +36,14 @@
                 <img src="../../../../assets/img/mail (1).png" id="mail" alt="">
                 <span>E-Mail-Adresse</span>
             </div>
-            <input type="text" [value]=currentUserDetails?.email>
+            <input type="text" [(ngModel)]=currentUserDetails.email>
         </div>
 
     </div>
 
     <div class="edit-btns" *ngIf="startEdit">
         <button id="cancelBtn" [mat-dialog-close]="true">Abbrechen</button>
-        <button id="saveBtn" >Speichern</button>
+        <button id="saveBtn" (click)="saveChanges()" [mat-dialog-close]="true">Speichern</button>
     </div>
 
 </div>
