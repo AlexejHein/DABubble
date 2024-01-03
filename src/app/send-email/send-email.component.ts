@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from '../services/storage.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 @Component({
   selector: 'app-send-email',
@@ -7,6 +9,17 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['./send-email.component.scss']
 })
 export class SendEmailComponent {
-  constructor( public storageService:StorageService){}
+  email: any;
+  constructor( public storageService:StorageService,
+               private afAuth: AngularFireAuth){}
 
+  sendResetEmail() {
+    this.afAuth.sendPasswordResetEmail(this.email)
+      .then(() => {
+        console.log('email sent');
+      })
+      .catch(() => {
+        console.log('error');
+      });
+  }
 }
