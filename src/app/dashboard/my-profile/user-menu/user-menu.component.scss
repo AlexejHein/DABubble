@@ -116,3 +116,51 @@
     outline: 1px solid #444DF2;
     background-color: white;
 }
+
+.alignLabel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    div{
+        width: 100%;
+    }
+
+    img{
+        height: 35px;
+        width: 35px;
+    }
+
+    input{
+        height: 35px;
+        width: 100%;
+        border-radius: 20px;
+        border:1px solid #535AF1 ;
+        padding-left: 14px;
+        box-sizing: border-box;
+        color: gray;
+
+        &:focus{
+        border:1px solid #444DF2;
+        outline: none;
+        }
+    }
+}
+
+.descProfile{
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+}
+
+#mail{
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+    margin-top: 10px;
+}

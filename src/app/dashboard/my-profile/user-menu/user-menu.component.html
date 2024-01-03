@@ -22,12 +22,27 @@
     </div>
     <div class="realEmail" *ngIf="!startEdit">{{ currentUserDetails?.email }}</div>
 
-    <div *ngIf="startEdit">
+    <div *ngIf="startEdit"> 
+        <div class="alignLabel">
+            <div class="descProfile">
+                <img src="./assets/img/account_circle.png" alt="">
+                <span>Vollständiger Name</span>
+            </div>
+            <input type="text" [value]=currentUserDetails?.name>
+        </div>
+
+        <div class="alignLabel">
+            <div class="descProfile">
+                <img src="../../../../assets/img/mail (1).png" id="mail" alt="">
+                <span>E-Mail-Adresse</span>
+            </div>
+            <input type="text" [value]=currentUserDetails?.email>
+        </div>
 
     </div>
 
     <div class="edit-btns" *ngIf="startEdit">
-        <button id="cancelBtn" >Abbrechen</button>
+        <button id="cancelBtn" [mat-dialog-close]="true">Abbrechen</button>
         <button id="saveBtn" >Speichern</button>
     </div>
 
