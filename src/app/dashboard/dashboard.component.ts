@@ -207,19 +207,21 @@ export class DashboardComponent implements OnInit {
     docData(threadDoc).subscribe((channel) => {
 
       this.channel = new Channel(channel);
-      console.log('Current thread', this.channel);
+      this.saveEditedChannel(this.channel, this.channelId);
 
     });
-    this.saveEditedChannel(this.channel, this.channelId);
+
   }
 
   saveEditedChannel(channel:any, channelId:any){
+    if(this.dialog.openDialogs.length==0){
     let dialog = this.dialog.open(DialogEditChannelComponent, {
       width: '100%'
   });
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = this.channelId;
     console.log("thread to edit:", this.selectedChannel);
+}
   }
 
   addEmoticon(emoticon: string) {
