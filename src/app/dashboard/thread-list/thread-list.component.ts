@@ -30,8 +30,8 @@ export class ThreadListComponent implements OnInit {
     this.items$.subscribe((threads) => { 
       this.allThreads = threads;
       console.log(threads);
-      });
-      
+
+      //could fix the bug
       this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
         this.selectedChannel = channel;
         this.selectedChannelId = channel?.id;
@@ -40,8 +40,8 @@ export class ThreadListComponent implements OnInit {
         this.allThreadsFiltered = this.allThreads.filter((f) => 
         this.selectedChannelId === f.toChannel)
       });
+      });
+    
   }
-
-
 
 }
