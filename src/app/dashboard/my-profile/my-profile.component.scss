@@ -9,6 +9,11 @@ h2 {
     gap: 20px;
     justify-content: space-between;
     align-items: center;
+    .user-avatar{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
     &:hover {
         cursor: pointer;
         color: #797EF3;
