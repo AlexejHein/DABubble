@@ -247,6 +247,10 @@ html, body {
     overflow: hidden;
 }
 
+.thread-body {
+  width: 100%;
+}
+
 .thread-container {
     width: calc(100% - 60px);
     max-width: 425px;
