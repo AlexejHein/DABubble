@@ -35,7 +35,7 @@
         <div [ngClass]="{'message-right': message.user === currentUserId, 'message-left': message.user !== currentUserId}">
           <div class="message-card">
             <div *ngFor="let user of allUsers">
-              <div class="message-box" *ngIf="user.id === message.user">
+              <div class="message-box" *ngIf="user.id === message.user" (click)="openThread()">
                 <img [src]="user.avatar" alt="Avatar" class="user-avatar">
                 <div>
                   <div class="message-head">
@@ -100,7 +100,8 @@
         <mat-icon>add</mat-icon>
         <div class="hr"></div>
         <mat-icon class="emoticon-menu" [matMenuTriggerFor]="emoticonsMenu">insert_emoticon</mat-icon>
-        <mat-menu #emoticonsMenu="matMenu">
+        <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">
+          <div class="emoticon-grid">
           <button mat-menu-item (click)="addEmoticon('😀')">😀</button>
           <button mat-menu-item (click)="addEmoticon('😂')">😂</button>
           <button mat-menu-item (click)="addEmoticon('🤣')">🤣</button>
@@ -108,7 +109,39 @@
           <button mat-menu-item (click)="addEmoticon('😘')">😘</button>
           <button mat-menu-item (click)="addEmoticon('😎')">😎</button>
           <button mat-menu-item (click)="addEmoticon('😛')">😛</button>
+          <button mat-menu-item (click)="addEmoticon('😊')">😊</button>
+          <button mat-menu-item (click)="addEmoticon('😋')">😋</button>
+          <button mat-menu-item (click)="addEmoticon('😚')">😚</button>
+          <button mat-menu-item (click)="addEmoticon('😜')">😜</button>
+          <button mat-menu-item (click)="addEmoticon('😝')">😝</button>
+          <button mat-menu-item (click)="addEmoticon('🥰')">🥰</button>
+          <button mat-menu-item (click)="addEmoticon('😇')">😇</button>
+          <button mat-menu-item (click)="addEmoticon('😐')">😐</button>
+          <button mat-menu-item (click)="addEmoticon('😕')">😕</button>
+          <button mat-menu-item (click)="addEmoticon('😟')">😟</button>
+          <button mat-menu-item (click)="addEmoticon('😢')">😢</button>
+          <button mat-menu-item (click)="addEmoticon('😭')">😭</button>
+          <button mat-menu-item (click)="addEmoticon('😷')">😷</button>
+          <button mat-menu-item (click)="addEmoticon('🤔')">🤔</button>
+          <button mat-menu-item (click)="addEmoticon('🙄')">🙄</button>
+          <button mat-menu-item (click)="addEmoticon('😏')">😏</button>
+          <button mat-menu-item (click)="addEmoticon('😶')">😶</button>
+          <button mat-menu-item (click)="addEmoticon('🤐')">🤐</button>
+          <button mat-menu-item (click)="addEmoticon('😴')">😴</button>
+          <button mat-menu-item (click)="addEmoticon('🥳')">🥳</button>
+          <button mat-menu-item (click)="addEmoticon('🤯')">🤯</button>
+          <button mat-menu-item (click)="addEmoticon('😵')">😵</button>
+          <button mat-menu-item (click)="addEmoticon('👏')">👏</button>
+          <button mat-menu-item (click)="addEmoticon('👍')">👍</button>
+          <button mat-menu-item (click)="addEmoticon('👌')">👌</button>
+          <button mat-menu-item (click)="addEmoticon('👊')">👊</button>
+          <button mat-menu-item (click)="addEmoticon('🙌')">🙌</button>
+          <button mat-menu-item (click)="addEmoticon('👋')">👋</button>
+          <button mat-menu-item (click)="addEmoticon('✅')">✅</button>
+          <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
+        </div>
         </mat-menu>
+        
         <mat-icon>alternate_email</mat-icon>
       </div>
       <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
