@@ -1,5 +1,5 @@
 export class Channel {
-    id: string;
+    id?: string;
     authorName: string | null;
     authorId: string | null;
     title: string;

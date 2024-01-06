@@ -33,8 +33,12 @@ export class MyProfileComponent implements OnInit{
     });
   }
 
-  logout(){
-    this.authService.logout().then(r => {}).catch(error => {});
+  logoutUser(){
+    if (this.userService.currentUser){
+      this.authService.logout().then(r => {});
+    }else {
+      console.log('No user is logged in');
+    }
   }
 
   openDialog(){

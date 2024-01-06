@@ -16,7 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   styleUrls: ['./dialog-edit-channel.component.scss']
 })
 export class DialogEditChannelComponent implements OnInit {
-  firestore: Firestore = inject(Firestore);	
+  firestore: Firestore = inject(Firestore);
   channel: Channel = new Channel();
   channelId:any = '';
   showEditTitle = true;
@@ -33,14 +33,14 @@ export class DialogEditChannelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+
   }
 
   saveThread(){
     console.log(this.channel);
-  
+
   const coll = doc(this.firestore, 'channels', this.channelId);
-  updateDoc(coll, this.channel.toJSON());
+  updateDoc(coll, this.channel.toJSON()).then(r => console.log(r));
    }
 
   editTitle() {
@@ -52,7 +52,7 @@ export class DialogEditChannelComponent implements OnInit {
 
   saveEditedTitle() {
     const coll = doc(this.firestore, 'channels', this.channelId);
-    updateDoc(coll,  {title: this.channel.title});
+    updateDoc(coll, {title: this.channel.title}).then(r => console.log(r));
     this.notEditingTitle = true;
     this.showSaveTitle = false;
     this.showEditTitle = true;
@@ -65,10 +65,10 @@ export class DialogEditChannelComponent implements OnInit {
     this.showSaveDesc = true;
     this.showEditDesc = false;
     }
-  
+
     saveEditedDesc() {
       const coll = doc(this.firestore, 'channels', this.channelId);
-      updateDoc(coll,  {description: this.channel.description});
+      updateDoc(coll, {description: this.channel.description}).then(r => console.log(r))
       this.notEditingDesc = true;
       this.showSaveDesc = false;
       this.showEditDesc = true;
