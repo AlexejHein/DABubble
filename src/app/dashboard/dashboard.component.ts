@@ -227,7 +227,9 @@ export class DashboardComponent implements OnInit {
   }
 
   saveThread() {
-    console.log('thread saved');
+    this.thread.authorId = this.currentUserId;
+    this.thread.toChannel = this.channelId;
+    addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => console.log(r));
   }
 
   addEmoticon(emoticon: string) {
