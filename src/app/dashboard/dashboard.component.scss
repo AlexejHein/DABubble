@@ -408,7 +408,7 @@ h3 {
     background-size: 100% auto;
 }
 
-.message-box{
+.message-card{
   &:hover{
     background-color:#eceefe;
     cursor: pointer;
@@ -417,6 +417,18 @@ h3 {
       cursor: pointer;
   }
   }
-
 }
+
+.emoticon-menu {
+  max-width: 300px; 
+}
+
+.emoticon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
 
