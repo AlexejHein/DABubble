@@ -201,6 +201,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  openThread(){
+    this.threadVisible = true;
+    this.moveRight = "";
+  }
+
 
   editChannel() {
     let threadCollection = collection(this.firestore, 'channels');

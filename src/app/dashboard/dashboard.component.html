@@ -35,7 +35,7 @@
         <div [ngClass]="{'message-right': message.user === currentUserId, 'message-left': message.user !== currentUserId}">
           <div class="message-card">
             <div *ngFor="let user of allUsers">
-              <div class="message-box" *ngIf="user.id === message.user">
+              <div class="message-box" *ngIf="user.id === message.user" (click)="openThread()">
                 <img [src]="user.avatar" alt="Avatar" class="user-avatar">
                 <div>
                   <div class="message-head">
