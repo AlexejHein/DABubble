@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import firebase from "firebase/compat";
+import User = firebase.User;
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
+  private userData: any;
 
   constructor() { }
 
@@ -36,5 +39,12 @@ export class StorageService {
 
   getStep(){
     return this.step
+  }
+
+  storeUserData(user: any) {
+    this.userData = user;
+  }
+  getUserData(): User {
+    return this.userData;
   }
 }

@@ -4,6 +4,8 @@ import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {UserService} from '../services/user.service';
 import {StorageService} from '../services/storage.service';
 import {finalize} from "rxjs/operators";
+import {User} from "../models/User.class";
+import firebase from "firebase/compat";
 
 @Component({
   selector: 'app-choose-avatar',
@@ -12,9 +14,12 @@ import {finalize} from "rxjs/operators";
 })
 export class ChooseAvatarComponent implements OnInit {
   userName: string = 'Unbekannter Benutzer';
+  userData: any = {};
   avatarUrl = '';
   imageUrls = [1, 2, 3, 4, 5, 6].map(i => `assets/img/avatar${i}.png`);
   currentAvatar =  'assets/img/profile.png';
+  uploadPercent: number | undefined = 0;
+  isUploading: boolean = false;
 
   constructor(
     private storage: AngularFireStorage,
@@ -25,6 +30,11 @@ export class ChooseAvatarComponent implements OnInit {
 
   ngOnInit() {
     this.loadUserName().then(r => console.log('Benutzername geladen'));
+    this.loadUserData().then(r => console.log('Benutzerdaten geladen'));
+  }
+  async loadUserData() {
+    this.userData = this.storageService.getUserData();
+    console.log('userData:', this.userData);
   }
 
   async loadUserName() {
@@ -48,11 +58,19 @@ export class ChooseAvatarComponent implements OnInit {
     const filePath = `avatars/${new Date().getTime()}_${file.name}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
+    this.isUploading = true;
+
+    task.percentageChanges().subscribe(percent => {
+      this.uploadPercent = percent;
+    });
 
     task.snapshotChanges().pipe(
       finalize(async () => {
         this.avatarUrl = await fileRef.getDownloadURL().toPromise();
         await this.saveAvatar(this.avatarUrl);
+        this.currentAvatar = this.avatarUrl;
+        this.uploadPercent = 0;
+        this.isUploading = false;
       })
     ).subscribe();
   }

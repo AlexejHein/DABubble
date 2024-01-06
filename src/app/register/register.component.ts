@@ -23,7 +23,7 @@ export class RegisterComponent {
     const hasLowerCase = /[a-z]/.test(password);
     const hasUpperCase = /[A-Z]/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>=]/.test(password);
-  
+
     if (password.length < 6 || !((hasLowerCase || hasUpperCase) && hasSpecialChar)) {
       return 'Schwach';
     } else if (password.length < 8) {
@@ -32,7 +32,7 @@ export class RegisterComponent {
       return 'Stark';
     }
   }
-  
+
 
   isWeakPassword(): boolean {
     return this.calculatePasswordStrength(this.user.password) === 'Schwach';
@@ -60,6 +60,8 @@ export class RegisterComponent {
 
     try {
       await this.userService.registerUser({ name, email, password });
+      this.storageService.storeUserData({ name, email, password });
+
       this.storageService.plusStep();
       this.disableForm=false;
     } catch (error) {
