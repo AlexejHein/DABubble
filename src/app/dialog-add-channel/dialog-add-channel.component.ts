@@ -19,7 +19,7 @@ export class DialogAddChannelComponent implements OnInit {
   currentUserName: string | null = "";
   currentUserDetails: any;
 
-  firestore: Firestore = inject(Firestore);	
+  firestore: Firestore = inject(Firestore);
 
   channel = new Channel();
   loading = false;
@@ -42,8 +42,8 @@ export class DialogAddChannelComponent implements OnInit {
     }).catch(error => {
       console.error("Error getting current Author Name:", error);
     });
-    
-    
+
+
   }
 
   saveThread(){
@@ -54,7 +54,7 @@ this.channel.authorId = this.currentUserId;
 this.channel.authorName = this.currentUserName;
 this.loading = true;
 console.log(this.loading);
-    addDoc(collection(this.firestore, 'channels'), this.channel.toJSON());
+    addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(r => console.log(r));
     this.loading = false;
     console.log(this.loading);
   }

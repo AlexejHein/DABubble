@@ -27,7 +27,7 @@
         <app-thread-list></app-thread-list>
       </div>
     </div>
-    <div class="messageOutput" #myScrollContainer>
+    <div *ngIf="!selectedChannel" class="messageOutput" #myScrollContainer>
       <div *ngFor="let message of messages; let i = index">
         <div class="date-hr" *ngIf="i === 0 || (messages[i-1].createdAt | date) !== (message.createdAt | date)">
           <span><small>{{ message.createdAt | date }}</small></span>
@@ -59,10 +59,38 @@
         <p>Diese Unterhaltung findet nur zwischen <span>@{{selectedUser.name}}</span> und dir statt.</p>
       </div>
     </div>
+
+
+    <div *ngIf="selectedChannel" class="message addthread">
+      <div class="chat-box">
+        <div class="message-input">
+        <textarea [(ngModel)]="thread.title" placeholder=""></textarea>
+      </div>
+      <div class="message-send">
+        <div class="message-icons">
+          <mat-icon>add</mat-icon>
+          <div class="hr"></div>
+          <mat-icon class="emoticon-menu" [matMenuTriggerFor]="emoticonsMenu">insert_emoticon</mat-icon>
+          <mat-menu #emoticonsMenu="matMenu">
+            <button mat-menu-item (click)="addEmoticon('😀')">😀</button>
+            <button mat-menu-item (click)="addEmoticon('😂')">😂</button>
+            <button mat-menu-item (click)="addEmoticon('🤣')">🤣</button>
+            <button mat-menu-item (click)="addEmoticon('😍')">😍</button>
+            <button mat-menu-item (click)="addEmoticon('😘')">😘</button>
+            <button mat-menu-item (click)="addEmoticon('😎')">😎</button>
+            <button mat-menu-item (click)="addEmoticon('😛')">😛</button>
+          </mat-menu>
+          <mat-icon>alternate_email</mat-icon>
+        </div>
+        <mat-icon class="send-btn" (click)="saveThread()">send</mat-icon>
+      </div>
+      </div>
+    </div>
   </div>
+  
 
 
-  <div class="message">
+  <div *ngIf="!selectedChannel" class="message">
     <div class="chat-box">
       <div class="message-input">
       <textarea [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>

@@ -33,7 +33,6 @@ export class ChooseAvatarComponent implements OnInit {
       this.userName = name || 'Unbekannter Benutzer';
     } catch (error) {
       console.error('Fehler beim Laden des Benutzernamens', error);
-      // Handle the error appropriately
     }
   }
 

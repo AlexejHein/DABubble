@@ -11,8 +11,6 @@
     <div>Aus der Liste Wählen</div>
     <div>
       <img *ngFor="let avatar of imageUrls" [src]="avatar" (click)="selectAvatar(avatar)">
-
-
     </div>
   </div>
 
@@ -21,7 +19,6 @@
     <div>eigenes Bild verwenden</div>
 
     <input type="file" (change)="uploadFile($event)" hidden #fileInput>
-    <!-- Button that triggers file input for avatar upload -->
     <button (click)="fileInput.click()">Datei Hochladen</button>
   </div>
 

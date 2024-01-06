@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { docData } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { Firestore, doc, addDoc, collectionData } from '@angular/fire/firestore';
+import { Thread } from '../models/thread.class';
 
 @Component({
   selector: 'app-dashboard',
@@ -69,6 +70,7 @@ export class DashboardComponent implements OnInit {
   channelId:any/* = 'rt2NJeozgOCVDrlvy2hw'*/;
   channel: Channel = new Channel();
   allUsers: User[] = [];
+  thread = new Thread();
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
 
 
@@ -222,6 +224,12 @@ export class DashboardComponent implements OnInit {
     dialog.componentInstance.channelId = this.channelId;
     console.log("thread to edit:", this.selectedChannel);
 }
+  }
+
+  saveThread() {
+    this.thread.authorId = this.currentUserId;
+    this.thread.toChannel = this.channelId;
+    addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => console.log(r));
   }
 
   addEmoticon(emoticon: string) {

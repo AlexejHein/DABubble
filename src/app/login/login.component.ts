@@ -11,8 +11,6 @@ import { StorageService} from "../services/storage.service";
 export class LoginComponent {
   email: string = '';
   password: string = '';
-
-  // Consider removing or securely managing guest credentials
   guestEmail: string = 'guest@login.com';
   guestPassword: string = '123456789';
 
