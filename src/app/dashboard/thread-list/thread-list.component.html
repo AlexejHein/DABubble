@@ -1,13 +1,18 @@
 <div *ngFor="let thread of allThreadsFiltered" class="thread-list">
-  <div class="message-card">
-    <div class="message-box">
-      <div>
-        <div class="message-head">
-       
+  <div class="message-direction">
+    <div class="message-card">
+      <div *ngFor="let user of allUsers">
+        <div class="message-box" *ngIf="user.id === thread.authorId">
+          <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+          <div>
+            <div class="message-head">
+              <b>{{ user.name }}</b>
+              <!--<small>{{ thread.createdAt | date:'HH:mm':'UTC' }}</small>-->
+            </div>
+            <div class="message-item">{{thread.title}}</div>
+          </div>
         </div>
-        <div class="message-item">{{thread.title}}</div>
       </div>
     </div>
-</div>
   </div>
-
+  </div>

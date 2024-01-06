@@ -4,6 +4,8 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { Thread } from 'src/app/models/thread.class';
 import { ThreadsService } from 'src/app/services/threads.service';
+import { UserService } from '../../services/user.service';
+import { User} from "../../models/User.class";
 
 @Component({
   selector: 'app-thread-list',
@@ -21,10 +23,29 @@ export class ThreadListComponent implements OnInit {
   threadId: any;
   selectedChannel: any;
   selectedChannelId: any;
+  currentUser: User | null | undefined;
+  currentUserId: string | null = "";
+  currentUserAvatar: string | undefined = "";
+  user: string | undefined | null = "";
+  allUsers: User[] = [];
 
-  constructor(  protected threadsService: ThreadsService,) {}
+  constructor(  private userService: UserService, protected threadsService: ThreadsService,) {}
 
   ngOnInit(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.allUsers = users;
+      console.log("All Users in thread:", this.allUsers);
+    });
+    
+    this.userService.getUsers().subscribe(users => {
+      this.currentUser = users.find(user => user.id === this.thread.authorId);
+      if (this.currentUser) {
+        console.log("thread current user:", this.currentUser);
+        this.user = this.currentUser.name;
+        this.currentUserAvatar = this.currentUser.avatar;
+      }
+    });
+
     const aCollection = collection(this.firestore, 'threads')		
     this.items$ = collectionData(aCollection, { idField: 'id' });	
     this.items$.subscribe((threads) => { 
