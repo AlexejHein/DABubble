@@ -72,6 +72,8 @@ export class DashboardComponent implements OnInit {
   allUsers: User[] = [];
   thread = new Thread();
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
+  showMenu = false;
+  hoveredIndex:any;
 
 
   constructor(private userService: UserService,
@@ -239,5 +241,15 @@ export class DashboardComponent implements OnInit {
 
   addEmoticon(emoticon: string) {
     this.message.body = (this.message.body || '') + emoticon;
+  }
+
+ 
+  showEmoticonMenu(i:number): void {
+    this.showMenu = true;
+    this.hoveredIndex=i;
+  }
+
+  hideEmoticonMenu(): void {
+    this.showMenu = false;
   }
 }
