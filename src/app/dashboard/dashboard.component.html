@@ -35,7 +35,7 @@
         <div [ngClass]="{'message-right': message.user === currentUserId, 'message-left': message.user !== currentUserId}">
           <div class="message-card">
             <div *ngFor="let user of allUsers">
-              <div class="message-box" *ngIf="user.id === message.user" (mouseenter)="showEmoticonMenu(i)" (mouseleave)="hideEmoticonMenu()">
+              <div class="message-box" *ngIf="user.id === message.user" (mouseenter)="showEmoticonMenu(i)">
                 <img [src]="user.avatar" alt="Avatar" class="user-avatar">
                 <div>
                   <div class="message-head">
@@ -43,8 +43,8 @@
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
                   </div>
                   <div class="message-item">{{ message.body }}</div>
-                  <div *ngIf=" hoveredIndex==i && showMenu" class="choose-emo" >
-                    <div>✅</div>
+                  <div *ngIf=" hoveredIndex==i" class="choose-emo" >
+                    <div (click)="selectEmo('✅')">✅</div>
                     <div>🙌</div>
                     <img src="./assets/img/add_reaction.png" [matMenuTriggerFor]="emoticonsMenu">
                     <img src="./assets/img/comment.png" (click)="openThread()">
@@ -92,6 +92,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="reaction-container" *ngIf="showReactions">
+              {{chosen}}
             </div>
           </div>
         </div>

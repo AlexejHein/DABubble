@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
   allUsers: User[] = [];
   thread = new Thread();
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
-  showMenu = false;
+  showReactions = false;
   hoveredIndex:any;
 
 
@@ -245,11 +245,12 @@ export class DashboardComponent implements OnInit {
 
  
   showEmoticonMenu(i:number): void {
-    this.showMenu = true;
     this.hoveredIndex=i;
   }
 
-  hideEmoticonMenu(): void {
-    this.showMenu = false;
+  chosen:any
+  selectEmo(emoticon: string){
+    this.showReactions=true;
+    this.chosen=emoticon;
   }
 }
