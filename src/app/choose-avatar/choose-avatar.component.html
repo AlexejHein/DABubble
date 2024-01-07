@@ -2,8 +2,9 @@
   <h2>Wähle deinen Avatar</h2>
   <img src="./assets/img/arrow_back.png" id="backarrowAvatar" (click)="storageService.minusStep()">
   <img [src]="currentAvatar" id="coverAvatar" (click)="storageService.minusStep()">
+  <mat-progress-bar *ngIf="isUploading" mode="determinate" [value]="uploadPercent"></mat-progress-bar>
   <div class="avatarName">
-    {{ userName }}
+    {{ userData.name }}
   </div>
 
 
