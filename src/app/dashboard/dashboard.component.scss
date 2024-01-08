@@ -284,6 +284,17 @@ html, body {
   }
 }
 
+.channelusers {
+  display: flex;
+    img {
+        margin-left: -12px;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+}
+
 .chat-header h3:hover .thread-title:after  {
   width: 30px;
   height: 30px;
