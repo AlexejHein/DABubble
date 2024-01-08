@@ -10,15 +10,21 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class SendEmailComponent {
   email: any;
+  emailSent: boolean = false;
   constructor( public storageService:StorageService,
                private afAuth: AngularFireAuth){}
 
   sendResetEmail() {
     this.afAuth.sendPasswordResetEmail(this.email)
       .then(() => {
+        this.emailSent = true;
+        setTimeout(() => {
+          this.storageService.logInStep();
+        },1500);
         console.log('email sent');
       })
       .catch(() => {
+        this.emailSent = false;
         console.log('error');
       });
   }

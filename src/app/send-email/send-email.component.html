@@ -8,7 +8,6 @@
     Bitte geben Sie Ihre E-Mail-Adresse ein.
   </div>
 
-  <!-- Hier wird ngModel hinzugefügt, um die E-Mail-Adresse an die Komponente zu binden -->
   <input id="sendEmailInput" type="email" [(ngModel)]="email" placeholder="beispielname@email.com" name="email">
 
   <div class="sendEmail-bottom-description">
@@ -16,10 +15,11 @@
   </div>
 
   <div class="sendEmail-btn">
-    <!-- Hier rufen wir die sendResetEmail Funktion auf, wenn der Button geklickt wird -->
     <button (click)="sendResetEmail()">E-Mail senden</button>
   </div>
+  <div class="email-sent-notification" *ngIf="emailSent">
+    <p><mat-icon>send</mat-icon> E-Mail gesendet</p>
+  </div></div>
 
-</div>
 
 
