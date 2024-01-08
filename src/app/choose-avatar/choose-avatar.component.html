@@ -26,4 +26,7 @@
   <div class="next">
     <button (click)="goNext()">Weiter</button>
   </div>
+  <div class="finish" *ngIf="finish">
+    <p>Konto erfolgreich erstellt!</p>
+  </div>
 </div>

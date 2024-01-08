@@ -20,6 +20,7 @@ export class ChooseAvatarComponent implements OnInit {
   currentAvatar =  'assets/img/profile.png';
   uploadPercent: number | undefined = 0;
   isUploading: boolean = false;
+  finish: boolean = false;
 
   constructor(
     private storage: AngularFireStorage,
@@ -90,6 +91,8 @@ export class ChooseAvatarComponent implements OnInit {
   }
 
   goNext() {
+    this.finish = true;
+    setTimeout(() => {
     this.storageService.logInStep();
-  }
+  },1500);}
 }
