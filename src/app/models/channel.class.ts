@@ -6,6 +6,7 @@ export class Channel {
     description: string;
     createdAt: Date;
     updatedAt: Date;
+    users: string[];
 
     constructor(obj?: any) {
         if (obj) {
@@ -16,6 +17,7 @@ export class Channel {
             this.description = obj.description ?? '';
             this.createdAt = obj.createdAt ?? new Date();
             this.updatedAt = obj.updatedAt ?? new Date();
+            this.users = obj.users ?? '';
         } else {
             this.id = '';
             this.authorName = '';
@@ -24,6 +26,7 @@ export class Channel {
             this.description = '';
             this.createdAt = new Date();
             this.updatedAt = new Date();
+            this.users = [];
         }
     }
 
@@ -35,7 +38,8 @@ export class Channel {
             title: this.title,
             description: this.description,
             createdAt: this.createdAt,
-            updatedAt: this.updatedAt
+            updatedAt: this.updatedAt,
+            users: this.users
         };
     }
 }

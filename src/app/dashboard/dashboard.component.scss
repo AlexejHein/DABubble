@@ -250,6 +250,54 @@ html, body {
   width: 100%;
 }
 
+
+.channel-description {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+.thread-title {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  &:after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background: url(/assets/img/arrow-down.svg);
+    background-size: 100% auto;
+    display: inline-block;
+  }
+  &:hover {
+    color: #535AF1;
+   background: #ECEEFE; 
+   border-radius: 100px;
+  }
+  &:before {
+    content: "";
+    width: 32px;
+    height: 32px;
+    background: url(/assets/img/tag-big.svg);
+    background-size: 100% auto;
+    display: flex;
+  }
+}
+
+.chat-header h3:hover .thread-title:after  {
+  width: 30px;
+  height: 30px;
+  background: url(/assets/img/arrow-down-b.svg);
+  background-size: 100% auto;
+}
+
+.chat-header h3:hover .thread-title:before  {
+  width: 32px;
+  height: 32px;
+  background: url(/assets/img/tag-big-b.svg);
+  background-size: 100% auto;
+}
+
 .thread-container {
     width: calc(100% - 60px);
     max-width: 425px;

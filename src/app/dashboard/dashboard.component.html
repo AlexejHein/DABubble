@@ -15,9 +15,15 @@
   <div class="chat-header">
     <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()"><span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
       <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
-      {{ selectedUser ? selectedUser.name : '# Entwicklerteam' }}
+      {{ selectedUser ? selectedUser.name : '' }}
       <span *ngIf="selectedUser?.id === currentUserId">(Du)</span>
     </h3>
+    <div *ngIf="selectedChannel" class="channelusers"><div *ngFor="let user of allUsers">
+      <div *ngIf="findUserInChannel(user.id)">
+      <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+      </div>
+    </div>
+  </div>
   </div>
 
   <div class="chat-body" >

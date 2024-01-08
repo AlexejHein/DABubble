@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
   selectedChannel: Channel | null = null;
   channelId:any/* = 'rt2NJeozgOCVDrlvy2hw'*/;
   channel: Channel = new Channel();
+  channelUsers: any[] = [];
   allUsers: User[] = [];
   thread = new Thread();
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
@@ -109,6 +110,7 @@ export class DashboardComponent implements OnInit {
      this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
       this.selectedChannel = channel;
       this.selectedUser = null;
+      this.channelUsers = this.selectedChannel!.users;
       this.channelId = this.selectedChannel!.id;
     });
   }
@@ -233,10 +235,21 @@ export class DashboardComponent implements OnInit {
 }
   }
 
+  findUserInChannel(usersId:any){
+    let indexChecked = this.channelUsers.indexOf(usersId);
+    if(indexChecked > -1){
+    return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   saveThread() {
     this.thread.authorId = this.currentUserId;
     this.thread.toChannel = this.channelId;
     addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => console.log(r));
+    this.thread.title = '';
   }
 
   addEmoticon(emoticon: string) {
