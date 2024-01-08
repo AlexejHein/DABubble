@@ -13,6 +13,7 @@ export class LoginComponent {
   password: string = '';
   guestEmail: string = 'guest@login.com';
   guestPassword: string = '123456789';
+  loginError: string = '';
 
   constructor(
     private router: Router,
@@ -26,7 +27,14 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']).then(r => console.log(r));
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        switch(error.code) {
+          case 'auth/invalid-credential':
+            this.loginError = 'Die eingegebenen Anmeldedaten sind ungültig oder abgelaufen.';
+            break;
+          // Füge hier weitere Fälle für andere Firebase-Fehlercodes hinzu
+          default:
+            this.loginError = 'Ein unbekannter Fehler ist aufgetreten.';
+        }
       });
   }
 

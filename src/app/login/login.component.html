@@ -6,6 +6,9 @@
 
   <input [(ngModel)]="email" id="emailLogin" type="email" placeholder="beispielname@email.com" required>
   <input [(ngModel)]="password" id="passLogin" type="password" placeholder="passwort" required>
+  <mat-error *ngIf=loginError>
+    <div class="error-message">{{loginError}}</div>
+  </mat-error>
 
   <div class="forget-password" (click)="storageService.sendEmailStep()">passwort vergessen ?</div>
 
