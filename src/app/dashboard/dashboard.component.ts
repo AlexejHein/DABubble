@@ -13,6 +13,8 @@ import { docData } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { Firestore, doc, addDoc, collectionData } from '@angular/fire/firestore';
 import { Thread } from '../models/thread.class';
+import {DialogUserComponent} from "../dialog-user/dialog-user.component";
+
 
 @Component({
   selector: 'app-dashboard',
@@ -252,5 +254,21 @@ export class DashboardComponent implements OnInit {
   selectEmo(emoticon: string){
     this.showReactions=true;
     this.chosen=emoticon;
+  }
+
+  openDialog(user: any): void {
+    const dialogRef = this.dialog.open(DialogUserComponent, {
+      width: '250px', // oder eine andere geeignete Größe
+      data: user // Übergeben Sie hier die Benutzerdaten
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Der Dialog wurde geschlossen');
+      // Weitere Aktionen nach dem Schließen des Dialogs
+    });
+  }
+
+  findUserInChannel(id: string | undefined) {
+    
   }
 }
