@@ -258,17 +258,16 @@ export class DashboardComponent implements OnInit {
 
   openDialog(user: any): void {
     const dialogRef = this.dialog.open(DialogUserComponent, {
-      width: '250px', // oder eine andere geeignete Größe
-      data: user // Übergeben Sie hier die Benutzerdaten
+      width: '250px',
+      data: user
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Der Dialog wurde geschlossen');
-      // Weitere Aktionen nach dem Schließen des Dialogs
     });
   }
 
   findUserInChannel(id: string | undefined) {
-    
+
   }
 }
