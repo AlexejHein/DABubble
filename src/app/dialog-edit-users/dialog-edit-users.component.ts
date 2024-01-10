@@ -2,6 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Channel } from '../models/channel.class';
+import { UserService } from '../services/user.service';
+import { User } from '../models/User.class';
+import { Subscription } from "rxjs";
+import { ThreadsService } from '../services/threads.service';
 
 @Component({
   selector: 'app-dialog-edit-users',
@@ -10,21 +14,65 @@ import { Channel } from '../models/channel.class';
 })
 export class DialogEditUsersComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
+  private subscription: Subscription | null = null;
   channel: Channel = new Channel();
   channelId:any = '';
+  selectedChannel: Channel | null = null;
+  channelUsers: any[] = [];
+  selectedUser:  User | null = null;
+  allUsers: User[] = [];
+  items$!: Observable<any[]>;
+  currentUserId: string = "";
 
-  constructor() {
+  constructor(private userService: UserService,
+    private threadsService: ThreadsService) {}
 
-  }
+  async ngOnInit(): Promise<void> {
 
-  ngOnInit(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.allUsers = users;
+      console.log("All Users:", this.allUsers);
+    });
 
+    this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
+      this.selectedChannel = channel;
+      this.selectedUser = null;
+      this.channelUsers = this.selectedChannel!.users;
+      this.channelId = this.selectedChannel!.id;
+    });
+
+    const aCollection = collection(this.firestore, 'users');
+    this.items$ = collectionData(aCollection, { idField: 'id' });
+
+    this.items$.subscribe((users) => {
+      this.userService.getCurrentUserId().then((id) => {
+        if (id != null) {
+          this.currentUserId = id;
+          this.userService.setUserOnline(id, true).then(r => {}); // assuming such a method exists
+        }
+        this.allUsers = [
+          users.find(user => user.id === this.currentUserId),
+          ...users.filter(user => user.id !== this.currentUserId)
+        ].filter(Boolean);
+      });
+    });
   }
 
   
   saveUserToChannel() {
     const coll = doc(this.firestore, 'channels', this.channelId);
     updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));
+  }
+
+
+  showUserInChannel(usersId:any){
+    let indexChecked = this.channelUsers.indexOf(usersId);
+    if(indexChecked > -1){
+    return true;
+    }
+    else {
+      return false;
+    }
   }
 
 }
