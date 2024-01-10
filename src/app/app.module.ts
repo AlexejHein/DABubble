@@ -32,8 +32,10 @@ import { MatInputModule } from '@angular/material/input';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ChannelListComponent } from './dashboard/channel-list/channel-list.component';
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
+import { DialogUserProfileComponent } from './dialog-user-profile/dialog-user-profile.component';
 import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
-import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.component';
 
 
 @NgModule({
@@ -56,6 +58,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     DialogAddChannelComponent,
     ChannelListComponent,
     DialogEditChannelComponent,
+    DialogEditUsersComponent,
+    DialogUserProfileComponent,
     ThreadListComponent
   ],
     imports: [
