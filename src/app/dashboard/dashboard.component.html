@@ -14,9 +14,11 @@
 <div class="message-container" [@move]>
   <div class="chat-header">
     <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()"><span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
+      <div class="user-header" (click)="openDialog(selectedUser)">
       <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
       {{ selectedUser ? selectedUser.name : '# Entwicklerteam' }}
       <span *ngIf="selectedUser?.id === currentUserId">(Du)</span>
+      </div>
     </h3>
   </div>
 
@@ -169,7 +171,7 @@
       </div>
     </div>
   </div>
-  
+
 
 
   <div *ngIf="!selectedChannel" class="message">
@@ -223,7 +225,7 @@
           <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
         </div>
         </mat-menu>
-        
+
         <mat-icon>alternate_email</mat-icon>
       </div>
       <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
