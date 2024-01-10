@@ -34,8 +34,6 @@ import { ChannelListComponent } from './dashboard/channel-list/channel-list.comp
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { DialogUserComponent } from './dialog-user/dialog-user.component';
-import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -58,33 +56,31 @@ import {MatButtonModule} from "@angular/material/button";
     DialogAddChannelComponent,
     ChannelListComponent,
     DialogEditChannelComponent,
-    ThreadListComponent,
-    DialogUserComponent
+    ThreadListComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatDialogModule,
-    MatMenuModule,
-    MatFormFieldModule,
-    MatInputModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    provideFirebaseApp(() => initializeApp({
-      apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
-      authDomain: "dabubble-97d36.firebaseapp.com",
-      projectId: "dabubble-97d36",
-      storageBucket: "dabubble-97d36.appspot.com",
-      messagingSenderId: "7321163189",
-      appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
-    })),
-    provideFirestore(() => getFirestore()),
-    MatIconModule,
-    MatProgressBarModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatFormFieldModule,
+        MatInputModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        provideFirebaseApp(() => initializeApp({
+            apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
+            authDomain: "dabubble-97d36.firebaseapp.com",
+            projectId: "dabubble-97d36",
+            storageBucket: "dabubble-97d36.appspot.com",
+            messagingSenderId: "7321163189",
+            appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
+        })),
+        provideFirestore(() => getFirestore()),
+        MatIconModule,
+        MatProgressBarModule
+    ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
