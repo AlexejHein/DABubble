@@ -1,0 +1,46 @@
+<div class="editProfile">
+    <div class="profileTitle">
+        <div>Profil</div>
+        <img src="./assets/img/close.png" [mat-dialog-close]="true">
+    </div>
+    
+    <img [src]="selectedUserDetails?.avatar" alt="user">
+
+    <div class="profileName" *ngIf="!startEdit">
+        <div>{{ selectedUserDetails?.name }}</div>
+     
+    </div>
+
+    <div class="status" *ngIf="!startEdit">
+        <div>.</div>
+        <h4>Active</h4>
+    </div>
+
+    <div class="profileEmail" *ngIf="!startEdit">
+        <img src="./assets/img/mail (1).png" alt="">
+        <div>E-Mail Adresse</div>
+    </div>
+    <div class="realEmail" *ngIf="!startEdit">{{ selectedUserDetails?.email }}</div>
+
+    <div *ngIf="startEdit"> 
+        <div class="alignLabel">
+            <div class="descProfile">
+                <img src="./assets/img/account_circle.png" alt="">
+                <span>Vollständiger Name</span>
+            </div>
+            <input type="text" [(ngModel)]=selectedUserDetails.name>
+        </div>
+
+        <div class="alignLabel">
+            <div class="descProfile">
+                <img src="../../../../assets/img/mail (1).png" id="mail" alt="">
+                <span>E-Mail-Adresse</span>
+            </div>
+            <input type="text" [(ngModel)]=selectedUserDetails.email>
+        </div>
+
+    </div>
+
+  
+
+</div>
