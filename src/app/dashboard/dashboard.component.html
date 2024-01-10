@@ -20,7 +20,7 @@
       <span *ngIf="selectedUser?.id === currentUserId">(Du)</span>
       </div>
     </h3>
-    <div *ngIf="selectedChannel" class="channelusers">
+    <div *ngIf="selectedChannel" class="channelusers" (click)="showUsers()">
       <div *ngFor="let user of allUsers">
       <div *ngIf="findUserInChannel(user.id)">
       <img [src]="user.avatar" alt="Avatar" class="user-avatar">

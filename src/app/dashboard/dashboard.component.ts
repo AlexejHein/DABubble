@@ -13,7 +13,9 @@ import { docData } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { Firestore, doc, addDoc, collectionData } from '@angular/fire/firestore';
 import { Thread } from '../models/thread.class';
-import {DialogUserComponent} from "../dialog-user/dialog-user.component";
+import { DialogUserComponent } from "../dialog-user/dialog-user.component";
+import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
+import { DialogEditUsersComponent } from '../dialog-edit-users/dialog-edit-users.component';
 
 
 @Component({
@@ -71,6 +73,8 @@ export class DashboardComponent implements OnInit {
   selectedChannel: Channel | null = null;
   channelId:any/* = 'rt2NJeozgOCVDrlvy2hw'*/;
   channel: Channel = new Channel();
+  channelUsers: any[] = [];
+  usersId:any = "";
   allUsers: User[] = [];
   thread = new Thread();
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
@@ -112,6 +116,7 @@ export class DashboardComponent implements OnInit {
       this.selectedChannel = channel;
       this.selectedUser = null;
       this.channelId = this.selectedChannel!.id;
+      this.channelUsers = this.selectedChannel!.users;
     });
   }
 
@@ -239,6 +244,7 @@ export class DashboardComponent implements OnInit {
     this.thread.authorId = this.currentUserId;
     this.thread.toChannel = this.channelId;
     addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => console.log(r));
+    this.thread.title = '';
   }
 
   addEmoticon(emoticon: string) {
@@ -267,7 +273,53 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  findUserInChannel(id: string | undefined) {
+  findUserInChannel(usersId:any) {
+    let indexChecked = this.channelUsers.indexOf(usersId);
+    if(indexChecked > -1){
+    return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  addUserToChannel() {
+    let threadCollection = collection(this.firestore, 'channels');
+    let threadDoc = doc(threadCollection, this.channelId);
+
+    docData(threadDoc).subscribe((channel) => {
+
+      this.channel = new Channel(channel);
+      this.saveUserToChannel(this.channel, this.channelId);
+
+    });
 
   }
+
+  saveUserToChannel(channel:any, channelId:any){
+    if(this.dialog.openDialogs.length==0){
+    let dialog = this.dialog.open(DialogAddUserComponent, {
+      width: '100%'
+  });
+    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    dialog.componentInstance.channelId = this.channelId;
+}
+  }
+
+  showUsers(){
+    let threadCollection = collection(this.firestore, 'channels');
+    let threadDoc = doc(threadCollection, this.channelId);
+    docData(threadDoc).subscribe((channel) => {
+      this.channel = new Channel(channel);
+      if(this.dialog.openDialogs.length==0){
+        let dialog = this.dialog.open(DialogEditUsersComponent, {
+          width: '100%'
+      });
+        dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+        dialog.componentInstance.channelId = this.channelId;
+    }
+    });
+
+  }
+
 }
