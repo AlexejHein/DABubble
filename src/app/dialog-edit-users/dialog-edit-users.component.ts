@@ -81,11 +81,7 @@ export class DialogEditUsersComponent implements OnInit {
   }
 
   openUserProfile(selectedUser: User): void {
-    this.userService.setSelectedUser(selectedUser);
-    console.log("Selected User:", selectedUser);
-    console.log("Selected User ID:", selectedUser.id);
-    this.selectedUserId = selectedUser.id;
-    this.channelUserId =   this.selectedUserId;
+    this.channelUserId  = selectedUser.id;
 
     this.dialog.open(DialogUserProfileComponent, {
       height: '600px',
