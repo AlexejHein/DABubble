@@ -411,11 +411,24 @@ span.close-menu.closed:after {
         align-items: center;
         gap: 10px;
     }
-  .user-avatar{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+  .user-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px;
+    .user-avatar{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    &:hover{
+      background-color: #eceefe;
+      border-radius: 30px;
+    }
   }
+
 }
 
 .chat-body {
@@ -482,12 +495,12 @@ h3 {
 }
 
 .emoticon-menu {
-  max-width: 300px; 
+  max-width: 300px;
 }
 
 .emoticon-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
   max-height: 250px;
   overflow-y: auto;

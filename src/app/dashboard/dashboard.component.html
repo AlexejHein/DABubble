@@ -14,11 +14,13 @@
 <div class="message-container" [@move]>
   <div class="chat-header">
     <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()"><span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
+      <div class="user-header" (click)="openDialog(selectedUser)">
       <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
       {{ selectedUser ? selectedUser.name : '' }}
       <span *ngIf="selectedUser?.id === currentUserId">(Du)</span>
+      </div>
     </h3>
-    <div *ngIf="selectedChannel" class="channelusers" (click)="showUsers()">
+    <div *ngIf="selectedChannel" class="channelusers">
       <div *ngFor="let user of allUsers">
       <div *ngIf="findUserInChannel(user.id)">
       <img [src]="user.avatar" alt="Avatar" class="user-avatar">
@@ -177,7 +179,7 @@
       </div>
     </div>
   </div>
-  
+
 
 
   <div *ngIf="!selectedChannel" class="message">
@@ -231,7 +233,7 @@
           <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
         </div>
         </mat-menu>
-        
+
         <mat-icon>alternate_email</mat-icon>
       </div>
       <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
