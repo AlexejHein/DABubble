@@ -2,7 +2,7 @@
     <div class="dialog-content">
     <h1>Mitglieder</h1>    
     <div *ngFor="let user of allUsers">
-        <div *ngIf="showUserInChannel(user.id)">
+        <div *ngIf="showUserInChannel(user.id)" (click)="openUserProfile(user)">
        
             <div class="user-prev">
                 <img src="{{user.avatar}}" alt="User Avatar">

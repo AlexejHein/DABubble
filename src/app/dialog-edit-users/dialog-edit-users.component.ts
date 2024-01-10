@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { Channel } from '../models/channel.class';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User.class';
 import { Subscription } from "rxjs";
 import { ThreadsService } from '../services/threads.service';
+import { DialogUserProfileComponent } from '../dialog-user-profile/dialog-user-profile.component';
 
 @Component({
   selector: 'app-dialog-edit-users',
@@ -20,11 +22,14 @@ export class DialogEditUsersComponent implements OnInit {
   selectedChannel: Channel | null = null;
   channelUsers: any[] = [];
   selectedUser:  User | null = null;
+  selectedUserId: any = "";
   allUsers: User[] = [];
   items$!: Observable<any[]>;
   currentUserId: string = "";
+  channelUserId: any = "";
 
   constructor(private userService: UserService,
+    public dialog: MatDialog,
     private threadsService: ThreadsService) {}
 
   async ngOnInit(): Promise<void> {
@@ -75,4 +80,21 @@ export class DialogEditUsersComponent implements OnInit {
     }
   }
 
+  openUserProfile(selectedUser: User): void {
+    this.userService.setSelectedUser(selectedUser);
+    console.log("Selected User:", selectedUser);
+    console.log("Selected User ID:", selectedUser.id);
+    this.selectedUserId = selectedUser.id;
+    this.channelUserId =   this.selectedUserId;
+
+    this.dialog.open(DialogUserProfileComponent, {
+      height: '600px',
+      width: '500px',
+  });
+  this.onSelecteChannelUserId(this.channelUserId);
+  }
+
+  onSelecteChannelUserId(channelUserId:any) {
+    this.userService.getSelectedUserId(channelUserId);
+  }
 }
