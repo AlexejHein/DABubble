@@ -12,6 +12,9 @@ export class UserService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private selectedUserSubject = new BehaviorSubject<User | null>(null);
 
+  private channelUserId$ = new BehaviorSubject<any>({});
+  selecteChannelUserId$ = this.channelUserId$.asObservable();
+
   currentUser = this.currentUserSubject.asObservable();
   selectedUser = this.selectedUserSubject.asObservable();
 
@@ -91,7 +94,9 @@ export class UserService {
     this.selectedUserSubject.next(user);
   }
 
-
+  getSelectedUserId(channelUserId: any) {
+    this.channelUserId$.next(channelUserId);
+  }
 
   updateUserDetails(userId: string, updatedDetails: any): Promise<void> {
     return this.firestore.collection('users').doc(userId).update(updatedDetails);
