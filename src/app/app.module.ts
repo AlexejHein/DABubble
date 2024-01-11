@@ -36,6 +36,7 @@ import { DialogUserProfileComponent } from './dialog-user-profile/dialog-user-pr
 import { ThreadListComponent } from './dashboard/thread-list/thread-list.component';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.component';
+import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.
     ChannelListComponent,
     DialogEditChannelComponent,
     DialogEditUsersComponent,
+    DialogAddUserComponent,
     DialogUserProfileComponent,
     ThreadListComponent
   ],
