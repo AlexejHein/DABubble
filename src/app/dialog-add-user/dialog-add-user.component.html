@@ -1,17 +1,33 @@
 <div class="dialog-container">
+  <h1>Leute hinzufügen</h1>   
+   
+  <div class="inputfieldbox">
+
+    <div *ngFor="let user of allUsers">
+      <div *ngIf="showUserInChannel(user.id)">
+          <div class="user-prev">
+              <img src="{{user.avatar}}" alt="User Avatar">
+              <span>{{user.name}}
+                <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
+              </span><span (click)="removeUserFromChannel(user.id)">x</span>
+            </div>
+      </div>
+    </div> 
+
+
   
-    <!-- <h1 class="dialog-title">Leute hinzufügen</h1>
-    <div class="dialog-content">
-  
-        <div class="form-field" appearance="outline">
-            <div class="form-field-prefix">
-                <input [(ngModel)]="channel.users" required placeholder="Name eingeben" matInput>
-          </div>
+    <input type="text" #filter (keyup)="filterResults(filter.value)" placeholder="Name eingeben">
+      <div *ngFor="let user of filteredAllUsers">
+        <div (click)="addUserToChannel(user.id)">
+            <div class="user-prev">
+                <img src="{{user.avatar}}" alt="User Avatar">
+                <div class="online-indicator" [ngStyle]="{'background-color': user.isOnline ? '#00FF00' : '#006400'}"></div>
+                <span>{{user.name}}
+                  <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
+                </span>
+              </div>
         </div>
-        
+      </div> 
     </div>
-    <mat-dialog-actions class="dialog-buttons" align="end">
-        <button mat-button (click)="saveUserToChannel()" [mat-dialog-close]="true" cdkFocusInitial>Hinzufügen</button>
-      </mat-dialog-actions> -->
-    
+      <button (click)="saveUsersToChannel()">Hinzufügen</button>
     </div>
