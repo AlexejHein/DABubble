@@ -126,7 +126,7 @@
     <div *ngIf="selectedChannel" class="message addthread">
       <div class="chat-box">
         <div class="message-input">
-        <textarea [(ngModel)]="thread.title" placeholder=""></textarea>
+        <textarea  [(ngModel)]="thread.title" placeholder=""></textarea>
       </div>
       <div class="message-send">
         <div class="message-icons">
@@ -187,7 +187,7 @@
   <div *ngIf="!selectedChannel" class="message">
     <div class="chat-box">
       <div class="message-input">
-      <textarea [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>
+      <textarea #messageInput [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>
     </div>
     <div class="message-send">
       <div class="message-icons">

@@ -37,6 +37,8 @@ import { ThreadListComponent } from './dashboard/thread-list/thread-list.compone
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.component';
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
+import { CommonModule} from "@angular/common";
+import {DialogUserComponent} from "./dialog-user/dialog-user.component";
 
 
 @NgModule({
@@ -64,29 +66,30 @@ import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.compon
     DialogUserProfileComponent,
     ThreadListComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MatDialogModule,
-        MatMenuModule,
-        MatFormFieldModule,
-        MatInputModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
-        provideFirebaseApp(() => initializeApp({
-            apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
-            authDomain: "dabubble-97d36.firebaseapp.com",
-            projectId: "dabubble-97d36",
-            storageBucket: "dabubble-97d36.appspot.com",
-            messagingSenderId: "7321163189",
-            appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
-        })),
-        provideFirestore(() => getFirestore()),
-        MatIconModule,
-        MatProgressBarModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp({
+      apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
+      authDomain: "dabubble-97d36.firebaseapp.com",
+      projectId: "dabubble-97d36",
+      storageBucket: "dabubble-97d36.appspot.com",
+      messagingSenderId: "7321163189",
+      appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
+    })),
+    provideFirestore(() => getFirestore()),
+    MatIconModule,
+    MatProgressBarModule,
+    CommonModule
+  ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })

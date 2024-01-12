@@ -16,7 +16,7 @@ import { Thread } from '../models/thread.class';
 import { DialogUserComponent } from "../dialog-user/dialog-user.component";
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { DialogEditUsersComponent } from '../dialog-edit-users/dialog-edit-users.component';
-
+import { FocusService } from '../services/focus.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -80,13 +80,14 @@ export class DashboardComponent implements OnInit {
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
   showReactions = false;
   hoveredIndex:any;
-
+  @ViewChild('messageInput') messageInput: ElementRef | undefined;
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
               private messagesService: MessagesService,
               public dialog: MatDialog,
-              private firestore: Firestore) {}
+              private firestore: Firestore,
+              private focusService: FocusService) {}
 
 
   async ngOnInit(): Promise<void> {
@@ -117,6 +118,9 @@ export class DashboardComponent implements OnInit {
       this.selectedUser = null;
       this.channelId = this.selectedChannel!.id;
       this.channelUsers = this.selectedChannel!.users;
+    });
+    this.focusService.focusMessageInput$.subscribe(() => {
+      this.focusMessageInput();
     });
   }
 
@@ -264,10 +268,11 @@ export class DashboardComponent implements OnInit {
 
   openDialog(user: any): void {
     const dialogRef = this.dialog.open(DialogUserComponent, {
-      width: '250px',
+      width: '500px',
+      height: '600px',
       data: user
     });
-
+    console.log(user);
     dialogRef.afterClosed().subscribe(result => {
       console.log('Der Dialog wurde geschlossen');
     });
@@ -320,6 +325,15 @@ export class DashboardComponent implements OnInit {
     }
     });
 
+  }
+  focusMessageInput(): void {
+    if (this.messageInput) {
+      setTimeout(() => {
+        if (this.messageInput) {
+          this.messageInput.nativeElement.focus();
+        }
+      }, 0);
+    }
   }
 
 }
