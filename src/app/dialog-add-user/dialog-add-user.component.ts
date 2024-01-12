@@ -29,12 +29,13 @@ export class DialogAddUserComponent implements OnInit {
   channelUserId: any = "";
   loadChannelUsers: any[] = [];
   selUserId: any;
+  dropdownVisible: boolean = false;
 
   constructor(private userService: UserService,
     public dialog: MatDialog,
     private threadsService: ThreadsService) {
       this.filteredAllUsers = this.allUsers;
-
+   
     }
 
   async ngOnInit(): Promise<void> {
@@ -45,7 +46,6 @@ export class DialogAddUserComponent implements OnInit {
       this.channelUsers = this.selectedChannel!.users;
       this.channelId = this.selectedChannel!.id;
       this.loadChannelUsers = this.selectedChannel!.users;
-      console.log('selected channel list of users: ', this.loadChannelUsers);
     });
 
     this.userService.getUsers().subscribe(users => {
@@ -72,12 +72,14 @@ export class DialogAddUserComponent implements OnInit {
 filterResults(text: string) {
   if (!text) {
     this.filteredAllUsers = this.allUsers;
+    this.dropdownVisible = false;
     return;
   }
 
   this.filteredAllUsers = this.allUsers.filter(
     allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase())
   );
+  this.dropdownVisible = true;
 }
 
 showUserInChannel(usersId:any){
@@ -91,10 +93,8 @@ showUserInChannel(usersId:any){
 }
 
 addUserToChannel(usersId:any) {
-  //const coll = doc(this.firestore, 'channels', this.channelId);
- // updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));
  this.loadChannelUsers.push(usersId);
- console.log('neue channelUsers:',  this.loadChannelUsers);
+ this.dropdownVisible = false;
 }
 
 removeUserFromChannel(usersId:any) {

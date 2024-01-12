@@ -39,3 +39,21 @@
     font-size: 18px;
   }
 }
+
+.inputfieldbox {
+  position: relative;
+  border: 1px solid;
+  margin-bottom: 20px;
+}
+
+.selectuser {
+  position: absolute;
+  display: table;
+  top: 100%;
+  bottom: 0;
+  padding: 20px;
+}
+
+.dropdown {
+  background: red;
+}

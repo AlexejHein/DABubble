@@ -13,10 +13,10 @@
             </div>
       </div>
     </div> 
-
-
   
     <input type="text" #filter (keyup)="filterResults(filter.value)" placeholder="Name eingeben">
+    <div class="selectuser" *ngIf="dropdownVisible">
+      <div class="dropdown">
       <div *ngFor="let user of filteredAllUsers">
         <div (click)="addUserToChannel(user.id)">
             <div class="user-prev">
@@ -27,7 +27,10 @@
                 </span>
               </div>
         </div>
+      </div>
       </div> 
+    </div>
+    
     </div>
       <button (click)="saveUsersToChannel()">Hinzufügen</button>
     </div>
