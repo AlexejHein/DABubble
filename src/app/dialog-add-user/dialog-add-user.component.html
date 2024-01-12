@@ -5,7 +5,7 @@
 
     <div *ngFor="let user of allUsers">
       <div *ngIf="showUserInChannel(user.id)">
-          <div class="user-prev">
+          <div class="user-prev addmem">
               <img src="{{user.avatar}}" alt="User Avatar">
               <span>{{user.name}}
                 <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
