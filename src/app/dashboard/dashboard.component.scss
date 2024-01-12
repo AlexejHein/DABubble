@@ -290,9 +290,37 @@ gap: 20px;
 align-items: center;
 }
 
+.adduser {
+  cursor: pointer;
+  display: flex;
+  &:before {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: url(/assets/img/add-member.svg);
+    background-size: 100% auto;
+    display: inline-block;
+   
+  }
+  &:hover:before {
+    width: 40px;
+    height: 40px;
+    background: url(/assets/img/add-member-b.svg);
+    background-size: 100% auto;
+  }
+}
+
+
+
 .channelusers {
   display: flex;
   cursor: pointer;
+  align-items: center;
+  padding: 0px 10px 0px 20px;
+  background: transparent;
+  border-radius: 100px;
+  height: 46px;
+  line-height: 1em;
     img {
         margin-left: -12px;
         width: 40px;
@@ -300,6 +328,12 @@ align-items: center;
         object-fit: cover;
         border-radius: 100%;
       }
+     div {
+        display: flex;
+    }
+    &:hover {
+      background: #ECEEFE;
+    }
 }
 
 .chat-header h3:hover .thread-title:after  {
