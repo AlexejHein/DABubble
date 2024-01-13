@@ -56,8 +56,8 @@
                   </div>
                   <div class="message-item">{{ message.body }}</div>
                   <div *ngIf=" hoveredIndex==i" class="choose-emo" >
-                    <div (click)="selectEmo('✅')">✅</div>
-                    <div>🙌</div>
+                    <div (click)="selectEmo('✅', message.id)">✅</div>
+                    <div (click)="selectEmo('🙌', message.id)">🙌</div>
                     <img src="./assets/img/add_reaction.png" [matMenuTriggerFor]="emoticonsMenu">
                     <img src="./assets/img/comment.png" (click)="openThread()">
                     <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">
@@ -105,8 +105,10 @@
                 </div>
               </div>
             </div>
-            <div class="reaction-container" *ngIf="showReactions">
-              {{chosen}}
+            <div class="reaction-summary"  *ngIf="message.reactions && message.reactions.length > 0">
+              <div *ngFor="let reaction of getReactionsSummary(message)">
+                <div class="reaction-summary-item">{{ reaction.emoji }} {{ reaction.count }}</div>
+              </div>
             </div>
           </div>
         </div>

@@ -17,6 +17,7 @@ import { DialogUserComponent } from "../dialog-user/dialog-user.component";
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { DialogEditUsersComponent } from '../dialog-edit-users/dialog-edit-users.component';
 import { FocusService } from '../services/focus.service';
+import {Reaction} from "../models/reaction.class";
 
 @Component({
   selector: 'app-dashboard',
@@ -261,10 +262,50 @@ export class DashboardComponent implements OnInit {
   }
 
   chosen:any
-  selectEmo(emoticon: string){
-    this.showReactions=true;
-    this.chosen=emoticon;
+  selectEmo(emoticon: string, messageId: string){
+    this.showReactions = true;
+    this.chosen = emoticon;
+    const newReaction: Reaction = {
+      emoji: emoticon,
+      userId: this.currentUserId ?? ''
+    };
+
+    const messageToUpdate = this.messages.find(message => message.id === messageId);
+    if (messageToUpdate) {
+      if (!messageToUpdate.reactions) {
+        messageToUpdate.reactions = [newReaction];
+      } else {
+        messageToUpdate.reactions.push(newReaction);
+      }
+
+      // Speichern Sie die aktualisierte Nachricht
+      this.saveUpdatedMessage(messageToUpdate);
+    } else {
+      console.error("Nachricht nicht gefunden");
+    }
   }
+
+  getReactionsSummary(message: Message): { emoji: string, count: number }[] {
+    const summary = new Map<string, number>();
+
+    message.reactions.forEach(reaction => {
+      const count = summary.get(reaction.emoji) || 0;
+      summary.set(reaction.emoji, count + 1);
+    });
+
+    return Array.from(summary, ([emoji, count]) => ({ emoji, count }));
+  }
+
+
+  saveUpdatedMessage(message: Message) {
+    this.messagesService.updateMessage(message).then(() => {
+      console.log("Nachricht erfolgreich aktualisiert");
+    }).catch(error => {
+      console.error("Fehler beim Aktualisieren der Nachricht:", error);
+    });
+  }
+
+
 
   openDialog(user: any): void {
     const dialogRef = this.dialog.open(DialogUserComponent, {

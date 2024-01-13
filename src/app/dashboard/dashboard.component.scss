@@ -122,6 +122,7 @@ html, body {
             margin-bottom: 10px;
             border-radius: 30px 0 30px 30px ;
           }
+
         }
       }
     }
@@ -235,6 +236,22 @@ html, body {
   cursor: pointer;
 }
 
+.reaction-summary{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  .reaction-summary-item{
+    border: 1px solid #eceefe;
+    border-radius: 30px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
 .workspace-container {
     width: calc(100% - 60px);
     max-width: 306px;
@@ -271,7 +288,7 @@ html, body {
   }
   &:hover {
     color: #535AF1;
-   background: #ECEEFE; 
+   background: #ECEEFE;
    border-radius: 100px;
   }
   &:before {
@@ -300,7 +317,7 @@ align-items: center;
     background: url(/assets/img/add-member.svg);
     background-size: 100% auto;
     display: inline-block;
-   
+
   }
   &:hover:before {
     width: 40px;

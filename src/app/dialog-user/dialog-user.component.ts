@@ -119,7 +119,6 @@ export class DialogUserComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
-    console.log('close');
   }
   sendMessage(){
     this.dialogRef.close();

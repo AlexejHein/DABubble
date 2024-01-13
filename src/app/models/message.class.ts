@@ -1,4 +1,5 @@
 import {User} from "./User.class";
+import {Reaction} from "./reaction.class";
 
 export class Message{
     id: string;
@@ -7,6 +8,7 @@ export class Message{
     toUser: string;
     createdAt: Date;
     updatedAt: Date;
+    reactions: Reaction[];
 
     constructor(obj?: any) {
         if (obj) {
@@ -16,6 +18,7 @@ export class Message{
             this.toUser = obj.toUser ?? new User();
             this.createdAt = obj.createdAt ?? new Date();
             this.updatedAt = obj.updatedAt ?? new Date();
+            this.reactions = obj.reactions ?? [];
         } else {
             this.id = '';
             this.body = '';
@@ -23,6 +26,7 @@ export class Message{
             this.toUser = '';
             this.createdAt = new Date();
             this.updatedAt = new Date();
+            this.reactions = [];
         }
     }
 }
