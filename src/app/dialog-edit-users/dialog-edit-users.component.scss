@@ -39,3 +39,36 @@
     font-size: 18px;
   }
 }
+
+span.adduser {
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+  padding: 12px 20px;
+  border-radius: 100px; 
+  width: 235px;
+  &:before {
+    content: "";
+    width: 32px;
+    height: 32px;
+    background: url(/assets/img/add-member.svg);
+    background-size: 100% auto;
+    display: inline-block;
+  }
+  &:hover:before {
+    width: 32px;
+    height: 32px;
+    background: url(/assets/img/add-member-b.svg);
+    background-size: 100% auto;
+  }
+  &:hover {
+    color: #535AF1;
+    background: #ECEEFE;
+  }
+}
+
+

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, docData, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Channel } from '../models/channel.class';
@@ -8,6 +8,7 @@ import { User } from '../models/User.class';
 import { Subscription } from "rxjs";
 import { ThreadsService } from '../services/threads.service';
 import { DialogUserProfileComponent } from '../dialog-user-profile/dialog-user-profile.component';
+import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 
 @Component({
   selector: 'app-dialog-edit-users',
@@ -93,4 +94,29 @@ export class DialogEditUsersComponent implements OnInit {
   onSelecteChannelUserId(channelUserId:any) {
     this.userService.getSelectedUserId(channelUserId);
   }
+
+  addUserToChannel() {
+    let threadCollection = collection(this.firestore, 'channels');
+    let threadDoc = doc(threadCollection, this.channelId);
+
+    docData(threadDoc).subscribe((channel) => {
+
+      this.channel = new Channel(channel);
+      this.saveUsersToChannel(this.channel, this.channelId);
+
+    });
+
+  }
+
+  saveUsersToChannel(channel:any, channelId:any){
+    if(this.dialog.openDialogs.length==1){
+    let dialog = this.dialog.open(DialogAddUserComponent, {
+      width: '100%'
+  });
+    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    dialog.componentInstance.channelId = this.channelId;
+}
+  }
+
+
 }
