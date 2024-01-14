@@ -4,7 +4,7 @@
         <img src="./assets/img/close.png" [mat-dialog-close]="true">
     </div>
     
-    <img [src]="selectedUserDetails?.avatar" alt="user">
+    <img [src]="selectedUserDetails?.avatar" alt="user" class="profileimg">
 
     <div class="profileName" *ngIf="!startEdit">
         <div>{{ selectedUserDetails?.name }}</div>
