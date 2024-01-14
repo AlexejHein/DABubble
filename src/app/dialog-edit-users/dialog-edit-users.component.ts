@@ -98,7 +98,7 @@ export class DialogEditUsersComponent implements OnInit {
   addUserToChannel() {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
-
+    this.dialog.closeAll();
     docData(threadDoc).subscribe((channel) => {
 
       this.channel = new Channel(channel);
