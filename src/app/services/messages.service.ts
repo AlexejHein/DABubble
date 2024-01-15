@@ -14,14 +14,14 @@ export class MessagesService {
     private auth: AngularFireAuth
   ) { }
 
-  saveMessage(message: any) {
-    return this.firestore.collection('messages').add(message).then(docRef => {
+  async saveMessage(message: any) {
+    try {
+      const docRef = await this.firestore.collection('messages').add(message);
       console.log("Document written with ID: ", docRef.id);
       message.id = docRef.id;
-    })
-      .catch(error => {
-        console.error("Error adding document: ", error);
-      });
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   }
 
   updateMessage(message: Message) {

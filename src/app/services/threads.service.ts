@@ -23,4 +23,6 @@ export class ThreadsService {
     this.selectedThreadSubject.next(thread);
    }
 
-} 
+
+
+}

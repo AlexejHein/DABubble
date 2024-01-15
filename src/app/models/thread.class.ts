@@ -1,3 +1,5 @@
+import {Reaction} from "./reaction.class";
+
 export class Thread {
     id: string;
     authorId: string | null;
@@ -5,6 +7,7 @@ export class Thread {
     toChannel: string;
     createdAt: Date;
     updatedAt: Date;
+    reactions: Reaction[] = [];
 
     constructor(obj?: any) {
         if (obj) {
@@ -14,6 +17,7 @@ export class Thread {
             this.toChannel = obj.toChannel ?? '';
             this.createdAt = obj.createdAt ?? new Date();
             this.updatedAt = obj.updatedAt ?? new Date();
+            this.reactions = obj.reactions ?? [];
         } else {
             this.id = '';
             this.authorId = '';
@@ -21,6 +25,7 @@ export class Thread {
             this.toChannel = '';
             this.createdAt = new Date();
             this.updatedAt = new Date();
+            this.reactions = [];
         }
     }
 
@@ -31,7 +36,8 @@ export class Thread {
             title: this.title,
             toChannel: this.toChannel,
             createdAt: this.createdAt,
-            updatedAt: this.updatedAt
+            updatedAt: this.updatedAt,
+            reactions: this.reactions
         };
     }
 }

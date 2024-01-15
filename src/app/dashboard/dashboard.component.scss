@@ -379,18 +379,18 @@ align-items: center;
 
 .workspace-container.moveleft {
 
-    width: 0px!important;
-    margin-left: -20px;
-    padding-right: 0px;
-    padding-left: 0px;
+    width: 0!important;
+    margin-left: -20;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .thread-container.moveright {
 
-    width: 0px!important;
+    width: 0!important;
     margin-right: -20px;
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .workspace-menu {
@@ -547,6 +547,7 @@ h3 {
     .message-item{
       background-color:white !important;
       cursor: pointer;
+      color: #000000;
   }
   }
 }
@@ -561,6 +562,9 @@ h3 {
   gap: 5px;
   max-height: 250px;
   overflow-y: auto;
+}
+.message-item:hover .choose-emo {
+  display: block;
 }
 
 .choose-emo{

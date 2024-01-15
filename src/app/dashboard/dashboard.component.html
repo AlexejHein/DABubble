@@ -36,11 +36,12 @@
     <div *ngIf="selectedChannel" class="thread-body">
       <div class="channel-description">{{ selectedChannel.description }}</div>
       <div class="channel-threads">
-        <app-thread-list></app-thread-list>
+        <app-thread-list>
+        </app-thread-list>
       </div>
     </div>
     <div *ngIf="!selectedChannel" class="messageOutput" #myScrollContainer>
-      <div *ngFor="let message of messages; let i = index">
+      <div *ngFor="let message of messages; let i = index" (mouseenter)="showEmoticonMenu(i)" (mouseleave)="hideEmoticonMenu()">
         <div class="date-hr" *ngIf="i === 0 || (messages[i-1].createdAt | date) !== (message.createdAt | date)">
           <span><small>{{ message.createdAt | date }}</small></span>
         </div>

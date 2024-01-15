@@ -1,8 +1,13 @@
-<div *ngFor="let thread of allThreadsFiltered" class="thread-list">
-  <div class="message-direction">
+<div *ngFor="let thread of allThreadsFiltered; let i = index" (mouseenter)="showThreadMenu(i)" (mouseleave)="hideThreadMenu()">
+<div class="message-direction">
     <div class="message-card">
       <div *ngFor="let user of allUsers">
         <div class="message-box" *ngIf="user.id === thread.authorId">
+          <div *ngIf=" hoveredIndex==i" class="choose" >
+            <div (click)="selectEmoForThread('✅', thread.id)">✅</div>
+            <div (click)="selectEmoForThread('🙌', thread.id)">🙌</div>
+            <img src="./assets/img/add_reaction.png" >
+          </div>
           <img [src]="user.avatar" alt="Avatar" class="user-avatar">
           <div>
             <div class="message-head">

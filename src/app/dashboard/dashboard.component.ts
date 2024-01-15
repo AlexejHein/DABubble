@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/animations';
 import { UserService } from '../services/user.service';
 import { User} from "../models/User.class";
@@ -18,6 +18,7 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { DialogEditUsersComponent } from '../dialog-edit-users/dialog-edit-users.component';
 import { FocusService } from '../services/focus.service';
 import {Reaction} from "../models/reaction.class";
+import { ChangeDetectorRef} from "@angular/core";
 
 @Component({
   selector: 'app-dashboard',
@@ -88,7 +89,8 @@ export class DashboardComponent implements OnInit {
               private messagesService: MessagesService,
               public dialog: MatDialog,
               private firestore: Firestore,
-              private focusService: FocusService) {}
+              private focusService: FocusService,
+              private changeDetector: ChangeDetectorRef) {}
 
 
   async ngOnInit(): Promise<void> {
@@ -259,9 +261,12 @@ export class DashboardComponent implements OnInit {
 
   showEmoticonMenu(i:number): void {
     this.hoveredIndex=i;
+    console.log("hoveredIndex:", this.hoveredIndex);
+    this.changeDetector.detectChanges();
   }
 
   chosen:any
+  hideEmoticonMenu = signal<any | null>(null);
   selectEmo(emoticon: string, messageId: string){
     this.showReactions = true;
     this.chosen = emoticon;
@@ -269,7 +274,6 @@ export class DashboardComponent implements OnInit {
       emoji: emoticon,
       userId: this.currentUserId ?? ''
     };
-
     const messageToUpdate = this.messages.find(message => message.id === messageId);
     if (messageToUpdate) {
       if (!messageToUpdate.reactions) {
@@ -277,8 +281,6 @@ export class DashboardComponent implements OnInit {
       } else {
         messageToUpdate.reactions.push(newReaction);
       }
-
-      // Speichern Sie die aktualisierte Nachricht
       this.saveUpdatedMessage(messageToUpdate);
     } else {
       console.error("Nachricht nicht gefunden");
@@ -332,9 +334,7 @@ export class DashboardComponent implements OnInit {
   addUserToChannel() {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
-
     docData(threadDoc).subscribe((channel) => {
-
       this.channel = new Channel(channel);
       this.saveUserToChannel(this.channel, this.channelId);
 
