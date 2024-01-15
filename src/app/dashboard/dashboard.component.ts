@@ -267,25 +267,33 @@ export class DashboardComponent implements OnInit {
 
   chosen:any
   hideEmoticonMenu = signal<any | null>(null);
-  selectEmo(emoticon: string, messageId: string){
+  selectEmo(emoticon: string, messageId: string) {
     this.showReactions = true;
     this.chosen = emoticon;
     const newReaction: Reaction = {
-      emoji: emoticon,
-      userId: this.currentUserId ?? ''
+        emoji: emoticon,
+        userId: this.currentUserId ?? ''
     };
     const messageToUpdate = this.messages.find(message => message.id === messageId);
     if (messageToUpdate) {
-      if (!messageToUpdate.reactions) {
-        messageToUpdate.reactions = [newReaction];
-      } else {
-        messageToUpdate.reactions.push(newReaction);
-      }
-      this.saveUpdatedMessage(messageToUpdate);
+        if (!messageToUpdate.reactions) {
+            messageToUpdate.reactions = [newReaction];
+        } else {
+            const existingReactionIndex = messageToUpdate.reactions.findIndex(
+                reaction => reaction.userId === this.currentUserId && reaction.emoji === emoticon
+            );
+            if (existingReactionIndex !== -1) {
+                messageToUpdate.reactions.splice(existingReactionIndex, 1);
+            } else {
+                messageToUpdate.reactions.push(newReaction);
+            }
+        }
+        this.saveUpdatedMessage(messageToUpdate);
     } else {
-      console.error("Nachricht nicht gefunden");
+        console.error("Nachricht nicht gefunden");
     }
-  }
+}
+
 
   getReactionsSummary(message: Message): { emoji: string, count: number }[] {
     const summary = new Map<string, number>();
