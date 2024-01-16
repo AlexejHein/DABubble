@@ -399,9 +399,8 @@ export class DashboardComponent implements OnInit {
 
   async upload(event:any){
     const file = event.target.files[0];
-    console.log(file);
     
-   
+    if(file){
       console.log(file);
       const path=`messageImage/${file.name}` 
       const uploadTask=  await this.fireStorage.upload(path,file)
@@ -413,7 +412,7 @@ export class DashboardComponent implements OnInit {
       };
 
       this.message.body= this.uploadedFileInfo.name
-    
+    }
   }
 
 }
