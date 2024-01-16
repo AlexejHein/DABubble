@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
   messages: Message[] = [];
   message: any = {};
   selectedChannel: Channel | null = null;
-  channelId:any/* = 'rt2NJeozgOCVDrlvy2hw'*/;
+  channelId:any | undefined/* = 'rt2NJeozgOCVDrlvy2hw'*/;
   channel: Channel = new Channel();
   channelUsers: any[] = [];
   usersId:any = "";
@@ -116,11 +116,13 @@ export class DashboardComponent implements OnInit {
       this.selectedChannel = null;
       this.loadMessages();
     });
-     this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
-      this.selectedChannel = channel;
-      this.selectedUser = null;
-      this.channelId = this.selectedChannel!.id;
-      this.channelUsers = this.selectedChannel!.users;
+    this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
+      if (channel) {
+        this.selectedChannel = channel;
+        this.selectedUser = null;
+        this.channelId = this.selectedChannel.id;
+        this.channelUsers = this.selectedChannel.users;
+      }
     });
     this.focusService.focusMessageInput$.subscribe(() => {
       this.focusMessageInput();
