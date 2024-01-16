@@ -19,6 +19,7 @@ import { DialogEditUsersComponent } from '../dialog-edit-users/dialog-edit-users
 import { FocusService } from '../services/focus.service';
 import {Reaction} from "../models/reaction.class";
 import { ChangeDetectorRef} from "@angular/core";
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-dashboard',
@@ -83,6 +84,7 @@ export class DashboardComponent implements OnInit {
   showReactions = false;
   hoveredIndex:any;
   @ViewChild('messageInput') messageInput: ElementRef | undefined;
+  uploadedFileInfo: any
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -90,7 +92,8 @@ export class DashboardComponent implements OnInit {
               public dialog: MatDialog,
               private firestore: Firestore,
               private focusService: FocusService,
-              private changeDetector: ChangeDetectorRef) {}
+              private changeDetector: ChangeDetectorRef,
+              private fireStorage: AngularFireStorage,) {}
 
 
   async ngOnInit(): Promise<void> {
@@ -169,6 +172,12 @@ export class DashboardComponent implements OnInit {
 
   saveMessage() {
     if (this.currentUserId && this.selectedUser && this.message.body.trim() !== '') {
+      if (this.uploadedFileInfo) {
+        // If an image is uploaded, include its information in the message body
+        this.message.body = this.uploadedFileInfo.url;
+        this.uploadedFileInfo = null; // Reset uploaded file information
+      }
+  
       this.message.user = this.currentUserId;
       this.message.toUser = this.selectedUser.id;
       this.message.createdAt = new Date();
@@ -385,6 +394,26 @@ export class DashboardComponent implements OnInit {
         }
       }, 0);
     }
+  }
+
+
+  async upload(event:any){
+    const file = event.target.files[0];
+    console.log(file);
+    
+   
+      console.log(file);
+      const path=`messageImage/${file.name}` 
+      const uploadTask=  await this.fireStorage.upload(path,file)
+      const url = await uploadTask.ref.getDownloadURL()
+      console.log(url);
+      this.uploadedFileInfo = {
+        name: file.name,
+        url: url
+      };
+
+      this.message.body= this.uploadedFileInfo.name
+    
   }
 
 }
