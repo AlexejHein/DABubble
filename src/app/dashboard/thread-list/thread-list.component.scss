@@ -67,4 +67,19 @@
     }
   }
 }
+.reaction{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  .reaction-item{
+    border: 1px solid #eceefe;
+    border-radius: 30px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}
 

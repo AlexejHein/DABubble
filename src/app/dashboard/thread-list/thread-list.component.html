@@ -15,6 +15,11 @@
               <!--<small>{{ thread.createdAt | date:'HH:mm':'UTC' }}</small>-->
             </div>
             <div class="message-item">{{thread.title}}</div>
+            <div class="reactions" *ngIf="thread.reactions && thread.reactions.length > 0">
+              <div *ngFor="let reactionCount of getReactionCounts(thread.reactions) | keyvalue">
+                <div class="reactions-item">{{reactionCount.key}} {{reactionCount.value}}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

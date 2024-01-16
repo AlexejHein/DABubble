@@ -7,6 +7,9 @@ import { ThreadsService } from 'src/app/services/threads.service';
 import { UserService } from '../../services/user.service';
 import { User} from "../../models/User.class";
 import {Reaction} from "../../models/reaction.class";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+
+
 
 @Component({
   selector: 'app-thread-list',
@@ -15,7 +18,7 @@ import {Reaction} from "../../models/reaction.class";
 })
 export class ThreadListComponent implements OnInit {
 
-  firestore: Firestore = inject(Firestore)
+  //firestore: Firestore = inject(Firestore)
   items$!: Observable<any[]>;
   private subscription: Subscription | null = null;
   allThreads: any[] = [];
@@ -33,10 +36,14 @@ export class ThreadListComponent implements OnInit {
   hideThreadMenu = signal<any | null>(null);
   private chosen: string | undefined;
   private showReactions: boolean | undefined;
+  private threadsRef: any;
 
   constructor(  private userService: UserService,
                 protected threadsService: ThreadsService,
-                private changeDetector: ChangeDetectorRef) {}
+                private changeDetector: ChangeDetectorRef,
+                private firestore: AngularFirestore,) {
+    this.threadsRef = this.firestore.collection('threads').ref;
+  }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => {
@@ -53,8 +60,10 @@ export class ThreadListComponent implements OnInit {
       }
     });
 
-    const aCollection = collection(this.firestore, 'threads')
-    this.items$ = collectionData(aCollection, { idField: 'id' });
+    //const aCollection = collection(this.firestore, 'threads')
+    //this.items$ = collectionData(aCollection, { idField: 'id' });
+    this.items$ = this.firestore.collection('threads').valueChanges({ idField: 'id' });
+
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
       console.log(threads);
@@ -71,6 +80,13 @@ export class ThreadListComponent implements OnInit {
       });
 
   }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
 
   showThreadMenu(i: number) {
     this.hoveredIndex=i;
@@ -105,6 +121,20 @@ export class ThreadListComponent implements OnInit {
 
 
   saveUpdatedThread(threadToUpdate: any) {
-
+    const threadRef = this.threadsRef.doc(threadToUpdate.id);
+    threadRef.update({
+      reactions: threadToUpdate.reactions
+    }).then(() => {
+      console.log("Thread erfolgreich aktualisiert");
+    }).catch((error: any) => {
+      console.error("Fehler beim Aktualisieren des Threads: ", error);
+    });
+  }
+  getReactionCounts(reactions: Reaction[]): any {
+    const counts: {[key: string]: number} = {};
+    reactions.forEach(reaction => {
+      counts[reaction.emoji] = (counts[reaction.emoji] || 0) + 1;
+    });
+    return counts;
   }
 }
