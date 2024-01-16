@@ -1,6 +1,5 @@
 import {Component, OnInit, inject, signal, ChangeDetectorRef} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { Thread } from 'src/app/models/thread.class';
 import { ThreadsService } from 'src/app/services/threads.service';
