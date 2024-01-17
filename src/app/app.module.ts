@@ -64,7 +64,7 @@ import {DialogUserComponent} from "./dialog-user/dialog-user.component";
     DialogEditUsersComponent,
     DialogAddUserComponent,
     DialogUserProfileComponent,
-    ThreadListComponent
+    ThreadListComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +88,7 @@ import {DialogUserComponent} from "./dialog-user/dialog-user.component";
     provideFirestore(() => getFirestore()),
     MatIconModule,
     MatProgressBarModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
