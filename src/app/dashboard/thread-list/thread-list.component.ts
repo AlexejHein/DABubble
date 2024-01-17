@@ -58,6 +58,12 @@ export class ThreadListComponent implements OnInit {
         this.currentUserAvatar = this.currentUser.avatar;
       }
     });
+    this.userService.getCurrentUserId().then(id => {
+      this.currentUserId = id;
+      console.log("Current User ID:", this.currentUserId);
+    }).catch(error => {
+      console.error("Error getting current user ID:", error);
+    });
 
     //const aCollection = collection(this.firestore, 'threads')
     //this.items$ = collectionData(aCollection, { idField: 'id' });
@@ -97,7 +103,7 @@ export class ThreadListComponent implements OnInit {
     this.chosen = emoticon;
     const newReaction: Reaction = {
       emoji: emoticon,
-      userId: this.currentUserId ?? ''
+      userId: this.currentUserId ?? '',
     };
     const threadToUpdate = this.allThreadsFiltered.find(thread => thread.id === threadId);
     if (threadToUpdate) {
