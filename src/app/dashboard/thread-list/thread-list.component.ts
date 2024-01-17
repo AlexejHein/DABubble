@@ -99,7 +99,6 @@ export class ThreadListComponent implements OnInit {
       emoji: emoticon,
       userId: this.currentUserId ?? ''
     };
-
     const threadToUpdate = this.allThreadsFiltered.find(thread => thread.id === threadId);
     if (threadToUpdate) {
       if (!threadToUpdate.reactions) {

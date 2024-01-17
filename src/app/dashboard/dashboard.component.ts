@@ -177,7 +177,7 @@ export class DashboardComponent implements OnInit {
         this.message.body = this.uploadedFileInfo.url;
         this.uploadedFileInfo = null; // Reset uploaded file information
       }
-  
+
       this.message.user = this.currentUserId;
       this.message.toUser = this.selectedUser.id;
       this.message.createdAt = new Date();
@@ -272,7 +272,6 @@ export class DashboardComponent implements OnInit {
 
   showEmoticonMenu(i:number): void {
     this.hoveredIndex=i;
-    console.log("hoveredIndex:", this.hoveredIndex);
     this.changeDetector.detectChanges();
   }
 
@@ -334,20 +333,14 @@ export class DashboardComponent implements OnInit {
       height: '600px',
       data: user
     });
-    console.log(user);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Der Dialog wurde geschlossen');
+
     });
   }
 
   findUserInChannel(usersId:any) {
     let indexChecked = this.channelUsers.indexOf(usersId);
-    if(indexChecked > -1){
-    return true;
-    }
-    else {
-      return false;
-    }
+    return indexChecked > -1;
   }
 
   addUserToChannel() {
@@ -399,10 +392,10 @@ export class DashboardComponent implements OnInit {
 
   async upload(event:any){
     const file = event.target.files[0];
-    
+
     if(file){
       console.log(file);
-      const path=`messageImage/${file.name}` 
+      const path=`messageImage/${file.name}`
       const uploadTask=  await this.fireStorage.upload(path,file)
       const url = await uploadTask.ref.getDownloadURL()
       console.log(url);
@@ -410,7 +403,6 @@ export class DashboardComponent implements OnInit {
         name: file.name,
         url: url
       };
-
       this.message.body= this.uploadedFileInfo.name
     }
   }

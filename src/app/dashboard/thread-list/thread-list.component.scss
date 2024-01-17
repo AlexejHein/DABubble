@@ -67,12 +67,13 @@
     }
   }
 }
-.reaction{
+.reactions{
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  .reaction-item{
+  color: #000000;
+  .reactions-item{
     border: 1px solid #eceefe;
     border-radius: 30px;
     padding: 5px 10px;
