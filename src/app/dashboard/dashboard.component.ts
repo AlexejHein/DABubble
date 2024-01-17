@@ -407,4 +407,49 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+async uploadPDF(event: any) {
+  const file = event.target.files[0];
+
+  if (file && file.type === 'application/pdf') {
+    const path = `messagePDF/${file.name}`;
+    const uploadTask = await this.fireStorage.upload(path, file);
+    const url = await uploadTask.ref.getDownloadURL();
+    console.log(url);
+
+    this.uploadedFileInfo = {
+      name: file.name,
+      url: url
+    };
+
+    this.message.body = this.uploadedFileInfo.name;
+  } else {
+    console.error('Invalid file format. Please select a PDF file.');
+  }
+}
+
+
+isImage(url: string): boolean {
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+  const isImage = imageExtensions.some(ext => url.toLowerCase().includes(ext));
+
+  return isImage;
+}
+
+isPDF(url: string): boolean {
+  const isPDF = url.toLowerCase().includes('.pdf');
+
+  return isPDF;
+}
+
+
+getPDFFileName(url: string): string {
+  const decodedUrl = decodeURIComponent(url);
+  const urlParts = decodedUrl.split('/');
+  return urlParts[urlParts.length - 1].split('?')[0];
+}
+
+
+
+
 }

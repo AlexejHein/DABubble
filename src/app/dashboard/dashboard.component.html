@@ -56,9 +56,17 @@
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
                   </div>
                   <div *ngIf="!message.body.startsWith('http')" class="message-item">{{ message.body }}</div>
-                  <div *ngIf="message.body.startsWith('http')">
-                    <img [src]="message.body" alt="Uploaded Image" />
-                  </div>
+
+                        <div *ngIf="message.body.startsWith('http')">
+                          <ng-container *ngIf="isImage(message.body)">
+                            <img [src]="message.body" class="styleImg" />
+                          </ng-container>
+                          <ng-container *ngIf="isPDF(message.body)">
+                            <a [href]="message.body" target="_blank">{{ getPDFFileName(message.body) }}</a>
+                            
+                          </ng-container>
+                        </div>
+
                   <div *ngIf=" hoveredIndex==i" class="choose-emo" >
                     <div (click)="selectEmo('✅', message.id)">✅</div>
                     <div (click)="selectEmo('🙌', message.id)">🙌</div>
@@ -201,7 +209,8 @@
         <mat-menu #addMenu="matMenu" >
           <button mat-menu-item (click)="file.click()">add picture</button>
           <input type="file" (change)="upload($event)" hidden #file>
-          <button mat-menu-item >add file</button>
+          <button mat-menu-item (click)="filePDF.click()">add file</button>
+          <input type="file" (change)="uploadPDF($event)" accept=".pdf" #filePDF  hidden >
         </mat-menu>
         <div class="hr"></div>
         <mat-icon class="emoticon-menu" [matMenuTriggerFor]="emoticonsMenu">insert_emoticon</mat-icon>
