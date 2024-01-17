@@ -38,6 +38,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.component';
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 import { CommonModule} from "@angular/common";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {DialogUserComponent} from "./dialog-user/dialog-user.component";
 
 
@@ -89,6 +90,7 @@ import {DialogUserComponent} from "./dialog-user/dialog-user.component";
     MatIconModule,
     MatProgressBarModule,
     CommonModule,
+    MatAutocompleteModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

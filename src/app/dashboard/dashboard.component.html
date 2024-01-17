@@ -262,8 +262,10 @@
           <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
         </div>
         </mat-menu>
-
-        <mat-icon>alternate_email</mat-icon>
+        <mat-icon [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
+        <mat-menu #selectUser="matMenu" >
+          <button  *ngFor="let user of allUsers">{{user.name}}</button>
+        </mat-menu>
       </div>
       <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
     </div>
