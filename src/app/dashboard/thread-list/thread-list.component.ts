@@ -141,4 +141,24 @@ export class ThreadListComponent implements OnInit {
     });
     return counts;
   }
+
+  isImage(url: string): boolean {
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+    const isImage = imageExtensions.some(ext => url.toLowerCase().includes(ext));
+  
+    return isImage;
+  }
+  
+  isPDF(url: string): boolean {
+    const isPDF = url.toLowerCase().includes('.pdf');
+  
+    return isPDF;
+  }
+  
+  
+  getPDFFileName(url: string): string {
+    const decodedUrl = decodeURIComponent(url);
+    const urlParts = decodedUrl.split('/');
+    return urlParts[urlParts.length - 1].split('?')[0];
+  }
 }

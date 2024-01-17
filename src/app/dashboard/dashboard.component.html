@@ -140,11 +140,18 @@
     <div *ngIf="selectedChannel" class="message addthread">
       <div class="chat-box">
         <div class="message-input">
-        <textarea  [(ngModel)]="thread.title" placeholder=""></textarea>
+        <textarea  [(ngModel)]="thread.title" placeholder="Nachricht an ..."></textarea>
       </div>
       <div class="message-send">
         <div class="message-icons">
-          <mat-icon>add</mat-icon>
+      
+          <mat-icon [matMenuTriggerFor]="addMenuThread" class="addBtn">add</mat-icon>
+          <mat-menu #addMenuThread="matMenu" >
+            <button mat-menu-item (click)="fileThread.click()">add picture</button>
+            <input type="file" (change)="upload($event)" hidden #fileThread>
+            <button mat-menu-item (click)="filePDFThread.click()">add file</button>
+            <input type="file" (change)="uploadPDF($event)" accept=".pdf" #filePDFThread  hidden >
+          </mat-menu>
           <div class="hr"></div>
           <mat-icon class="emoticon-menu" [matMenuTriggerFor]="emoticonsMenu">insert_emoticon</mat-icon>
           <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">

@@ -259,6 +259,10 @@ export class DashboardComponent implements OnInit {
   }
 
   saveThread() {
+    if (this.uploadedFileInfo) {
+      this.thread.title = this.uploadedFileInfo.url;
+      this.uploadedFileInfo = null; // Reset uploaded file information
+    }
     this.thread.authorId = this.currentUserId;
     this.thread.toChannel = this.channelId;
     addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => console.log(r));
@@ -408,25 +412,31 @@ export class DashboardComponent implements OnInit {
   }
 
 
-async uploadPDF(event: any) {
-  const file = event.target.files[0];
-
-  if (file && file.type === 'application/pdf') {
-    const path = `messagePDF/${file.name}`;
-    const uploadTask = await this.fireStorage.upload(path, file);
-    const url = await uploadTask.ref.getDownloadURL();
-    console.log(url);
-
-    this.uploadedFileInfo = {
-      name: file.name,
-      url: url
-    };
-
-    this.message.body = this.uploadedFileInfo.name;
-  } else {
-    console.error('Invalid file format. Please select a PDF file.');
+  async uploadPDF(event: any) {
+    try {
+      const file = event.target.files[0];
+  
+      if (file && file.type === 'application/pdf') {
+        const path = `messagePDF/${file.name}`;
+        const uploadTask = await this.fireStorage.upload(path, file);
+        const url = await uploadTask.ref.getDownloadURL();
+        console.log(url);
+  
+        this.uploadedFileInfo = {
+          name: file.name,
+          url: url
+        };
+  
+        this.message.body = this.uploadedFileInfo.name;
+        this.thread.title= this.uploadedFileInfo.name;
+      } else {
+        console.error('Invalid file format. Please select a PDF file.');
+      }
+    } catch (error) {
+      console.error('Error uploading PDF:', error);
+    }
   }
-}
+  
 
 
 isImage(url: string): boolean {
