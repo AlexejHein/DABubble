@@ -39,7 +39,7 @@ import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 import { CommonModule} from "@angular/common";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {DialogUserComponent} from "./dialog-user/dialog-user.component";
+
 
 
 @NgModule({
