@@ -84,7 +84,9 @@ export class DashboardComponent implements OnInit {
   showReactions = false;
   hoveredIndex:any;
   @ViewChild('messageInput') messageInput: ElementRef | undefined;
-  uploadedFileInfo: any
+  uploadedFileInfo: any;
+  tooltipVisible = false;
+  tooltipVisibleMap = new Map<string, boolean>();
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -309,15 +311,19 @@ export class DashboardComponent implements OnInit {
 }
 
 
-  getReactionsSummary(message: Message): { emoji: string, count: number }[] {
-    const summary = new Map<string, number>();
+  getReactionsSummary(message: Message): { emoji: string, count: number, userId?: string }[] {
+    const summary = new Map<string, { count: number, userId?: string }>();
 
     message.reactions.forEach(reaction => {
-      const count = summary.get(reaction.emoji) || 0;
-      summary.set(reaction.emoji, count + 1);
+      const existingReaction = summary.get(reaction.emoji);
+      if (existingReaction) {
+        existingReaction.count += 1;
+      } else {
+        summary.set(reaction.emoji, { count: 1, userId: reaction.userId });
+      }
     });
 
-    return Array.from(summary, ([emoji, count]) => ({ emoji, count }));
+    return Array.from(summary, ([emoji, { count, userId }]) => ({ emoji, count, userId }));
   }
 
 
@@ -415,18 +421,18 @@ export class DashboardComponent implements OnInit {
   async uploadPDF(event: any) {
     try {
       const file = event.target.files[0];
-  
+
       if (file && file.type === 'application/pdf') {
         const path = `messagePDF/${file.name}`;
         const uploadTask = await this.fireStorage.upload(path, file);
         const url = await uploadTask.ref.getDownloadURL();
         console.log(url);
-  
+
         this.uploadedFileInfo = {
           name: file.name,
           url: url
         };
-  
+
         this.message.body = this.uploadedFileInfo.name;
         this.thread.title= this.uploadedFileInfo.name;
       } else {
@@ -436,7 +442,7 @@ export class DashboardComponent implements OnInit {
       console.error('Error uploading PDF:', error);
     }
   }
-  
+
 
 
 isImage(url: string): boolean {
@@ -459,7 +465,10 @@ getPDFFileName(url: string): string {
   return urlParts[urlParts.length - 1].split('?')[0];
 }
 
-
+  getUserName(userId: string | undefined): string {
+    const user = this.allUsers.find(user => user.id === userId);
+    return user ? user.name : '';
+  }
 
 
 }

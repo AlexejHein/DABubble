@@ -63,7 +63,7 @@
                           </ng-container>
                           <ng-container *ngIf="isPDF(message.body)">
                             <a [href]="message.body" target="_blank">{{ getPDFFileName(message.body) }}</a>
-                            
+
                           </ng-container>
                         </div>
 
@@ -119,7 +119,9 @@
             </div>
             <div class="reaction-summary"  *ngIf="message.reactions && message.reactions.length > 0">
               <div *ngFor="let reaction of getReactionsSummary(message)">
-                <div class="reaction-summary-item">{{ reaction.emoji }} {{ reaction.count }}</div>
+                <div class="reaction-summary-item" [attr.data-tooltip-text]="'Reaction von:\n' + getUserName(reaction.userId)">
+                  {{ reaction.emoji }} {{ reaction.count }}
+                </div>
               </div>
             </div>
           </div>
@@ -144,7 +146,7 @@
       </div>
       <div class="message-send">
         <div class="message-icons">
-      
+
           <mat-icon [matMenuTriggerFor]="addMenuThread" class="addBtn">add</mat-icon>
           <mat-menu #addMenuThread="matMenu" >
             <button mat-menu-item (click)="fileThread.click()">add picture</button>

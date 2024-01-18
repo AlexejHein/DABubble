@@ -615,3 +615,24 @@ h3 {
   height: auto !important;
   width: auto !important;
 }
+[data-tooltip-text] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-tooltip-text]:hover::before {
+  content: attr(data-tooltip-text);
+  position: absolute;
+  background-color: blue;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  left: 0;
+  bottom: 100%;
+  white-space: pre-line;
+  z-index: 1111;
+  width: 150px;
+  height: 50px;
+  text-align: center;
+}
+
