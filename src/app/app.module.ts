@@ -39,7 +39,7 @@ import { DialogEditUsersComponent } from './dialog-edit-users/dialog-edit-users.
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 import { CommonModule} from "@angular/common";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { CustomTooltipComponent } from './dashboard/custom-tooltip/custom-tooltip.component';
+
 
 
 
@@ -67,7 +67,6 @@ import { CustomTooltipComponent } from './dashboard/custom-tooltip/custom-toolti
     DialogAddUserComponent,
     DialogUserProfileComponent,
     ThreadListComponent,
-    CustomTooltipComponent,
   ],
   imports: [
     BrowserModule,
