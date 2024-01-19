@@ -6,7 +6,7 @@
           <div *ngIf=" hoveredIndex==i" class="choose" >
             <div (click)="selectEmoForThread('✅', thread.id)">✅</div>
             <div (click)="selectEmoForThread('🙌', thread.id)">🙌</div>
-            
+
             <img src="./assets/img/add_reaction.png" >
           </div>
           <img [src]="user.avatar" alt="Avatar" class="user-avatar">
@@ -23,15 +23,15 @@
               </ng-container>
               <ng-container *ngIf="isPDF(thread.title)">
                 <a [href]="thread.title" target="_blank">{{ getPDFFileName(thread.title) }}</a>
-                
+
               </ng-container>
             </div>
-            <div class="reactions" *ngIf="thread.reactions && thread.reactions.length > 0">
-              <div *ngFor="let reactionCount of getReactionCounts(thread.reactions) | keyvalue">
-                <div class="reactions-item">{{reactionCount.key}} {{reactionCount.value}}</div>
+            <div class="reactions"  *ngIf="thread.reactions && thread.reactions.length > 0">
+              <div *ngFor="let reaction of getReactionCounts(thread)">
+                <div class="reactions-item" [attr.data-tooltip-text]="reaction.emoji + '\n' + getUserName(reaction.userId) + '\n hat reagiert'">
+                  {{ reaction.emoji }} {{ reaction.count }}
+                </div>
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -134,31 +134,42 @@ export class ThreadListComponent implements OnInit {
       console.error("Fehler beim Aktualisieren des Threads: ", error);
     });
   }
-  getReactionCounts(reactions: Reaction[]): any {
-    const counts: {[key: string]: number} = {};
-    reactions.forEach(reaction => {
-      counts[reaction.emoji] = (counts[reaction.emoji] || 0) + 1;
+  getReactionCounts(thread: Thread ):{ emoji: string, count: number, userId?: string }[] {
+    const summary = new Map<string, { count: number, userId?: string }>();
+    thread.reactions.forEach(reactions => {
+      const existingReaction = summary.get(reactions.emoji);
+      if (existingReaction) {
+        existingReaction.count += 1;
+      } else {
+        summary.set(reactions.emoji, { count: 1, userId: reactions.userId });
+      }
     });
-    return counts;
+
+    return Array.from(summary, ([emoji, { count, userId }]) => ({ emoji, count, userId }));
   }
 
   isImage(url: string): boolean {
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
     const isImage = imageExtensions.some(ext => url.toLowerCase().includes(ext));
-  
+
     return isImage;
   }
-  
+
   isPDF(url: string): boolean {
     const isPDF = url.toLowerCase().includes('.pdf');
-  
+
     return isPDF;
   }
-  
-  
+
+
   getPDFFileName(url: string): string {
     const decodedUrl = decodeURIComponent(url);
     const urlParts = decodedUrl.split('/');
     return urlParts[urlParts.length - 1].split('?')[0];
+  }
+
+  getUserName(userId: unknown): string {
+    const user = this.allUsers.find(user => user.id === userId);
+    return user ? user.name : '';
   }
 }
