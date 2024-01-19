@@ -119,7 +119,7 @@
             </div>
             <div class="reaction-summary"  *ngIf="message.reactions && message.reactions.length > 0">
               <div *ngFor="let reaction of getReactionsSummary(message)">
-                <div class="reaction-summary-item" [attr.data-tooltip-text]="'Reaction von:\n' + getUserName(reaction.userId)">
+                <div class="reaction-summary-item" [attr.data-tooltip-text]="reaction.emoji + '\n' + getUserName(reaction.userId) + '\n hat reagiert'">
                   {{ reaction.emoji }} {{ reaction.count }}
                 </div>
               </div>
