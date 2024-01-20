@@ -8,6 +8,7 @@ export class Thread {
     createdAt: Date;
     updatedAt: Date;
     reactions: Reaction[] = [];
+    messages:  string[];
 
     constructor(obj?: any) {
         if (obj) {
@@ -18,6 +19,7 @@ export class Thread {
             this.createdAt = obj.createdAt ?? new Date();
             this.updatedAt = obj.updatedAt ?? new Date();
             this.reactions = obj.reactions ?? [];
+            this.messages = obj.messages ?? '';
         } else {
             this.id = '';
             this.authorId = '';
@@ -26,6 +28,7 @@ export class Thread {
             this.createdAt = new Date();
             this.updatedAt = new Date();
             this.reactions = [];
+            this.messages = [];
         }
     }
 
@@ -37,7 +40,8 @@ export class Thread {
             toChannel: this.toChannel,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
-            reactions: this.reactions
+            reactions: this.reactions,
+            messages: this.messages
         };
     }
 }
