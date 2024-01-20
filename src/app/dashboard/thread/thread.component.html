@@ -1,1 +1,5 @@
-<p>thread works!</p>
+<div *ngFor="let thread of allThreads; let i = index">
+<div *ngIf="selectCurrentThread(thread.id)">
+    {{thread.title}}
+  </div>
+  </div>

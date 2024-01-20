@@ -16,7 +16,6 @@
               <!--<small>{{ thread.createdAt | date:'HH:mm':'UTC' }}</small>-->
             </div>
             <div *ngIf="!thread.title.startsWith('http')" class="message-item">{{thread.title}}</div>
-
             <div *ngIf="thread.title.startsWith('http')">
               <ng-container *ngIf="isImage(thread.title)">
                 <img [src]="thread.title" class="styleImg" />
@@ -26,6 +25,7 @@
 
               </ng-container>
             </div>
+            <div (click)="openThreadInSidebar(thread.id)">x Antworten</div>
             <div class="reactions"  *ngIf="thread.reactions && thread.reactions.length > 0">
               <div *ngFor="let reaction of getReactionCounts(thread)">
                 <div class="reactions-item" [attr.data-tooltip-text]="reaction.emoji + '\n' + getUserName(reaction.userId) + '\n hat reagiert'">

@@ -24,8 +24,10 @@ export class ThreadListComponent implements OnInit {
   allThreadsFiltered: any[] = [];
   thread = new Thread();
   threadId: any;
+  selectedThread: any;
   selectedChannel: any;
   selectedChannelId: any;
+  selectedThreadId: any;
   currentUser: User | null | undefined;
   currentUserId: string | null = "";
   currentUserAvatar: string | undefined = "";
@@ -83,6 +85,7 @@ export class ThreadListComponent implements OnInit {
         this.selectedChannelId === f.toChannel)
       });
       });
+      
 
   }
 
@@ -171,5 +174,9 @@ export class ThreadListComponent implements OnInit {
   getUserName(userId: unknown): string {
     const user = this.allUsers.find(user => user.id === userId);
     return user ? user.name : '';
+  }
+
+  openThreadInSidebar(selectedThreadId: any){
+    this.threadsService.setSelectedThread(selectedThreadId);
   }
 }
