@@ -22,6 +22,7 @@
                 <a [href]="thread.title" target="_blank">{{ getPDFFileName(thread.title) }}</a>
               </ng-container>
             </div>
+            <div (click)="openThreadInSidebar(thread.id)">x Antworten</div>
             <div class="reactions" *ngIf="thread.reactions && thread.reactions.length > 0">
               <div *ngFor="let reaction of getReactionCounts(thread)">
                 <div class="reactions-item" [attr.data-tooltip-text]="reaction.emoji + '\n' + getUserName(reaction.userId) + '\n hat reagiert'">
