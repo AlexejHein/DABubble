@@ -177,13 +177,7 @@ export class ThreadListComponent implements OnInit {
     return user ? user.name : '';
   }
 
-  openThreadInSidebar(selectedThreadId: any){
-    this.threadsService.setSelectedThread(selectedThreadId);
-  }
-
   loadSelectedThreadInfos(selectedThread: Thread): void {
-    this.threadsService.setSelectedThread(selectedThread);
-    console.log("Selected Thread new infos:", selectedThread.id);
- 
+    this.threadsService.setSelectedThread(selectedThread); 
   }
 }
