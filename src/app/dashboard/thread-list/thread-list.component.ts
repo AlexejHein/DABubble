@@ -85,6 +85,7 @@ export class ThreadListComponent implements OnInit {
         this.selectedChannelId === f.toChannel)
       });
       });
+
       
 
   }
@@ -178,5 +179,11 @@ export class ThreadListComponent implements OnInit {
 
   openThreadInSidebar(selectedThreadId: any){
     this.threadsService.setSelectedThread(selectedThreadId);
+  }
+
+  loadSelectedThreadInfos(selectedThread: Thread): void {
+    this.threadsService.setSelectedThread(selectedThread);
+    console.log("Selected Thread new infos:", selectedThread.id);
+ 
   }
 }
