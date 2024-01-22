@@ -1,5 +1,14 @@
 <div *ngFor="let thread of allThreads; let i = index">
-<div *ngIf="selectCurrentThread(thread.id)">
+  <div *ngIf="selectCurrentThread(thread.id)">
     {{thread.title}}
+
+    <div *ngFor="let message of allMessages; let i = index">
+      <div *ngIf="messageSelectedToThread(message.id)">
+         <div class="message-item">Message in thread: {{ message.id }}
+         </div>
+      </div>
+    </div>
+
   </div>
-  </div>
+</div>
+
