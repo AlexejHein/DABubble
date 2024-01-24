@@ -1,13 +1,187 @@
 <div *ngFor="let thread of allThreads; let i = index">
   <div *ngIf="selectCurrentThread(thread.id)">
-    {{thread.title}}
+   
+    <div *ngFor="let user of allUsers">
+      <div *ngIf="selectCurrentThreadAuthor(user.id, thread)">
+        <div class="message-box" (mouseenter)="showEmoticonMenu(i)">
+          <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+           <div class="message-head">
+              <b>{{ user.name }}</b>
+              <small>{{ thread.createdAt }}</small>
+           </div>
+           <div class="message-item">{{thread.title}}
+           </div>
+      </div>
+     </div>
+    </div>
+    
+
+<div>{{ thread.messages.length }} Antworten</div>
 
     <div *ngFor="let message of allMessages; let i = index">
       <div *ngIf="messageSelectedToThread(message.id)">
-         <div class="message-item">Message in thread: {{ message.id }}
-         </div>
+         
+        
+        <div [ngClass]="{'message-right': message.user === currentUserId, 'message-left': message.user !== currentUserId}">
+          <div class="message-card">
+            <div *ngFor="let user of allUsers">
+              <div class="message-box" *ngIf="user.id === message.user" (mouseenter)="showEmoticonMenu(i)">
+                <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+                <div>
+                  <div class="message-head">
+                    <b>{{ user.name }}</b>
+                    <small>{{ message.createdAt }}</small>
+                  </div>
+                  <div *ngIf="!message.body.startsWith('http')" class="message-item">{{ message.body }}</div>
+
+                        <div *ngIf="message.body.startsWith('http')">
+                          <ng-container *ngIf="isImage(message.body)">
+                            <img [src]="message.body" class="styleImg" />
+                          </ng-container>
+                          <ng-container *ngIf="isPDF(message.body)">
+                            <a [href]="message.body" target="_blank">{{ getPDFFileName(message.body) }}</a>
+
+                          </ng-container>
+                        </div>
+
+                  <div *ngIf=" hoveredIndex==i" class="choose-emo" >
+                    <div (click)="selectEmo('✅', message.id)">✅</div>
+                    <div (click)="selectEmo('🙌', message.id)">🙌</div>
+                    <img src="./assets/img/add_reaction.png" [matMenuTriggerFor]="emoticonsMenu">
+                    <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">
+                      <div class="emoticon-grid">
+                      <button mat-menu-item (click)="selectEmo('😀',message.id)">😀</button>
+                      <button mat-menu-item (click)="selectEmo('😂',message.id)">😂</button>
+                      <button mat-menu-item (click)="selectEmo('🤣',message.id)">🤣</button>
+                      <button mat-menu-item (click)="selectEmo('😍',message.id)">😍</button>
+                      <button mat-menu-item (click)="selectEmo('😘',message.id)">😘</button>
+                      <button mat-menu-item (click)="selectEmo('😎',message.id)">😎</button>
+                      <button mat-menu-item (click)="selectEmo('😛',message.id)">😛</button>
+                      <button mat-menu-item (click)="selectEmo('😊',message.id)">😊</button>
+                      <button mat-menu-item (click)="selectEmo('😋',message.id)">😋</button>
+                      <button mat-menu-item (click)="selectEmo('😚',message.id)">😚</button>
+                      <button mat-menu-item (click)="selectEmo('😜',message.id)">😜</button>
+                      <button mat-menu-item (click)="selectEmo('😝',message.id)">😝</button>
+                      <button mat-menu-item (click)="selectEmo('🥰',message.id)">🥰</button>
+                      <button mat-menu-item (click)="selectEmo('😇',message.id)">😇</button>
+                      <button mat-menu-item (click)="selectEmo('😐',message.id)">😐</button>
+                      <button mat-menu-item (click)="selectEmo('😕',message.id)">😕</button>
+                      <button mat-menu-item (click)="selectEmo('😟',message.id)">😟</button>
+                      <button mat-menu-item (click)="selectEmo('😢',message.id)">😢</button>
+                      <button mat-menu-item (click)="selectEmo('😭',message.id)">😭</button>
+                      <button mat-menu-item (click)="selectEmo('😷',message.id)">😷</button>
+                      <button mat-menu-item (click)="selectEmo('🤔',message.id)">🤔</button>
+                      <button mat-menu-item (click)="selectEmo('🙄',message.id)">🙄</button>
+                      <button mat-menu-item (click)="selectEmo('😏',message.id)">😏</button>
+                      <button mat-menu-item (click)="selectEmo('😶',message.id)">😶</button>
+                      <button mat-menu-item (click)="selectEmo('🤐',message.id)">🤐</button>
+                      <button mat-menu-item (click)="selectEmo('😴',message.id)">😴</button>
+                      <button mat-menu-item (click)="selectEmo('🥳',message.id)">🥳</button>
+                      <button mat-menu-item (click)="selectEmo('🤯',message.id)">🤯</button>
+                      <button mat-menu-item (click)="selectEmo('😵',message.id)">😵</button>
+                      <button mat-menu-item (click)="selectEmo('👏',message.id)">👏</button>
+                      <button mat-menu-item (click)="selectEmo('👍',message.id)">👍</button>
+                      <button mat-menu-item (click)="selectEmo('👌',message.id)">👌</button>
+                      <button mat-menu-item (click)="selectEmo('👊',message.id)">👊</button>
+                      <button mat-menu-item (click)="selectEmo('🙌',message.id)">🙌</button>
+                      <button mat-menu-item (click)="selectEmo('👋',message.id)">👋</button>
+                      <button mat-menu-item (click)="selectEmo('✅',message.id)">✅</button>
+                      <button mat-menu-item (click)="selectEmo('❌',message.id)">❌</button>
+                    </div>
+                    </mat-menu>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reaction-summary"  *ngIf="message.reactions && message.reactions.length > 0">
+              <div *ngFor="let reaction of getReactionsSummary(message)">
+                <div class="reaction-summary-item" [attr.data-tooltip-text]="reaction.emoji + '\n' + getUserName(reaction.userId) + '\n hat reagiert'">
+                  {{ reaction.emoji }} {{ reaction.count }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+
+
+
       </div>
     </div>
+
+
+
+    <div class="message">
+      <div class="chat-box">
+        <div class="message-input">
+        <textarea #messageInput [(ngModel)]="message.body" placeholder="Antworten ..."></textarea>
+      </div>
+      <div class="message-send">
+        <div class="message-icons">
+          <mat-icon [matMenuTriggerFor]="addMenu" class="addBtn">add</mat-icon>
+          <mat-menu #addMenu="matMenu" >
+            <button mat-menu-item (click)="file.click()">add picture</button>
+            <input type="file" (change)="upload($event)" hidden #file>
+            <button mat-menu-item (click)="filePDF.click()">add file</button>
+            <input type="file" (change)="uploadPDF($event)" accept=".pdf" #filePDF  hidden >
+          </mat-menu>
+          <div class="hr"></div>
+          <mat-icon class="emoticon-menu" [matMenuTriggerFor]="emoticonsMenu">insert_emoticon</mat-icon>
+          <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">
+            <div class="emoticon-grid">
+            <button mat-menu-item (click)="addEmoticon('😀')">😀</button>
+            <button mat-menu-item (click)="addEmoticon('😂')">😂</button>
+            <button mat-menu-item (click)="addEmoticon('🤣')">🤣</button>
+            <button mat-menu-item (click)="addEmoticon('😍')">😍</button>
+            <button mat-menu-item (click)="addEmoticon('😘')">😘</button>
+            <button mat-menu-item (click)="addEmoticon('😎')">😎</button>
+            <button mat-menu-item (click)="addEmoticon('😛')">😛</button>
+            <button mat-menu-item (click)="addEmoticon('😊')">😊</button>
+            <button mat-menu-item (click)="addEmoticon('😋')">😋</button>
+            <button mat-menu-item (click)="addEmoticon('😚')">😚</button>
+            <button mat-menu-item (click)="addEmoticon('😜')">😜</button>
+            <button mat-menu-item (click)="addEmoticon('😝')">😝</button>
+            <button mat-menu-item (click)="addEmoticon('🥰')">🥰</button>
+            <button mat-menu-item (click)="addEmoticon('😇')">😇</button>
+            <button mat-menu-item (click)="addEmoticon('😐')">😐</button>
+            <button mat-menu-item (click)="addEmoticon('😕')">😕</button>
+            <button mat-menu-item (click)="addEmoticon('😟')">😟</button>
+            <button mat-menu-item (click)="addEmoticon('😢')">😢</button>
+            <button mat-menu-item (click)="addEmoticon('😭')">😭</button>
+            <button mat-menu-item (click)="addEmoticon('😷')">😷</button>
+            <button mat-menu-item (click)="addEmoticon('🤔')">🤔</button>
+            <button mat-menu-item (click)="addEmoticon('🙄')">🙄</button>
+            <button mat-menu-item (click)="addEmoticon('😏')">😏</button>
+            <button mat-menu-item (click)="addEmoticon('😶')">😶</button>
+            <button mat-menu-item (click)="addEmoticon('🤐')">🤐</button>
+            <button mat-menu-item (click)="addEmoticon('😴')">😴</button>
+            <button mat-menu-item (click)="addEmoticon('🥳')">🥳</button>
+            <button mat-menu-item (click)="addEmoticon('🤯')">🤯</button>
+            <button mat-menu-item (click)="addEmoticon('😵')">😵</button>
+            <button mat-menu-item (click)="addEmoticon('👏')">👏</button>
+            <button mat-menu-item (click)="addEmoticon('👍')">👍</button>
+            <button mat-menu-item (click)="addEmoticon('👌')">👌</button>
+            <button mat-menu-item (click)="addEmoticon('👊')">👊</button>
+            <button mat-menu-item (click)="addEmoticon('🙌')">🙌</button>
+            <button mat-menu-item (click)="addEmoticon('👋')">👋</button>
+            <button mat-menu-item (click)="addEmoticon('✅')">✅</button>
+            <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
+          </div>
+          </mat-menu>
+          <mat-icon [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
+          <mat-menu #selectUser="matMenu" >
+            <button  *ngFor="let user of allUsers">{{user.name}}</button>
+          </mat-menu>
+        </div>
+        <mat-icon class="send-btn" (click)="saveMessage(thread)">send</mat-icon>
+      </div>
+      </div>
+    </div>
+  
+
+
+
 
   </div>
 </div>
