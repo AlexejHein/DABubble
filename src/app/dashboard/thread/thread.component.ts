@@ -115,7 +115,6 @@ saveMessage(thread:any) {
       console.log('Message saved successfully');
       console.log("Nachricht hinzugefügt: ",thread.messages); 
       this.message.body = '';
-      setTimeout(() => this.scrollToBottom(), 0); // Scroll to bottom with a delay after saving a message
       this.updatethreadMessages(thread, this.message);
 
     }).catch(error => {
@@ -147,14 +146,6 @@ loadMessages() {
     });
 
   });
-}
-
-scrollToBottom(): void {
-  try {
-    if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    }
-  } catch(err) { }
 }
 
 selectCurrentThread(threadId:any){
