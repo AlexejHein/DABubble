@@ -419,6 +419,18 @@ align-items: center;
     overflow: hidden;
 }
 
+.sidebar-thread-body {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.thread-container > div {
+  height: 100%;
+}
+
 .workspace-container.moveleft {
 
     width: 0!important;
