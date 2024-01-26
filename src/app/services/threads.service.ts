@@ -13,6 +13,12 @@ export class ThreadsService {
   private selectedThreadSubject = new BehaviorSubject<Thread | null>(null);
   selectedThread = this.selectedThreadSubject.asObservable();
 
+  private selectedSidebarState = new BehaviorSubject<any>({});
+  selectedSidebarVisibility = this.selectedSidebarState.asObservable();
+
+  private selectedSidebarClass = new BehaviorSubject<any>({});
+  selectedSidebarClassName = this.selectedSidebarClass.asObservable();
+
   constructor() { }
 
   setSelectedChannel(channel: Channel | null) {
@@ -23,6 +29,11 @@ export class ThreadsService {
     this.selectedThreadSubject.next(thread);
    }
 
-
+  setSelectedSidebarVisibility(threadVisible:any) {
+    this.selectedSidebarState.next(threadVisible);
+  }
+  setselectedSidebarClassName(moveRight:any) {
+    this.selectedSidebarClass.next(moveRight);
+  }
 
 }

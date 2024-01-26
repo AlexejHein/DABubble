@@ -60,9 +60,9 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class DashboardComponent implements OnInit {
   workspaceMenuVisible = true;
-  threadVisible = true;
+  threadVisible = false;
   moveLeft = "";
-  moveRight = "";
+  moveRight = "moveright";
   menuString = "schließen";
   menuState = "";
   user: string | undefined | null = "";
@@ -132,8 +132,13 @@ export class DashboardComponent implements OnInit {
     this.focusService.focusMessageInput$.subscribe(() => {
       this.focusMessageInput();
     });
+    this.subscription = this.threadsService.selectedSidebarVisibility.subscribe(threadVisibility => {
+      this.threadVisible = threadVisibility;
+    });
+    this.subscription = this.threadsService.selectedSidebarClassName.subscribe(moveClassName => {
+      this.moveRight = moveClassName;
+    });
   }
-
 
   loadMessages() {
     this.messagesService.getMessages().subscribe(data => {

@@ -33,6 +33,8 @@ export class ThreadListComponent implements OnInit {
   currentUserAvatar: string | undefined = "";
   user: string | undefined | null = "";
   allUsers: User[] = [];
+  threadVisible = true;
+  moveRight:string = "";
   protected hoveredIndex: number | undefined;
   hideThreadMenu = signal<any | null>(null);
   private chosen: string | undefined;
@@ -180,4 +182,15 @@ export class ThreadListComponent implements OnInit {
   loadSelectedThreadInfos(selectedThread: Thread): void {
     this.threadsService.setSelectedThread(selectedThread); 
   }
+
+  showThread(){
+    this.threadVisible = true;
+    this.threadsService.setSelectedSidebarVisibility(this.threadVisible); 
+  }
+
+  moveSidebar(){
+    this.moveRight = "";
+    this.threadsService.setselectedSidebarClassName(this.moveRight); 
+  }
+
 }
