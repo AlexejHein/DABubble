@@ -48,7 +48,7 @@ export class ThreadComponent implements OnInit {
   uploadedFileInfo: any;
   tooltipVisible = false;
   tooltipVisibleMap = new Map<string, boolean>();
- 
+
   constructor(  private userService: UserService,
     protected threadsService: ThreadsService,
     private messagesService: MessagesService,
@@ -81,15 +81,19 @@ ngOnInit(): void {
     }
   });
 
-  const threadCollection = collection(this.firestore, 'threads')		
-  this.items$ = collectionData(threadCollection, { idField: 'id' });	
-  this.items$.subscribe((threads) => { 
+  const threadCollection = collection(this.firestore, 'threads')
+  this.items$ = collectionData(threadCollection, { idField: 'id' });
+  this.items$.subscribe((threads) => {
     this.allThreads = threads;
-    });
+    const currentThread = this.allThreads.find(thread => thread.id === this.selectedThread.id);
+    if (currentThread) {
+      this.threadMessages = currentThread.messages;
+    }
+  });
 
-    const messageCollection = collection(this.firestore, 'messages')		
-  this.items$ = collectionData(messageCollection, { idField: 'id' });	
-  this.items$.subscribe((messages) => { 
+    const messageCollection = collection(this.firestore, 'messages')
+  this.items$ = collectionData(messageCollection, { idField: 'id' });
+  this.items$.subscribe((messages) => {
     this.allMessages = messages;
     });
 
@@ -97,7 +101,7 @@ ngOnInit(): void {
       this.selectedUser = user;
       this.loadMessages();
     });
-    
+
 }
 
 saveMessage(thread:any) {
@@ -113,7 +117,7 @@ saveMessage(thread:any) {
     this.message.createdAt = new Date();
     this.messagesService.saveMessage(this.message).then(() => {
       console.log('Message saved successfully');
-      console.log("Nachricht hinzugefügt: ",thread.messages); 
+      console.log("Nachricht hinzugefügt: ",thread.messages);
       this.message.body = '';
       this.updatethreadMessages(thread, this.message);
 
@@ -158,7 +162,7 @@ else {
 }
 
 selectCurrentThreadAuthor(userId:any, thread:any){
-  this.selectedThreadAuthorId = thread.authorId; 
+  this.selectedThreadAuthorId = thread.authorId;
   if(userId === this.selectedThreadAuthorId){
     return true;
   }

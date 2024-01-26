@@ -175,18 +175,16 @@ export class DashboardComponent implements OnInit {
   saveMessage() {
     if (this.currentUserId && this.selectedUser && this.message.body.trim() !== '') {
       if (this.uploadedFileInfo) {
-        // If an image is uploaded, include its information in the message body
         this.message.body = this.uploadedFileInfo.url;
-        this.uploadedFileInfo = null; // Reset uploaded file information
+        this.uploadedFileInfo = null;
       }
-
       this.message.user = this.currentUserId;
       this.message.toUser = this.selectedUser.id;
       this.message.createdAt = new Date();
       this.messagesService.saveMessage(this.message).then(() => {
         console.log('Message saved successfully');
         this.message.body = '';
-        setTimeout(() => this.scrollToBottom(), 0); // Scroll to bottom with a delay after saving a message
+        setTimeout(() => this.scrollToBottom(), 0);
 
       }).catch(error => {
         console.error('Error saving message:', error);
@@ -465,10 +463,10 @@ getPDFFileName(url: string): string {
   return urlParts[urlParts.length - 1].split('?')[0];
 }
 
-  getUserName(userId: string | undefined): string {
-    const user = this.allUsers.find(user => user.id === userId);
-    return user ? user.name : '';
-  }
+getUserName(userId: string | undefined): string {
+  const user = this.allUsers.find(user => user.id === userId);
+  return user ? user.name : '';
+}
 
 
 }

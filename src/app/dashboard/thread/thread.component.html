@@ -1,6 +1,6 @@
 <div *ngFor="let thread of allThreads; let i = index">
   <div *ngIf="selectCurrentThread(thread.id)">
-   
+
     <div *ngFor="let user of allUsers">
       <div *ngIf="selectCurrentThreadAuthor(user.id, thread)">
         <div class="message-box" (mouseenter)="showEmoticonMenu(i)">
@@ -14,14 +14,14 @@
       </div>
      </div>
     </div>
-    
+
 
 <div>{{ thread.messages.length }} Antworten</div>
 
     <div *ngFor="let message of allMessages; let i = index">
       <div *ngIf="messageSelectedToThread(message.id)">
-         
-        
+
+
         <div [ngClass]="{'message-right': message.user === currentUserId, 'message-left': message.user !== currentUserId}">
           <div class="message-card">
             <div *ngFor="let user of allUsers">
@@ -30,7 +30,7 @@
                 <div>
                   <div class="message-head">
                     <b>{{ user.name }}</b>
-                    <small>{{ message.createdAt }}</small>
+                    <small>{{ message.createdAt.toDate() | date:'short'}}</small>
                   </div>
                   <div *ngIf="!message.body.startsWith('http')" class="message-item">{{ message.body }}</div>
 
@@ -102,7 +102,7 @@
             </div>
           </div>
         </div>
-      
+
 
 
 
@@ -178,7 +178,7 @@
       </div>
       </div>
     </div>
-  
+
 
 
 
