@@ -29,7 +29,7 @@
                 <img [src]="user.avatar" alt="Avatar" class="user-avatar">
                 <div>
                   <div class="message-head">
-                    <b>{{ user.name }}</b>
+                    <span class="message-user">{{ user.name }}</span>
                     <small>{{ message.createdAt.toDate() | date:'short'}}</small>
                   </div>
                   <div *ngIf="!message.body.startsWith('http')" class="message-item">{{ message.body }}</div>

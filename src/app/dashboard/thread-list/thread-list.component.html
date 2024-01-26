@@ -11,7 +11,7 @@
           <img [src]="user.avatar" alt="Avatar" class="user-avatar">
           <div>
             <div class="message-head">
-              <b>{{ user.name }}</b>
+              <span class="message-user">{{ user.name }}</span>
             </div>
             <div *ngIf="!thread.title.startsWith('http')" class="message-item">{{ thread.title }}</div>
             <div *ngIf="thread.title.startsWith('http')">

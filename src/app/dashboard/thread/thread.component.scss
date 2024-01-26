@@ -8,19 +8,36 @@ h3 {
     position: relative;
     display: flex;
     flex-direction: row-reverse;
-    gap: 40px;
+    gap: 15px;
+}
+
+.message-head {
+    color: #000000;
+    text-align: right;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+    .message-user {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    small {
+      font-size: 14px;
+      color: #686868;
+  }
 }
 
 .message-item {
     background-color: #797EF3;
     padding: 16px 12px;
     margin-bottom: 10px;
-    border-radius: 30px 0 30px 30px;
+    border-radius: 20px 0 20px 20px;
 }
 
 img.user-avatar {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
 }
 
 .choose-emo {

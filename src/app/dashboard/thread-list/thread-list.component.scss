@@ -7,7 +7,7 @@
     position: relative;
     display: flex;
     flex-direction: row-reverse;
-    gap: 40px;
+    gap: 15px;
   [data-tooltip-text] {
     position: relative;
     cursor: pointer;
@@ -36,8 +36,8 @@
       border-radius: 50%;
     }
     img {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
     }
     .message-head {
       color: #000000;
@@ -46,9 +46,16 @@
       flex-direction: row-reverse;
       align-items: center;
       gap: 10px;
+      .message-user {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      small {
+        font-size: 14px;
+        color: #686868;
     }
-
-    .message-item {
+    }
+       .message-item {
       background-color: #797EF3;
       padding: 16px 12px;
       margin-bottom: 10px;
@@ -56,6 +63,7 @@
     }
 
   }
+
 .choose{
   position: absolute;
   background-color: white;

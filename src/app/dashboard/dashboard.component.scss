@@ -73,8 +73,8 @@ html, body {
         display: flex;
         gap: 40px;
         img {
-          width: 50px;
-          height: 50px;
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
         }
       }
@@ -83,6 +83,14 @@ html, body {
         justify-content: flex-start;
         align-items: center;
         gap: 10px;
+        small {
+          font-size: 14px;
+          color: #686868;
+      }
+      }
+      .message-user {
+        font-size: 18px;
+        font-weight: 700;
       }
       .message-item {
         width: 100%;
@@ -122,7 +130,7 @@ html, body {
         .message-box {
           display: flex;
           flex-direction: row-reverse;
-          gap: 40px;
+          gap: 15px;
           img {
             width: 50px;
             height: 50px;
@@ -137,7 +145,6 @@ html, body {
             gap: 10px;
           }
           .message-item {
-            width: 100%;
             background-color: #444DF2;
             padding: 16px 12px;
             margin-bottom: 10px;
