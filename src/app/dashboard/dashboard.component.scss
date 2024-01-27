@@ -429,9 +429,10 @@ align-items: center;
 .sidebar-thread-body {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 60px);
+  height: calc(100% - 200px);
   overflow-y: auto;
   overflow-x: hidden;
+  margin-bottom: 200px;
 }
 
 .thread-container > div {
