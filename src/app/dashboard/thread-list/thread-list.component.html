@@ -7,6 +7,7 @@
             <div (click)="selectEmoForThread('✅', thread.id)">✅</div>
             <div (click)="selectEmoForThread('🙌', thread.id)">🙌</div>
             <img src="./assets/img/add_reaction.png">
+            <img src="./assets/img/comment.png" (click)="loadSelectedThreadInfos(thread); showThread(); moveSidebar()">
           </div>
           <img [src]="user.avatar" alt="Avatar" class="user-avatar">
           <div>
