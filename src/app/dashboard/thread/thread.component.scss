@@ -53,7 +53,6 @@ img.user-avatar {
     height: 30px;
     padding-left: 8px;
     padding-right: 8px;
-    position: absolute;
     top: -10px;
     right: 40px;
     z-index: 100;
@@ -64,14 +63,14 @@ img.user-avatar {
     position: absolute;
     background-color: #ffffff;
     border-radius: 0 0 30px 30px;
-    bottom: 0;
-    width: 100%;
+    bottom: 20px;
+    width: 400px;
     height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     .chat-box{
-      width: 100%;
+      width: 400px;
       height: 80%;
       margin: 0 auto;
       border: 2px solid #ECEEFE;

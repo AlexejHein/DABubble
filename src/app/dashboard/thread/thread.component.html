@@ -7,7 +7,7 @@
           <img [src]="user.avatar" alt="Avatar" class="user-avatar">
            <div class="message-head">
               <b>{{ user.name }}</b>
-              <small>{{ thread.createdAt }}</small>
+              <small>{{ thread.createdAt.toDate() | date:'short' }}</small>
            </div>
            <div class="message-item">{{thread.title}}
            </div>
