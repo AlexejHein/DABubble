@@ -18,6 +18,7 @@ import {DialogEditUsersComponent} from '../dialog-edit-users/dialog-edit-users.c
 import {FocusService} from '../services/focus.service';
 import {Reaction} from "../models/reaction.class";
 import {AngularFireStorage} from '@angular/fire/compat/storage';
+import {WorkspaceService} from "../services/workspace.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -83,18 +84,23 @@ export class DashboardComponent implements OnInit {
   hoveredIndex:any;
   @ViewChild('messageInput') messageInput: ElementRef | undefined;
   uploadedFileInfo: any;
+  isInputVisible = false;
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
               private messagesService: MessagesService,
-              public dialog: MatDialog,
+              public  dialog: MatDialog,
               private firestore: Firestore,
               private focusService: FocusService,
               private changeDetector: ChangeDetectorRef,
-              private fireStorage: AngularFireStorage,) {}
+              private fireStorage: AngularFireStorage,
+              private workspaceService: WorkspaceService) {}
 
 
   async ngOnInit(): Promise<void> {
+    this.workspaceService.addMessageClick$.subscribe(() => {
+      this.isInputVisible = !this.isInputVisible;
+    });
     this.userService.getUsers().subscribe(users => {
       this.allUsers = users;
       console.log("All Users:", this.allUsers);
@@ -238,12 +244,9 @@ export class DashboardComponent implements OnInit {
   editChannel() {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
-
     docData(threadDoc).subscribe((channel) => {
-
       this.channel = new Channel(channel);
       this.saveEditedChannel(this.channel, this.channelId);
-
     });
 
   }
@@ -282,6 +285,7 @@ export class DashboardComponent implements OnInit {
 
   chosen:any
   hideEmoticonMenu = signal<any | null>(null);
+
   selectEmo(emoticon: string, messageId: string) {
     this.showReactions = true;
     this.chosen = emoticon;
@@ -343,7 +347,6 @@ export class DashboardComponent implements OnInit {
       data: user
     });
     dialogRef.afterClosed().subscribe(result => {
-
     });
   }
 

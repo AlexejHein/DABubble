@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddChannelComponent } from 'src/app/dialog-add-channel/dialog-add-channel.component';
+import { WorkspaceService } from 'src/app/services/workspace.service';
 
 @Component({
   selector: 'app-workspace-menu',
@@ -12,8 +13,9 @@ userListState = true;
 channelListState = true;
 userListClass = "open";
 channelListClass = "open";
+isInputVisible = false;
 
-constructor(public dialog: MatDialog) {
+constructor(public dialog: MatDialog, private workspaceService: WorkspaceService) {
 
 }
 
@@ -45,6 +47,9 @@ ngOnInit(){
   addChannel() {
     this.dialog.open(DialogAddChannelComponent);
   }
- 
 
+  addMessage() {
+    this.workspaceService.addMessageClicked();
+
+  }
 }
