@@ -1,16 +1,15 @@
-import { Component, OnInit, inject, signal, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
-import { Thread } from 'src/app/models/thread.class';
-import { ThreadsService } from '../../services/threads.service';
-import { UserService } from '../../services/user.service';
-import { User} from "../../models/User.class";
-import { MessagesService } from "../../services/messages.service";
-import { Message } from "../../models/message.class";
-import { Reaction } from "../../models/reaction.class";
-import { Firestore, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { arrayUnion } from 'firebase/firestore';
+import {ChangeDetectorRef, Component, ElementRef, inject, OnInit, signal, ViewChild} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
+import {Thread} from 'src/app/models/thread.class';
+import {ThreadsService} from '../../services/threads.service';
+import {UserService} from '../../services/user.service';
+import {User} from "../../models/User.class";
+import {MessagesService} from "../../services/messages.service";
+import {Message} from "../../models/message.class";
+import {Reaction} from "../../models/reaction.class";
+import {collection, collectionData, doc, Firestore, updateDoc} from '@angular/fire/firestore';
+import {AngularFireStorage} from '@angular/fire/compat/storage';
+import {arrayUnion} from 'firebase/firestore';
 
 @Component({
   selector: 'app-thread',
@@ -153,22 +152,12 @@ loadMessages() {
 }
 
 selectCurrentThread(threadId:any){
-if(threadId === this.selectedThread.id){
-  return true;
-}
-else {
-  return false;
-}
+return threadId === this.selectedThread.id;
 }
 
 selectCurrentThreadAuthor(userId:any, thread:any){
   this.selectedThreadAuthorId = thread.authorId;
-  if(userId === this.selectedThreadAuthorId){
-    return true;
-  }
-  else {
-    return false;
-  }
+  return userId === this.selectedThreadAuthorId;
   }
 
 messageSelectedToThread(messageId:any){
@@ -278,15 +267,11 @@ async uploadPDF(event: any) {
 
 isImage(url: string): boolean {
   const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
-  const isImage = imageExtensions.some(ext => url.toLowerCase().includes(ext));
-
-  return isImage;
+  return imageExtensions.some(ext => url.toLowerCase().includes(ext));
 }
 
 isPDF(url: string): boolean {
-  const isPDF = url.toLowerCase().includes('.pdf');
-
-  return isPDF;
+  return url.toLowerCase().includes('.pdf');
 }
 
 getPDFFileName(url: string): string {

@@ -5,10 +5,11 @@ h3 {
 }
 
 .message-box {
-    position: relative;
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-end;
 }
 
 .message-head {
