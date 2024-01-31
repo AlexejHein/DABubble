@@ -64,13 +64,13 @@ img.user-avatar {
     background-color: #ffffff;
     border-radius: 0 0 30px 30px;
     bottom: 20px;
-    width: 400px;
+    width: auto;
     height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     .chat-box{
-      width: 400px;
+      width: auto;
       height: 80%;
       margin: 0 auto;
       border: 2px solid #ECEEFE;

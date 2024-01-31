@@ -64,6 +64,8 @@ html, body {
     border-radius: 30px 30px 30px 30px;
     transition: all linear .65s;
   .messageOutput{
+    width: 90%;
+    margin: 0 auto;
     .message-left {
       text-align: left;
       .message-box {
@@ -312,7 +314,8 @@ html, body {
 }
 
 .thread-body {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 }
 
 
