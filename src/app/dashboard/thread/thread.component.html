@@ -16,7 +16,7 @@
     </div>
 
 
-<div>{{ thread.messages.length }} Antworten</div>
+<div >{{ thread.messages.length }} Antworten</div>
 
     <div *ngFor="let message of allMessages; let i = index">
       <div *ngIf="messageSelectedToThread(message.id)">
