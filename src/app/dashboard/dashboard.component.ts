@@ -1,25 +1,23 @@
-import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
-import { style, state, animate, transition, trigger } from '@angular/animations';
-import { UserService } from '../services/user.service';
-import { User} from "../models/User.class";
-import { Subscription } from "rxjs";
-import { MessagesService } from "../services/messages.service";
-import { Message } from "../models/message.class";
-import { Channel } from '../models/channel.class';
-import { ThreadsService } from '../services/threads.service';
-import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
-import { MatDialog } from '@angular/material/dialog';
-import { docData } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
-import { Firestore, doc, addDoc, collectionData } from '@angular/fire/firestore';
-import { Thread } from '../models/thread.class';
-import { DialogUserComponent } from "../dialog-user/dialog-user.component";
-import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
-import { DialogEditUsersComponent } from '../dialog-edit-users/dialog-edit-users.component';
-import { FocusService } from '../services/focus.service';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
+import {animate, style, transition, trigger} from '@angular/animations';
+import {UserService} from '../services/user.service';
+import {User} from "../models/User.class";
+import {Subscription} from "rxjs";
+import {MessagesService} from "../services/messages.service";
+import {Message} from "../models/message.class";
+import {Channel} from '../models/channel.class';
+import {ThreadsService} from '../services/threads.service';
+import {DialogEditChannelComponent} from '../dialog-edit-channel/dialog-edit-channel.component';
+import {MatDialog} from '@angular/material/dialog';
+import {addDoc, doc, docData, Firestore} from '@angular/fire/firestore';
+import {collection} from 'firebase/firestore';
+import {Thread} from '../models/thread.class';
+import {DialogUserComponent} from "../dialog-user/dialog-user.component";
+import {DialogAddUserComponent} from '../dialog-add-user/dialog-add-user.component';
+import {DialogEditUsersComponent} from '../dialog-edit-users/dialog-edit-users.component';
+import {FocusService} from '../services/focus.service';
 import {Reaction} from "../models/reaction.class";
-import { ChangeDetectorRef} from "@angular/core";
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import {AngularFireStorage} from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-dashboard',
@@ -85,8 +83,6 @@ export class DashboardComponent implements OnInit {
   hoveredIndex:any;
   @ViewChild('messageInput') messageInput: ElementRef | undefined;
   uploadedFileInfo: any;
-  tooltipVisible = false;
-  tooltipVisibleMap = new Map<string, boolean>();
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -450,15 +446,11 @@ export class DashboardComponent implements OnInit {
 
 isImage(url: string): boolean {
   const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
-  const isImage = imageExtensions.some(ext => url.toLowerCase().includes(ext));
-
-  return isImage;
+  return imageExtensions.some(ext => url.toLowerCase().includes(ext));
 }
 
 isPDF(url: string): boolean {
-  const isPDF = url.toLowerCase().includes('.pdf');
-
-  return isPDF;
+  return url.toLowerCase().includes('.pdf');
 }
 
 
