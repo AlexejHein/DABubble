@@ -1,22 +1,24 @@
-<div *ngFor="let thread of allThreads; let i = index">
+<div class="message-top">
+  <div *ngFor="let thread of allThreads; let i = index">
   <div *ngIf="selectCurrentThread(thread.id)">
 
     <div *ngFor="let user of allUsers">
       <div *ngIf="selectCurrentThreadAuthor(user.id, thread)">
         <div class="message-box" (mouseenter)="showEmoticonMenu(i)">
           <img [src]="user.avatar" alt="Avatar" class="user-avatar">
-           <div class="message-head">
+          <div><div class="message-head">
               <b>{{ user.name }}</b>
               <small>{{ thread.createdAt.toDate() | date:'short' }}</small>
            </div>
            <div class="message-item">{{thread.title}}
+           </div>
            </div>
       </div>
      </div>
     </div>
 
 
-<div >{{ thread.messages.length }} Antworten</div>
+<div class="divider"><span>{{ thread.messages.length }} Antworten</span></div>
 
     <div *ngFor="let message of allMessages; let i = index">
       <div *ngIf="messageSelectedToThread(message.id)">
@@ -110,7 +112,12 @@
       </div>
     </div>
 
-
+</div>
+</div>
+</div>
+<div class="message-bottom">
+<div *ngFor="let thread of allThreads; let i = index" class="message-section">
+  <div *ngIf="selectCurrentThread(thread.id)">
 
     <div class="message">
       <div class="chat-box">
@@ -186,3 +193,4 @@
   </div>
 </div>
 
+</div>
