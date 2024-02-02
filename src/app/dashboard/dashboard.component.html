@@ -13,10 +13,10 @@
 
 <div class="message-container" [@move]>
   <div class="chat-header">
-    <div *ngIf="isInputVisible" class="neu-message">
+    <!--<div *ngIf="isInputVisible" class="neu-message">
     <h2>Neue Nachricht</h2>
     <input type="text">
-    </div>
+    </div> -->
     <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()"><span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
       <div class="user-header" (click)="openDialog(selectedUser)">
       <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
