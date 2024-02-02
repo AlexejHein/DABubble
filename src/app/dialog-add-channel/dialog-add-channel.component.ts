@@ -56,20 +56,24 @@ export class DialogAddChannelComponent implements OnInit {
   this.channel.authorId = this.currentUserId;
   this.channel.authorName = this.currentUserName;
   this.loading = true;
-  addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(r => console.log(r));
+  this.channel.users = [this.currentUserId!];
+  addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(docRef => {
+    this.channel.id =  docRef.id;
+  });
 
   this.loading = false;
     this.addUserToChannel(this.channel,this.channel.id);
   }
   
 
-  addUserToChannel(channel:any, channelId:any){
+  addUserToChannel(channel:any, newChannelId:any){
     if(this.dialog.openDialogs.length==1){
     let dialog = this.dialog.open(DialogAddChannelAddUserComponent, {
       width: '100%'
   });
+  console.log('New channel id: ', newChannelId);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
-    //dialog.componentInstance.channelId = this.channelId;
+    dialog.componentInstance.channelId = newChannelId;
 }
   }
 
