@@ -6,6 +6,7 @@ import { User } from "../models/User.class";
 import { UserService } from '../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddChannelAddUserComponent } from '../dialog-add-channel-add-user/dialog-add-channel-add-user.component';
+import { ThreadsService } from '../services/threads.service';
 
 
 
@@ -27,6 +28,7 @@ export class DialogAddChannelComponent implements OnInit {
   loading = false;
 
   constructor(private userService: UserService,
+    protected threadService: ThreadsService,
     public  dialog: MatDialog,){
 
   }
@@ -63,6 +65,7 @@ export class DialogAddChannelComponent implements OnInit {
 
   this.loading = false;
     this.addUserToChannel(this.channel,this.channel.id);
+    this.threadService.setSelectedChannel(this.channel);
   }
   
 
