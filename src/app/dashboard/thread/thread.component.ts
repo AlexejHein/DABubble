@@ -80,17 +80,20 @@ ngOnInit(): void {
     }
   });
 
-  const threadCollection = collection(this.firestore, 'threads')
+  const threadCollection = collection(this.firestore, 'threads');
   this.items$ = collectionData(threadCollection, { idField: 'id' });
+
   this.items$.subscribe((threads) => {
     this.allThreads = threads;
-    const currentThread = this.allThreads.find(thread => thread.id === this.selectedThread.id);
+    const currentThread = this.allThreads.find(thread => thread.id === this.selectedThread?.id);
+
     if (currentThread) {
       this.threadMessages = currentThread.messages;
     }
   });
 
-    const messageCollection = collection(this.firestore, 'messages')
+
+  const messageCollection = collection(this.firestore, 'messages')
   this.items$ = collectionData(messageCollection, { idField: 'id' });
   this.items$.subscribe((messages) => {
     this.allMessages = messages;
@@ -151,14 +154,14 @@ loadMessages() {
   });
 }
 
-selectCurrentThread(threadId:any){
-  if(threadId){
-return threadId === this.selectedThread.id;
-}
-else {
-  return false;
-}
-}
+  selectCurrentThread(threadId: any) {
+    if (threadId && this.selectedThread) {
+      return threadId === this.selectedThread.id;
+    } else {
+      return false;
+    }
+  }
+
 
 selectCurrentThreadAuthor(userId:any, thread:any){
   this.selectedThreadAuthorId = thread.authorId;
