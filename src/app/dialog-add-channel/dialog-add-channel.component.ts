@@ -4,6 +4,8 @@ import { Firestore, addDoc, collection, collectionData, doc } from '@angular/fir
 import { Observable } from 'rxjs';
 import { User } from "../models/User.class";
 import { UserService } from '../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddChannelAddUserComponent } from '../dialog-add-channel-add-user/dialog-add-channel-add-user.component';
 
 
 
@@ -24,7 +26,8 @@ export class DialogAddChannelComponent implements OnInit {
   channel = new Channel();
   loading = false;
 
-  constructor(private userService: UserService){
+  constructor(private userService: UserService,
+    public  dialog: MatDialog,){
 
   }
 
@@ -47,16 +50,28 @@ export class DialogAddChannelComponent implements OnInit {
   }
 
   saveThread(){
-console.log(this.channel);
-console.log("current author name:", this.currentUserName);
-console.log("current author id:", this.currentUserId);
-this.channel.authorId = this.currentUserId;
-this.channel.authorName = this.currentUserName;
-this.loading = true;
-console.log(this.loading);
-    addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(r => console.log(r));
-    this.loading = false;
-    console.log(this.loading);
+  console.log(this.channel);
+  console.log("current author name:", this.currentUserName);
+  console.log("current author id:", this.currentUserId);
+  this.channel.authorId = this.currentUserId;
+  this.channel.authorName = this.currentUserName;
+  this.loading = true;
+  addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(r => console.log(r));
+
+  this.loading = false;
+    this.addUserToChannel(this.channel,this.channel.id);
   }
+  
+
+  addUserToChannel(channel:any, channelId:any){
+    if(this.dialog.openDialogs.length==1){
+    let dialog = this.dialog.open(DialogAddChannelAddUserComponent, {
+      width: '100%'
+  });
+    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    //dialog.componentInstance.channelId = this.channelId;
+}
+  }
+
 
 }
