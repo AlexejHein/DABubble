@@ -152,7 +152,12 @@ loadMessages() {
 }
 
 selectCurrentThread(threadId:any){
+  if(threadId){
 return threadId === this.selectedThread.id;
+}
+else {
+  return false;
+}
 }
 
 selectCurrentThreadAuthor(userId:any, thread:any){
