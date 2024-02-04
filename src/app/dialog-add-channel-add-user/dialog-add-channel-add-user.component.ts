@@ -104,9 +104,11 @@ removeUserFromChannel(usersId:any) {
 }
 
 saveUsersToChannel() {
-  const coll = doc(this.firestore, 'channels', this.channelId);
+  if(this.selectedChannel!.id){
+  const coll = doc(this.firestore, 'channels', this.selectedChannel!.id);
   this.channel.users = this.loadChannelUsers;
     updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));
+}
 }
 
 
