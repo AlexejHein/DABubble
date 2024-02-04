@@ -42,7 +42,7 @@ body {
   background-color: #ECEEFE;
 }
 
-*{scrollbar-width:auto;scrollbar-color:rgb(121 126 243 / 42%) white}
+*{scrollbar-width:thin;scrollbar-color:rgb(121 126 243 / 42%) white}
 *::-webkit-scrollbar{width:4px}
 *::-webkit-scrollbar-track{background:#ffffff}
 *::-webkit-scrollbar-thumb{background-color:rgb(121 126 243 / 42%);border:4px none #ffffff;}
