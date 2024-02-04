@@ -56,6 +56,10 @@ body {
 }
 
 .mat-mdc-dialog-surface.mdc-dialog__surface {
+  overflow: visible!Important;
+}
+
+.mat-mdc-dialog-surface.mdc-dialog__surface {
   border-radius: 30px!important;
   box-shadow: 0px 6px 10px 0px #00000033!important;
   padding: 40px!important;
