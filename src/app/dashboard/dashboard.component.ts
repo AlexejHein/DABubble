@@ -140,6 +140,7 @@ export class DashboardComponent implements OnInit {
     this.subscription = this.threadsService.selectedSidebarClassName.subscribe(moveClassName => {
       this.moveRight = moveClassName;
     });
+    this.initializeCloseThread();
   }
 
   loadMessages() {
@@ -221,6 +222,10 @@ export class DashboardComponent implements OnInit {
       this.menuState = "";
       this.moveLeft = "";
     }
+  }
+  initializeCloseThread(): void {
+    this.threadVisible = false;
+    this.moveRight = "moveright";
   }
 
 
