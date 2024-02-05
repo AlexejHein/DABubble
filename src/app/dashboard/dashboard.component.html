@@ -75,7 +75,6 @@
                     <div (click)="selectEmo('✅', message.id)">✅</div>
                     <div (click)="selectEmo('🙌', message.id)">🙌</div>
                     <img src="./assets/img/add_reaction.png" [matMenuTriggerFor]="emoticonsMenu">
-                    <img src="./assets/img/comment.png" (click)="openThread()">
                     <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">
                       <div class="emoticon-grid">
                       <button mat-menu-item (click)="selectEmo('😀',message.id)">😀</button>

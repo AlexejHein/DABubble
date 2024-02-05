@@ -113,9 +113,11 @@ export class ThreadListComponent implements OnInit {
       if (!threadToUpdate.reactions) {
         threadToUpdate.reactions = [newReaction];
       } else {
-        let existingReaction = threadToUpdate.reactions.find((reaction: { userId: string | null; }) => reaction.userId === this.currentUserId);
-        if (existingReaction) {
-          existingReaction.emoji = emoticon;
+        const existingReactionIndex = threadToUpdate.reactions.findIndex(
+            (reaction: { userId: string | null; emoji: string; }) => reaction.userId === this.currentUserId && reaction.emoji === emoticon
+        );
+        if (existingReactionIndex !== -1) {
+          threadToUpdate.reactions.splice(existingReactionIndex, 1);
         } else {
           threadToUpdate.reactions.push(newReaction);
         }
