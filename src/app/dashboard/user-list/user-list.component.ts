@@ -42,6 +42,10 @@ constructor(
           ...users.filter(user => user.id !== this.currentUserId)
         ].filter(Boolean);
       });
+      const currentUser = this.allUsers.find(user => user.id === this.currentUserId);
+      if (currentUser) {
+        this.onUserClick(currentUser);
+      }
     });
   }
 
