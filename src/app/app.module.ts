@@ -13,7 +13,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { AngularFirestore, AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import { environment} from "../environment/environment";
 import { AngularFireModule } from "@angular/fire/compat";
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ImpressComponent } from './impress/impress.component';
 import { SearchComponent } from './dashboard/search/search.component';
 import { ThreadComponent } from './dashboard/thread/thread.component';
@@ -72,32 +72,33 @@ import { DialogAddChannelAddUserComponent } from './dialog-add-channel-add-user/
     DialogAddChannelAddUserComponent,
     ThreadListComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatDialogModule,
-    MatMenuModule,
-    MatFormFieldModule,
-    MatInputModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    provideFirebaseApp(() => initializeApp({
-      apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
-      authDomain: "dabubble-97d36.firebaseapp.com",
-      projectId: "dabubble-97d36",
-      storageBucket: "dabubble-97d36.appspot.com",
-      messagingSenderId: "7321163189",
-      appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
-    })),
-    provideFirestore(() => getFirestore()),
-    MatIconModule,
-    MatProgressBarModule,
-    CommonModule,
-    MatAutocompleteModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatFormFieldModule,
+        MatInputModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        provideFirebaseApp(() => initializeApp({
+            apiKey: "AIzaSyB7yQy3kZNdO3QSJUnhQFmfCWHsVsc0sPo",
+            authDomain: "dabubble-97d36.firebaseapp.com",
+            projectId: "dabubble-97d36",
+            storageBucket: "dabubble-97d36.appspot.com",
+            messagingSenderId: "7321163189",
+            appId: "1:7321163189:web:ccc6f61096f18ad9fab5fc"
+        })),
+        provideFirestore(() => getFirestore()),
+        MatIconModule,
+        MatProgressBarModule,
+        CommonModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        ReactiveFormsModule
+    ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
