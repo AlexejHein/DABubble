@@ -4,6 +4,7 @@ import { User } from 'src/app/models/User.class';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UserService} from "../../services/user.service";
+import { WorkspaceService } from "../../services/workspace.service";
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +22,8 @@ export class UserListComponent  implements OnInit {
 
 constructor(
   protected userService: UserService,
-  public dialog: MatDialog
+  public dialog: MatDialog,
+  private workspaceService: WorkspaceService,
 ) {}
 
 
@@ -46,6 +48,7 @@ constructor(
 
   onUserClick(selectedUser: User): void {
     this.userService.setSelectedUser(selectedUser);
+    this.workspaceService.addMessageClicked();
   }
 
 }

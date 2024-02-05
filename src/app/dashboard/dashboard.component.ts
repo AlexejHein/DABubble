@@ -258,8 +258,7 @@ export class DashboardComponent implements OnInit {
   });
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = this.channelId;
-    console.log("thread to edit:", this.selectedChannel);
-}
+    console.log("thread to edit:", this.selectedChannel);}
   }
 
   saveThread() {
@@ -361,7 +360,6 @@ export class DashboardComponent implements OnInit {
     docData(threadDoc).subscribe((channel) => {
       this.channel = new Channel(channel);
       this.saveUserToChannel(this.channel, this.channelId);
-
     });
 
   }
@@ -467,6 +465,4 @@ getUserName(userId: string | undefined): string {
   const user = this.allUsers.find(user => user.id === userId);
   return user ? user.name : '';
 }
-
-
 }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Channel } from 'src/app/models/channel.class';
 import { ThreadsService } from 'src/app/services/threads.service';
 import { Thread } from 'src/app/models/thread.class';
+import { WorkspaceService } from 'src/app/services/workspace.service';
 
 @Component({
   selector: 'app-channel-list',
@@ -20,12 +21,15 @@ export class ChannelListComponent implements OnInit {
   thread = new Thread();
   channelId: any;
 
-  constructor(  protected threadsService: ThreadsService,) {}
+  constructor(
+    protected threadsService: ThreadsService,
+    private workspaceService: WorkspaceService
+  ) {}
 
   ngOnInit(): void {
-    const aCollection = collection(this.firestore, 'channels')		
-    this.items$ = collectionData(aCollection, { idField: 'id' });	
-    this.items$.subscribe((channels) => { 
+    const aCollection = collection(this.firestore, 'channels')
+    this.items$ = collectionData(aCollection, { idField: 'id' });
+    this.items$.subscribe((channels) => {
       this.allChannels = channels;
       console.log(channels);
       });
@@ -36,13 +40,13 @@ export class ChannelListComponent implements OnInit {
     console.log("Selected Channel:", selectedChannel);
     console.log("Selected Channel ID:", selectedChannel.id);
     this.channelId = selectedChannel.id;
+    this.workspaceService.addMessageClicked();
   }
 
 
    onThreadClick(selectedThread: Thread): void {
     this.threadsService.setSelectedThread(selectedThread);
     console.log("Selected Thread:", selectedThread.id);
- 
-  } 
+  }
 
 }

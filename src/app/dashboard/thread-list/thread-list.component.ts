@@ -69,15 +69,12 @@ export class ThreadListComponent implements OnInit {
       console.error("Error getting current user ID:", error);
     });
 
-    //const aCollection = collection(this.firestore, 'threads')
-    //this.items$ = collectionData(aCollection, { idField: 'id' });
     this.items$ = this.firestore.collection('threads').valueChanges({ idField: 'id' });
 
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
       console.log(threads);
 
-      //could fix the bug
       this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
         this.selectedChannel = channel;
         this.selectedChannelId = channel?.id;
@@ -88,7 +85,7 @@ export class ThreadListComponent implements OnInit {
       });
       });
 
-      
+
 
   }
 
@@ -180,17 +177,17 @@ export class ThreadListComponent implements OnInit {
   }
 
   loadSelectedThreadInfos(selectedThread: Thread): void {
-    this.threadsService.setSelectedThread(selectedThread); 
+    this.threadsService.setSelectedThread(selectedThread);
   }
 
   showThread(){
     this.threadVisible = true;
-    this.threadsService.setSelectedSidebarVisibility(this.threadVisible); 
+    this.threadsService.setSelectedSidebarVisibility(this.threadVisible);
   }
 
   moveSidebar(){
     this.moveRight = "";
-    this.threadsService.setselectedSidebarClassName(this.moveRight); 
+    this.threadsService.setselectedSidebarClassName(this.moveRight);
   }
 
 }

@@ -103,6 +103,10 @@ ngOnInit(): void {
       this.selectedUser = user;
       this.loadMessages();
     });
+  this.items$.subscribe((messages) => {
+    this.allMessages = messages;
+    this.messages = messages;
+  });
 
 }
 
@@ -176,31 +180,30 @@ messageSelectedToThread(messageId:any){
 chosen:any
   hideEmoticonMenu = signal<any | null>(null);
   selectEmo(emoticon: string, messageId: string) {
-    this.showReactions = true;
-    this.chosen = emoticon;
-    const newReaction: Reaction = {
-        emoji: emoticon,
-        userId: this.currentUserId ?? ''
-    };
-    const messageToUpdate = this.messages.find(message => message.id === messageId);
-    if (messageToUpdate) {
-        if (!messageToUpdate.reactions) {
-            messageToUpdate.reactions = [newReaction];
-        } else {
-            const existingReactionIndex = messageToUpdate.reactions.findIndex(
-                reaction => reaction.userId === this.currentUserId && reaction.emoji === emoticon
-            );
-            if (existingReactionIndex !== -1) {
-                messageToUpdate.reactions.splice(existingReactionIndex, 1);
-            } else {
-                messageToUpdate.reactions.push(newReaction);
-            }
-        }
-        this.saveUpdatedMessage(messageToUpdate);
-    } else {
-        console.error("Nachricht nicht gefunden");
+    const messageExists = this.messages.some(message => message.id === messageId);
+    if (!messageExists) {
+      console.error(`Nachricht mit der ID ${messageId} existiert nicht in 'this.messages'`);
+      return;
     }
-}
+    const messageToUpdate = this.messages.find(message => message.id === messageId);
+    const newReaction: Reaction = {
+      emoji: emoticon,
+      userId: this.currentUserId ?? ''
+    };
+    if (!messageToUpdate!.reactions) {
+      messageToUpdate!.reactions = [newReaction];
+    } else {
+      const existingReactionIndex = messageToUpdate!.reactions.findIndex(
+        reaction => reaction.userId === this.currentUserId && reaction.emoji === emoticon
+      );
+      if (existingReactionIndex !== -1) {
+        messageToUpdate!.reactions.splice(existingReactionIndex, 1);
+      } else {
+        messageToUpdate!.reactions.push(newReaction);
+      }
+    }
+    this.saveUpdatedMessage(messageToUpdate!);
+  }
 
 getReactionsSummary(message: Message): { emoji: string, count: number, userId?: string }[] {
   const summary = new Map<string, { count: number, userId?: string }>();
