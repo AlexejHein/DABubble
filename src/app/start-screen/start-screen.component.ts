@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-start-screen',
@@ -8,7 +9,8 @@ import { StorageService } from '../services/storage.service';
 })
 export class StartScreenComponent implements OnInit{
     
-  constructor( public storageService:StorageService){}
+  constructor( public storageService:StorageService,
+    private router:Router){}
 
   animationOver=false;
   
@@ -18,6 +20,10 @@ export class StartScreenComponent implements OnInit{
     this.animationOver=true;
    }, 2500);  
 
+  }
+
+  goToImpress(){
+    this.router.navigateByUrl('impressum')
   }
 
 }

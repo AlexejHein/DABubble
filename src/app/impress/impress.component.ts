@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-impress',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./impress.component.scss']
 })
 export class ImpressComponent {
+  
+  constructor(private router:Router){
 
+  }
+  
+  back(){
+    this.router.navigateByUrl('/')
+  }
 }

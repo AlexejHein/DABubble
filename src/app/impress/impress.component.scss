@@ -1,0 +1,27 @@
+#impressumSection{
+    margin-top: -21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+#innerIm{
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+    h1{
+        color: #676ff4;
+    }
+    h2{
+        color: #676ff4;
+    }
+    img{
+        position: absolute;
+        top:10px;
+        cursor: pointer;
+    }
+}
