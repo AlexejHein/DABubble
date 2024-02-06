@@ -84,7 +84,9 @@ export class DashboardComponent implements OnInit {
   hoveredIndex:any;
   @ViewChild('messageInput') messageInput: ElementRef | undefined;
   uploadedFileInfo: any;
-  isInputVisible = false;
+  isInputVisible = false; // Typ sollte der Typ Ihres Benutzers sein
+
+
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -141,6 +143,11 @@ export class DashboardComponent implements OnInit {
       this.moveRight = moveClassName;
     });
     this.initializeCloseThread();
+  }
+
+  setSelectedUser(user: any) {
+    this.selectedUser = user;
+    this.changeDetector.detectChanges();
   }
 
   loadMessages() {

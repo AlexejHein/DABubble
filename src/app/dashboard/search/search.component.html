@@ -2,7 +2,7 @@
   <input type="text" placeholder="Code learning durchsuche" aria-label="Search" [formControl]="searchControl">
   <div class="autocomplete-options" *ngIf="searchControl.value && filteredOptions | async as users">
     <ng-container *ngIf="filteredOptions | async as users">
-    <div class="autocomplete-option" *ngFor="let user of users" (click)="selectUser(user)">
+    <div class="autocomplete-option" *ngFor="let user of users" (click)="selectUser(user); dashboard.setSelectedUser(user)">
       <img [src]="user.avatar" class="user-avatar" alt="Avatar" width="24" height="24">
       <span>{{ user.name }}</span>
       <small>{{ user.status }}</small>
