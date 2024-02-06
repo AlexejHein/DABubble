@@ -26,4 +26,9 @@ export class StartScreenComponent implements OnInit{
     this.router.navigateByUrl('impressum')
   }
 
+  goToPolicy(){
+    this.router.navigateByUrl('privacy')
+  }
+
+
 }

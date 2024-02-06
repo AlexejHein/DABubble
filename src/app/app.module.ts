@@ -41,6 +41,7 @@ import { CommonModule} from "@angular/common";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from "@angular/material/button";
 import { DialogAddChannelAddUserComponent } from './dialog-add-channel-add-user/dialog-add-channel-add-user.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 
 
@@ -71,6 +72,7 @@ import { DialogAddChannelAddUserComponent } from './dialog-add-channel-add-user/
     DialogUserProfileComponent,
     DialogAddChannelAddUserComponent,
     ThreadListComponent,
+    PrivacyComponent,
   ],
     imports: [
         BrowserModule,

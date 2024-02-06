@@ -18,7 +18,7 @@
 
     <div class="legal-container">
         <p (click)="goToImpress()">Impressum</p>
-        <p>Datenschutz</p>
+        <p (click)="goToPolicy()">Datenschutz</p>
     </div>
 
     <div *ngIf="storageService.getStep()==1" class="component">
