@@ -5,6 +5,8 @@ import { map, startWith } from 'rxjs/operators';
 import { UserService } from "../../services/user.service";
 import { ThreadsService } from "../../services/threads.service";
 import { DashboardComponent } from "../dashboard.component";
+//import { ChannelListComponent} from "../channel-list/channel-list.component";
+import { ChannelService } from "../../services/channel.service";
 
 @Component({
   selector: 'app-search',
@@ -18,7 +20,8 @@ export class SearchComponent implements OnInit {
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
-              protected dashboard: DashboardComponent) { }
+              protected dashboard: DashboardComponent,
+              private channelService: ChannelService) { }
 
   ngOnInit() {
     this.filteredOptions = this.searchControl.valueChanges
@@ -71,10 +74,13 @@ export class SearchComponent implements OnInit {
       this.dashboard.focusMessageInput();
       this.dashboard.loadMessages();
     } else if(user.type === 'channel') {
-      // Implementieren Sie Logik für die Auswahl eines Kanals
+      console.log("Ausgewählter Kanal vor dem Senden: ", user);
+
+      this.channelService.channelClick(user);
     }
     // Weitere Aktionen...
   }
+
 
   protected readonly of = of;
 }
