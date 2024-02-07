@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import {UserService} from "../../services/user.service";
-import {DashboardComponent} from "../dashboard.component";
+import { UserService } from "../../services/user.service";
+import { ThreadsService } from "../../services/threads.service";
+import { DashboardComponent } from "../dashboard.component";
 
 @Component({
   selector: 'app-search',
@@ -12,10 +13,11 @@ import {DashboardComponent} from "../dashboard.component";
 })
 export class SearchComponent implements OnInit {
   searchControl = new FormControl();
-  usersOrChannels: any[] = []; // Typ zu any[] geändert
-  filteredOptions: Observable<any[]> | undefined; // Typ des Observables angepasst
+  usersOrChannels: any[] = []; // Daten für Benutzer oder Kanäle
+  filteredOptions: Observable<any[]> | undefined;
 
   constructor(private userService: UserService,
+              private threadsService: ThreadsService,
               protected dashboard: DashboardComponent) { }
 
   ngOnInit() {
@@ -24,41 +26,55 @@ export class SearchComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
-    this.userService.getUsers().subscribe((users: any[]) => { // Typ von users korrigiert
-      this.usersOrChannels = users; // Direkt zuweisen, da wir nur Benutzer haben
+
+    // Abrufen von Benutzern
+    this.userService.getUsers().subscribe((users: any[]) => {
+      this.usersOrChannels = [...this.usersOrChannels, ...users.map(user => ({...user, type: 'user'}))];
     });
-    console.log("Service: ", this.usersOrChannels);
+
+    // Abrufen von Kanälen
+    this.threadsService.getChannels().subscribe((channels: any[]) => {
+      this.usersOrChannels = [...this.usersOrChannels, ...channels.map(channel => ({
+        name: channel.title,
+        avatar: '',
+        status: '',
+        id: channel.id,
+        type: 'channel'
+      }))];
+    });
   }
 
+
   private _filter(value: string): any[] {
-    if(value === null || value === undefined) {
+    if (value === null || value === undefined) {
       return [];
     }
     const filterValue = value.toLowerCase();
 
     return this.usersOrChannels
-      .filter(user => user.name.toLowerCase().includes(filterValue))
-      .map(user => {
-        return {
-          name: user.name,
-          avatar: user.avatar,
-          status: user.status,
-          id: user.id
-        };
-      });
+      .filter(item => item.name.toLowerCase().includes(filterValue))
+      .map(item => ({
+        name: item.name,
+        avatar: item.avatar,
+        status: item.status,
+        id: item.id,
+        type: item.type
+      }));
   }
 
   selectUser(user: any) {
-    console.log("Selected user: ", user);
-    // Setzen Sie beispielsweise den Namen des Benutzers als Wert des Suchfelds
+    console.log("Selected item: ", user);
     this.searchControl.setValue(user.name);
     this.searchControl.reset();
-    this.dashboard.setSelectedUser(user);
-    this.dashboard.focusMessageInput();
-    this.dashboard.loadMessages();
-    // Führen Sie hier weitere Aktionen aus, z.B. Navigieren zu einem Benutzerprofil
+    if(user.type === 'user') {
+      this.dashboard.setSelectedUser(user);
+      this.dashboard.focusMessageInput();
+      this.dashboard.loadMessages();
+    } else if(user.type === 'channel') {
+      // Implementieren Sie Logik für die Auswahl eines Kanals
+    }
+    // Weitere Aktionen...
   }
-
 
   protected readonly of = of;
 }

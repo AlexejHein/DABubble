@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Channel } from '../models/channel.class';
 import { Thread } from '../models/thread.class';
 import {BehaviorSubject} from "rxjs";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ThreadsService {
   private selectedSidebarClass = new BehaviorSubject<any>({});
   selectedSidebarClassName = this.selectedSidebarClass.asObservable();
 
-  constructor() { }
+
+  constructor(private firestore: AngularFirestore) { }
 
   setSelectedChannel(channel: Channel | null) {
    this.selectedChannelSubject.next(channel);
@@ -36,4 +38,7 @@ export class ThreadsService {
     this.selectedSidebarClass.next(moveRight);
   }
 
+  getChannels() {
+    return this.firestore.collection<Channel>('channels').valueChanges({ idField: 'id' });
+  }
 }
