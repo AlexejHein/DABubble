@@ -7,6 +7,8 @@ import { UserService } from '../../services/user.service';
 import { User} from "../../models/User.class";
 import {Reaction} from "../../models/reaction.class";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { distinctUntilChanged, tap } from 'rxjs/operators';
 
 
 
@@ -35,20 +37,34 @@ export class ThreadListComponent implements OnInit {
   allUsers: User[] = [];
   threadVisible = true;
   moveRight:string = "";
+  moveLeft:string = "";
   protected hoveredIndex: number | undefined;
   hideThreadMenu = signal<any | null>(null);
   private chosen: string | undefined;
   private showReactions: boolean | undefined;
   private threadsRef: any;
+  readonly breakpoint$ = this.breakpointObserver
+    .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
+    .pipe(
+      tap(value => console.log(value)),
+      distinctUntilChanged()
+    );
+
+    Breakpoints = Breakpoints;
+    currentBreakpoint:string = '';
 
   constructor(  private userService: UserService,
                 protected threadsService: ThreadsService,
                 private changeDetector: ChangeDetectorRef,
-                private firestore: AngularFirestore,) {
+                private firestore: AngularFirestore,
+                private breakpointObserver: BreakpointObserver) {
     this.threadsRef = this.firestore.collection('threads').ref;
   }
 
   ngOnInit(): void {
+    this.breakpoint$.subscribe(() =>
+    this.breakpointChanged()
+  );
     this.userService.getUsers().subscribe(users => {
       this.allUsers = users;
       console.log("All Users in thread:", this.allUsers);
@@ -87,6 +103,18 @@ export class ThreadListComponent implements OnInit {
 
 
 
+  }
+
+  private breakpointChanged() {
+    if(this.breakpointObserver.isMatched(Breakpoints.Large)) {
+      this.currentBreakpoint = Breakpoints.Large;
+    } else if(this.breakpointObserver.isMatched(Breakpoints.Medium)) {
+      this.currentBreakpoint = Breakpoints.Medium;
+    } else if(this.breakpointObserver.isMatched(Breakpoints.Small)) {
+      this.currentBreakpoint = Breakpoints.Small;
+    } else if(this.breakpointObserver.isMatched('(min-width: 500px)')) {
+      this.currentBreakpoint = '(min-width: 500px)';
+    }
   }
 
   ngOnDestroy(): void {
@@ -190,6 +218,11 @@ export class ThreadListComponent implements OnInit {
   moveSidebar(){
     this.moveRight = "";
     this.threadsService.setselectedSidebarClassName(this.moveRight);
+    if(this.currentBreakpoint == Breakpoints.Medium){
+      console.log('Breakpoint: Medium');
+      this.moveLeft = "moveleft";
+      this.threadsService.setselectedLeftSidebarClassName(this.moveLeft);
+    }
   }
 
 }

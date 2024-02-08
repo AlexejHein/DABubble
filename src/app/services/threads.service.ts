@@ -20,6 +20,8 @@ export class ThreadsService {
   private selectedSidebarClass = new BehaviorSubject<any>({});
   selectedSidebarClassName = this.selectedSidebarClass.asObservable();
 
+  private selectedLeftSidebarClass = new BehaviorSubject<any>({});
+  selectedLeftSidebarClassName = this.selectedLeftSidebarClass.asObservable();
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -36,6 +38,10 @@ export class ThreadsService {
   }
   setselectedSidebarClassName(moveRight:any) {
     this.selectedSidebarClass.next(moveRight);
+  }
+
+  setselectedLeftSidebarClassName(moveLeft:any) {
+    this.selectedLeftSidebarClass.next(moveLeft);
   }
 
   getChannels() {

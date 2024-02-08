@@ -19,6 +19,8 @@ import {FocusService} from '../services/focus.service';
 import {Reaction} from "../models/reaction.class";
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {WorkspaceService} from "../services/workspace.service";
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {distinctUntilChanged, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,6 +59,7 @@ import {WorkspaceService} from "../services/workspace.service";
     ])
  ]
 })
+
 export class DashboardComponent implements OnInit {
   workspaceMenuVisible = true;
   threadVisible = false;
@@ -88,7 +91,15 @@ export class DashboardComponent implements OnInit {
   filteredAllUsers: any[] = [];
   dropdownVisible: boolean = false;
   public newMessageInChannel = false;
+  readonly breakpoint$ = this.breakpointObserver
+  .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
+  .pipe(
+    tap(value => console.log(value)),
+    distinctUntilChanged()
+  );
 
+  Breakpoints = Breakpoints;
+  currentBreakpoint:string = '';
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -98,10 +109,14 @@ export class DashboardComponent implements OnInit {
               private focusService: FocusService,
               private changeDetector: ChangeDetectorRef,
               private fireStorage: AngularFireStorage,
-              private workspaceService: WorkspaceService) {}
+              private workspaceService: WorkspaceService,
+              private breakpointObserver: BreakpointObserver) {}
 
 
   async ngOnInit(): Promise<void> {
+    this.breakpoint$.subscribe(() =>
+  this.breakpointChanged()
+);
     this.workspaceService.addMessageClick$.subscribe(() => {
       this.isInputVisible = !this.isInputVisible;
     });
@@ -145,6 +160,10 @@ export class DashboardComponent implements OnInit {
       this.moveRight = moveClassName;
     });
     this.initializeCloseThread();
+    this.subscription = this.threadsService.selectedLeftSidebarClassName.subscribe(moveClassName => {
+      this.moveLeft = moveClassName;
+      console.log("moveLeft: ", this.moveLeft);
+    });
   }
 
   setSelectedUser(user: any) {
@@ -170,6 +189,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  private breakpointChanged() {
+    if(this.breakpointObserver.isMatched(Breakpoints.Large)) {
+      this.currentBreakpoint = Breakpoints.Large;
+    } else if(this.breakpointObserver.isMatched(Breakpoints.Medium)) {
+      this.currentBreakpoint = Breakpoints.Medium;
+    } else if(this.breakpointObserver.isMatched(Breakpoints.Small)) {
+      this.currentBreakpoint = Breakpoints.Small;
+    } else if(this.breakpointObserver.isMatched('(min-width: 500px)')) {
+      this.currentBreakpoint = '(min-width: 500px)';
+    }
+  }
 
   filterMessages(messages: any[]) {
     return messages.filter(m => {
