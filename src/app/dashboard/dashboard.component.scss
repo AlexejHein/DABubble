@@ -308,7 +308,17 @@ app-search{
     gap: 5px;
   }
 }
-
+.dropdown {
+  padding: 20px 25px;
+  background: #fff;
+  border: 1px solid #ADB0D9;
+  border-radius: 0px 20px 20px 20px;
+  box-shadow: 0px 2px 10px 0px #00000014;
+  img {
+    width: 50px;
+    height: 50px;
+}
+}
 .workspace-container {
     width: calc(100% - 60px);
     max-width: 306px;

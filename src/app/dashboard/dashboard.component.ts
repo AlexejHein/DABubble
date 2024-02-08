@@ -85,7 +85,9 @@ export class DashboardComponent implements OnInit {
   @ViewChild('messageInput') messageInput: ElementRef | undefined;
   uploadedFileInfo: any;
   isInputVisible = false; // Typ sollte der Typ Ihres Benutzers sein
-
+  filteredAllUsers: any[] = [];
+  dropdownVisible: boolean = false;
+  public newMessageInChannel = false;
 
 
   constructor(private userService: UserService,
@@ -476,5 +478,27 @@ getPDFFileName(url: string): string {
 getUserName(userId: string | undefined): string {
   const user = this.allUsers.find(user => user.id === userId);
   return user ? user.name : '';
+}
+
+filterResults(text: string) {
+  if (!text) {
+    this.filteredAllUsers = this.allUsers;
+    this.dropdownVisible = false;
+    return;
+  }
+  if (text.startsWith('#')) {
+    console.log('starts with #');
+  }
+  if (!text.startsWith('#')){
+  this.filteredAllUsers = this.allUsers.filter(
+    allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase())
+  );
+  this.dropdownVisible = true;
+}
+}
+
+chatWithSelectedUser(selectedUser: User): void {
+  this.userService.setSelectedUser(selectedUser);
+  this.workspaceService.addMessageClicked();
 }
 }
