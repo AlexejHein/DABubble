@@ -52,7 +52,7 @@ constructor(
 
   onUserClick(selectedUser: User): void {
     this.userService.setSelectedUser(selectedUser);
-    this.workspaceService.addMessageClicked();
+    //this.workspaceService.addMessageClicked();
   }
 
 }
