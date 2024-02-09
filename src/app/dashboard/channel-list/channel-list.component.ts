@@ -41,16 +41,21 @@ export class ChannelListComponent implements OnInit {
      this.searchChannel(query);
    });
    this.channelService.channelClicked$.subscribe(channel => {
-     console.log("Empfangener Kanal im Abonnement: ", channel);
-     const selectedChannel = new Channel();
-     Object.assign(selectedChannel, channel);
-     this.onChannelClick(selectedChannel);
+     const foundChannel = this.allChannels.find(c => c.id === channel.id);
+     if (foundChannel) {
+       this.onChannelClick(foundChannel);
+       console.log("Kanal, der empfangen wurde: ", channel);
+     } else {
+       console.log("Kein übereinstimmender Kanal für ID", channel.id, "gefunden.");
+     }
    });
-  }
+
+ }
 
   searchChannel(query: string): void {
     if (query) {
       this.selectChannelByName(query);
+      console.log("Kanal mit dem Namen", query, "gesucht.");
     }
   }
 
@@ -58,7 +63,6 @@ export class ChannelListComponent implements OnInit {
     const foundChannel = this.allChannels.find(channel => channel.name === channelName);
     if (foundChannel) {
       this.onChannelClick(foundChannel);
-      console.log("Kanal mit dem Namen", channelName, "gefunden.");
     } else {
       console.log("Kanal mit dem Namen", channelName, "nicht gefunden.");
     }

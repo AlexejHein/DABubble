@@ -28,10 +28,11 @@
               </div>
         </div>
       </div>
-      </div> 
+      </div>
     </div>
-    </div> 
-    <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()"><span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
+    </div>
+    <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()">
+      <span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
       <div class="user-header" (click)="openDialog(selectedUser)">
       <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
       {{ selectedUser ? selectedUser.name : '' }}

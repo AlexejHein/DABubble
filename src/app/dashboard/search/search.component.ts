@@ -74,9 +74,8 @@ export class SearchComponent implements OnInit {
       this.dashboard.focusMessageInput();
       this.dashboard.loadMessages();
     } else if(user.type === 'channel') {
-      console.log("Ausgewählter Kanal vor dem Senden: ", user);
-
       this.channelService.channelClick(user);
+      //this.threadsService.setSelectedChannel(user);
     }
     // Weitere Aktionen...
   }
