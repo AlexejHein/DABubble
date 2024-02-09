@@ -166,6 +166,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  clearHeader(): void {
+    this.selectedUser = null;
+    this.selectedChannel = null;
+  }
+
   setSelectedUser(user: any) {
     this.selectedUser = user;
     this.changeDetector.detectChanges();
@@ -375,7 +380,6 @@ export class DashboardComponent implements OnInit {
 
   saveUpdatedMessage(message: Message) {
     this.messagesService.updateMessage(message).then(() => {
-      console.log("Nachricht erfolgreich aktualisiert");
     }).catch(error => {
       console.error("Fehler beim Aktualisieren der Nachricht:", error);
     });

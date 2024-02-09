@@ -4,6 +4,7 @@ import { DialogAddChannelComponent } from 'src/app/dialog-add-channel/dialog-add
 import { WorkspaceService } from 'src/app/services/workspace.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
+import { DashboardComponent} from "../dashboard.component";
 
 @Component({
   selector: 'app-workspace-menu',
@@ -26,7 +27,10 @@ readonly breakpoint$ = this.breakpointObserver
     Breakpoints = Breakpoints;
     currentBreakpoint:string = '';
 
-constructor(public dialog: MatDialog, private workspaceService: WorkspaceService, private breakpointObserver: BreakpointObserver) {
+constructor(public dialog: MatDialog,
+            private workspaceService: WorkspaceService,
+            private breakpointObserver: BreakpointObserver,
+            private dashboard: DashboardComponent) {
 
 }
 
@@ -74,6 +78,6 @@ private breakpointChanged() {
 
   addMessage() {
     this.workspaceService.addMessageClicked();
-
+    this.dashboard.clearHeader();
   }
 }

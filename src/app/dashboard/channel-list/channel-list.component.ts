@@ -7,6 +7,7 @@ import { ThreadsService } from 'src/app/services/threads.service';
 import { Thread } from 'src/app/models/thread.class';
 import { WorkspaceService } from 'src/app/services/workspace.service';
 import {ChannelService} from "../../services/channel.service";
+import { DashboardComponent } from "../dashboard.component";
 
 @Component({
   selector: 'app-channel-list',
@@ -25,7 +26,8 @@ export class ChannelListComponent implements OnInit {
   constructor(
     protected threadsService: ThreadsService,
     private workspaceService: WorkspaceService,
-    private channelService: ChannelService
+    private channelService: ChannelService,
+    private dashboardComponent: DashboardComponent
   ) {}
 
  async ngOnInit(): Promise<void> {
@@ -74,6 +76,7 @@ export class ChannelListComponent implements OnInit {
     console.log("Selected Channel ID:", selectedChannel.id);
     this.channelId = selectedChannel.id;
     this.workspaceService.addMessageClicked();
+    this.dashboardComponent.isInputVisible = false;
   }
 
 

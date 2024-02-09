@@ -5,6 +5,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UserService} from "../../services/user.service";
 import { WorkspaceService } from "../../services/workspace.service";
+import { DashboardComponent } from "../dashboard.component";
 
 @Component({
   selector: 'app-user-list',
@@ -24,6 +25,7 @@ constructor(
   protected userService: UserService,
   public dialog: MatDialog,
   private workspaceService: WorkspaceService,
+  private dashboard: DashboardComponent
 ) {}
 
 
@@ -52,6 +54,7 @@ constructor(
 
   onUserClick(selectedUser: User): void {
     this.userService.setSelectedUser(selectedUser);
+    this.dashboard.isInputVisible = false;
     //this.workspaceService.addMessageClicked();
   }
 
