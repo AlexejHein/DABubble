@@ -49,21 +49,20 @@ span.adduser {
   gap: 10px;
   margin-top: 25px;
   padding: 12px 20px;
-  border-radius: 100px;
+  border-radius: 100px; 
   width: 235px;
   &:before {
     content: "";
     width: 32px;
     height: 32px;
-    background: url(/assets/img/add-member.svg) no-repeat;
+    background: url(/assets/img/add-member-dark.svg);
     background-size: 100% auto;
     display: inline-block;
-
   }
   &:hover:before {
     width: 32px;
     height: 32px;
-    background: url(/assets/img/add-member.svg);
+    background: url(/assets/img/add-member-b.svg);
     background-size: 100% auto;
   }
   &:hover {
