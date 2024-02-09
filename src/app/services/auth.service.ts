@@ -10,6 +10,7 @@ import {UserService} from "./user.service";
   providedIn: 'root'
 })
 export class AuthService {
+  private autoLogoutTimer: any;
 
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
@@ -24,16 +25,22 @@ export class AuthService {
         await this.sendVerificationEmail();
       }
 
+      this.setAutoLogout(60 * 60 * 1000); //(4 * 60 * 60 * 1000) Set auto logout to 4 hours
+
       return result;
     } catch (error) {
       console.error('Error during login with email', error);
       throw error;
     }
   }
+
   async loginWithGoogle() {
     try {
       const result = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       console.log('You are Successfully logged in with Google!', result);
+
+      this.setAutoLogout(4 * 60 * 60 * 1000); // Set auto logout to 4 hours
+
       return result;
     } catch (error) {
       console.error('Error during login with Google', error);
@@ -50,9 +57,23 @@ export class AuthService {
       await this.afAuth.signOut();
       console.log('You are Successfully logged out!');
       await this.router.navigate(['']);
+
+      this.clearAutoLogout();
     } catch (error) {
       console.error('Error during logout', error);
       throw error;
+    }
+  }
+
+  setAutoLogout(expirationDuration: number) {
+    this.autoLogoutTimer = setTimeout(() => {
+      this.logout().then(r => {});
+    }, expirationDuration);
+  }
+
+  clearAutoLogout() {
+    if (this.autoLogoutTimer) {
+      clearTimeout(this.autoLogoutTimer);
     }
   }
 
