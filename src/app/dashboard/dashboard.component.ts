@@ -2,14 +2,14 @@ import {ChangeDetectorRef, Component, ElementRef, OnInit, signal, ViewChild} fro
 import {animate, style, transition, trigger} from '@angular/animations';
 import {UserService} from '../services/user.service';
 import {User} from "../models/User.class";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {MessagesService} from "../services/messages.service";
 import {Message} from "../models/message.class";
 import {Channel} from '../models/channel.class';
 import {ThreadsService} from '../services/threads.service';
 import {DialogEditChannelComponent} from '../dialog-edit-channel/dialog-edit-channel.component';
 import {MatDialog} from '@angular/material/dialog';
-import {addDoc, doc, docData, Firestore} from '@angular/fire/firestore';
+import {addDoc, collectionData, doc, docData, Firestore} from '@angular/fire/firestore';
 import {collection} from 'firebase/firestore';
 import {Thread} from '../models/thread.class';
 import {DialogUserComponent} from "../dialog-user/dialog-user.component";
@@ -81,6 +81,8 @@ export class DashboardComponent implements OnInit {
   channelUsers: any[] = [];
   usersId:any = "";
   allUsers: User[] = [];
+  allChannels: any[] = [];
+  items$!: Observable<any[]>;
   thread = new Thread();
   @ViewChild('myScrollContainer') private myScrollContainer: ElementRef | undefined;
   showReactions = false;
@@ -90,6 +92,7 @@ export class DashboardComponent implements OnInit {
   isInputVisible = false; // Typ sollte der Typ Ihres Benutzers sein
   filteredAllUsers: any[] = [];
   dropdownVisible: boolean = false;
+  loadAllChannels: boolean = false;
   public newMessageInChannel = false;
   readonly breakpoint$ = this.breakpointObserver
   .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
@@ -117,6 +120,12 @@ export class DashboardComponent implements OnInit {
     this.breakpoint$.subscribe(() =>
   this.breakpointChanged()
 );
+const aCollection = collection(this.firestore, 'channels');
+this.items$ = collectionData(aCollection, { idField: 'id' });
+this.items$.subscribe((channels) => {
+  this.allChannels = channels;
+  console.log(channels);
+});
     this.workspaceService.addMessageClick$.subscribe(() => {
       this.isInputVisible = !this.isInputVisible;
     });
@@ -516,19 +525,20 @@ getUserName(userId: string | undefined): string {
 
 filterResults(text: string) {
   if (!text) {
+    this.loadAllChannels = false;
     this.filteredAllUsers = this.allUsers;
     this.dropdownVisible = false;
     return;
   }
   if (text.startsWith('#')) {
     console.log('starts with #');
+    this.loadAllChannels = true;
+    console.log(this.allChannels);
   }
-  if (!text.startsWith('#')){
   this.filteredAllUsers = this.allUsers.filter(
     allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase())
   );
   this.dropdownVisible = true;
-}
 }
 
 chatWithSelectedUser(selectedUser: User): void {

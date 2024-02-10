@@ -18,6 +18,7 @@
     <input type="text" #filter name="newmessage" (keyup)="filterResults(filter.value)" placeholder="Name eingeben">
     <div class="selectuser" *ngIf="dropdownVisible">
       <div class="dropdown">
+        <div *ngIf="!loadAllChannels">
       <div *ngFor="let user of filteredAllUsers">
         <div (click)="chatWithSelectedUser(user)">
             <div class="user-prev">
@@ -28,6 +29,16 @@
               </div>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="loadAllChannels">
+        <div *ngFor="let channel of allChannels" class="thread-list">
+          <div class="thread-prev">
+            <span class="thread-icon"></span><span>{{channel.title}}</span>
+          </div>
+        </div>
+    </div>
+
       </div>
     </div>
     </div>
