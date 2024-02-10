@@ -91,6 +91,7 @@ export class DashboardComponent implements OnInit {
   uploadedFileInfo: any;
   isInputVisible = false; // Typ sollte der Typ Ihres Benutzers sein
   filteredAllUsers: any[] = [];
+  filteredAllChannels: any[] = [];
   dropdownVisible: boolean = false;
   loadAllChannels: boolean = false;
   public newMessageInChannel = false;
@@ -533,11 +534,16 @@ filterResults(text: string) {
   if (text.startsWith('#')) {
     console.log('starts with #');
     this.loadAllChannels = true;
+    this.filteredAllChannels = this.allChannels;
     console.log(this.allChannels);
   }
   this.filteredAllUsers = this.allUsers.filter(
     allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase())
   );
+    this.filteredAllChannels = this.allChannels.filter(
+    allChannels => allChannels?.title.toLowerCase().includes(text.toLowerCase().replace('#',''))
+  );
+  console.log(this.filteredAllChannels);
   this.dropdownVisible = true;
 }
 
