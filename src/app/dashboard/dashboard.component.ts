@@ -545,4 +545,9 @@ chatWithSelectedUser(selectedUser: User): void {
   this.userService.setSelectedUser(selectedUser);
   this.workspaceService.addMessageClicked();
 }
+
+writeMessageInChannel(selectedChannel: Channel): void {
+  this.threadsService.setSelectedChannel(selectedChannel);
+  this.workspaceService.addMessageClicked();
+}
 }

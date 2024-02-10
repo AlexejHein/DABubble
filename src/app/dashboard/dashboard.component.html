@@ -33,9 +33,11 @@
 
     <div *ngIf="loadAllChannels">
         <div *ngFor="let channel of allChannels" class="thread-list">
+          <div (click)="writeMessageInChannel(channel)">
           <div class="thread-prev">
             <span class="thread-icon"></span><span>{{channel.title}}</span>
           </div>
+        </div>
         </div>
     </div>
 
