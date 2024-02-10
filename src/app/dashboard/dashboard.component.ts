@@ -538,7 +538,7 @@ filterResults(text: string) {
     console.log(this.allChannels);
   }
   this.filteredAllUsers = this.allUsers.filter(
-    allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase())
+    allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase().replace('@',''))
   );
     this.filteredAllChannels = this.allChannels.filter(
     allChannels => allChannels?.title.toLowerCase().includes(text.toLowerCase().replace('#',''))
