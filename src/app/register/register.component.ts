@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +17,13 @@ export class RegisterComponent {
 
   constructor(
     public storageService: StorageService,
-    private userService: UserService
+    private userService: UserService,
+    private router:Router
   ) {}
+
+  gotoPrivacyPolicy(){
+    this.router.navigateByUrl('privacy')
+  }
 
   calculatePasswordStrength(password: string): string {
     const hasLowerCase = /[a-z]/.test(password);

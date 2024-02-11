@@ -30,7 +30,7 @@
     
         <div class="checkboxSection">
             <input required type="checkbox" name="privacyPolicy" #checkedPP="ngModel" [(ngModel)]="privacyPolicyChecked">
-            <div> ich stimme der <span>Datenschutzerklärung</span> zu</div>
+            <div> ich stimme der <span (click)="gotoPrivacyPolicy()">Datenschutzerklärung</span> zu</div>
         </div>
         <div *ngIf="checkedPP.invalid && checkedPP.dirty" [ngClass]="{alert:checkedPP.invalid}">
             <div *ngIf="checkedPP.errors?.['required']"> Please accept the privacy policy</div>
