@@ -293,9 +293,12 @@
           <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
         </div>
         </mat-menu>
-        <mat-icon [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
-        <mat-menu #selectUser="matMenu" >
-          <button  *ngFor="let user of allUsers">{{user.name}}</button>
+        <mat-icon style="cursor: pointer" [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
+        <mat-menu class="addUserContainer" #selectUser="matMenu" >
+          <div class="addUserBtn"  *ngFor="let user of allUsers">
+          <img class="addUserAvatar" [src]="user.avatar" alt="userAvatar">
+            {{user.name}}
+          </div>
         </mat-menu>
       </div>
       <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>

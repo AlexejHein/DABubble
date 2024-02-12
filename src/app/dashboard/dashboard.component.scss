@@ -743,6 +743,31 @@ h3 {
 .user-prev span {
   font-size: 18px;
 }
+
+
+}
+.addUserContainer{
+  display: flex;
+  flex-direction: column;
 }
 
+.addUserBtn{
+  margin: 10px;
+  padding: 10px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: #eceefe;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+}
 
+.addUserAvatar{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
