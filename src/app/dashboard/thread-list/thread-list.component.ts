@@ -58,7 +58,7 @@ export class ThreadListComponent implements OnInit {
                 private changeDetector: ChangeDetectorRef,
                 private firestore: AngularFirestore,
                 private breakpointObserver: BreakpointObserver) {
-    this.threadsRef = this.firestore.collection('threads').ref;
+  this.threadsRef = this.firestore.collection('threads').ref;
   }
 
   ngOnInit(): void {
@@ -90,7 +90,6 @@ export class ThreadListComponent implements OnInit {
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
       console.log(threads);
-
       this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
         this.selectedChannel = channel;
         this.selectedChannelId = channel?.id;

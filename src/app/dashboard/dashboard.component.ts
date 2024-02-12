@@ -153,6 +153,7 @@ export class DashboardComponent implements OnInit {
       this.selectedUser = user;
       this.selectedChannel = null;
       this.loadMessages();
+      setTimeout(() => this.scrollToBottom(), 100);
     });
     this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
       if (channel) {
@@ -160,6 +161,7 @@ export class DashboardComponent implements OnInit {
         this.selectedUser = null;
         this.channelId = this.selectedChannel.id;
         this.channelUsers = this.selectedChannel.users;
+        setTimeout(() => this.scrollToBottom(), 100);
       }
     });
     this.focusService.focusMessageInput$.subscribe(() => {
@@ -202,7 +204,7 @@ export class DashboardComponent implements OnInit {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
-      setTimeout(() => this.scrollToBottom(), 100);
+      //setTimeout(() => this.scrollToBottom(), 100);
     });
   }
 
