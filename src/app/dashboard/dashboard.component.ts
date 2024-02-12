@@ -309,7 +309,7 @@ export class DashboardComponent implements OnInit {
   editChannel() {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
-    docData(threadDoc).subscribe((channel) => {
+    this.subscription = docData(threadDoc).subscribe((channel) => {
       this.channel = new Channel(channel);
       this.saveEditedChannel(this.channel, this.channelId);
     });
@@ -324,6 +324,9 @@ export class DashboardComponent implements OnInit {
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = this.channelId;
     console.log("thread to edit:", this.selectedChannel);}
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   saveThread() {
