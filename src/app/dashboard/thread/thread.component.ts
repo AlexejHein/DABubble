@@ -10,6 +10,7 @@ import {Reaction} from "../../models/reaction.class";
 import {collection, collectionData, doc, Firestore, updateDoc} from '@angular/fire/firestore';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {arrayUnion} from 'firebase/firestore';
+import { DashboardComponent} from "../dashboard.component";
 
 @Component({
   selector: 'app-thread',
@@ -52,7 +53,7 @@ export class ThreadComponent implements OnInit {
     protected threadsService: ThreadsService,
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
-    private fireStorage: AngularFireStorage) {
+    private fireStorage: AngularFireStorage, private dashboard: DashboardComponent) {
 }
 
 
@@ -154,6 +155,7 @@ loadMessages() {
       }
       return message;
     });
+    setTimeout(() =>this.dashboard.scrollToBottom(),100);
 
   });
 }

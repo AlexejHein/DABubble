@@ -73,6 +73,7 @@ app-search{
   .messageOutput{
     width: 90%;
     margin: 0 auto;
+    overflow: auto;
     .message-left {
       text-align: left;
       .message-box {

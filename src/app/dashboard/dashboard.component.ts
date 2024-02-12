@@ -120,13 +120,13 @@ export class DashboardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.breakpoint$.subscribe(() =>
   this.breakpointChanged()
-);
-const aCollection = collection(this.firestore, 'channels');
-this.items$ = collectionData(aCollection, { idField: 'id' });
-this.items$.subscribe((channels) => {
-  this.allChannels = channels;
-  console.log(channels);
-});
+    );
+    const aCollection = collection(this.firestore, 'channels');
+    this.items$ = collectionData(aCollection, { idField: 'id' });
+    this.items$.subscribe((channels) => {
+      this.allChannels = channels;
+      console.log(channels);
+    });
     this.workspaceService.addMessageClick$.subscribe(() => {
       this.isInputVisible = !this.isInputVisible;
     });
@@ -200,8 +200,18 @@ this.items$.subscribe((channels) => {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
-      setTimeout(() => this.scrollToBottom(), 0);
+      setTimeout(() => this.scrollToBottom(), 100);
     });
+  }
+
+  scrollToBottom(): void {
+    try {
+      if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      }
+    } catch(err) {
+      console.error('Fehler beim Scrollen:', err);
+    }
   }
 
   private breakpointChanged() {
@@ -224,14 +234,6 @@ this.items$.subscribe((channels) => {
       const isToSelectedUser = this.selectedUser ? m.toUser as unknown as undefined === this.selectedUser.id : false;
       return (isFromCurrentUser || isToCurrentUser) && (isFromSelectedUser || isToSelectedUser);
     });
-  }
-
-  scrollToBottom(): void {
-    try {
-      if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      }
-    } catch(err) { }
   }
 
   saveMessage() {
