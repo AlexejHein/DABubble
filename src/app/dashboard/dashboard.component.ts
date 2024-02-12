@@ -21,6 +21,7 @@ import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {WorkspaceService} from "../services/workspace.service";
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {distinctUntilChanged, tap} from 'rxjs/operators';
+//import { UserListComponent} from "./user-list/user-list.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -114,7 +115,8 @@ export class DashboardComponent implements OnInit {
               private changeDetector: ChangeDetectorRef,
               private fireStorage: AngularFireStorage,
               private workspaceService: WorkspaceService,
-              private breakpointObserver: BreakpointObserver) {}
+              private breakpointObserver: BreakpointObserver,
+              ) {}
 
 
   async ngOnInit(): Promise<void> {
@@ -558,4 +560,10 @@ writeMessageInChannel(selectedChannel: Channel): void {
   this.threadsService.setSelectedChannel(selectedChannel);
   this.workspaceService.addMessageClicked();
 }
+
+  userClick(user: User) {
+    console.log(user)
+    this.setSelectedUser(user);
+    this.loadMessages();
+  }
 }

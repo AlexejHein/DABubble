@@ -295,7 +295,7 @@
         </mat-menu>
         <mat-icon style="cursor: pointer" [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
         <mat-menu class="addUserContainer" #selectUser="matMenu" >
-          <div class="addUserBtn"  *ngFor="let user of allUsers">
+          <div class="addUserBtn"  *ngFor="let user of allUsers" (click)="userClick(user)">
           <img class="addUserAvatar" [src]="user.avatar" alt="userAvatar">
             {{user.name}}
           </div>
