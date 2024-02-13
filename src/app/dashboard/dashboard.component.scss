@@ -771,3 +771,11 @@ h3 {
   height: 30px;
   border-radius: 50%;
 }
+@media (max-width: 1160px){
+  .search{
+    display: none;
+  }
+  app-search{
+    display: none;
+  }
+}
