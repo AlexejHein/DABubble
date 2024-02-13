@@ -1,13 +1,22 @@
-    <div mat-button [matMenuTriggerFor]="menu" class="my-profile">
+<div class="content">
+<div mat-button [matMenuTriggerFor]="menu" class="my-profile">
       <h2>{{ currentUserDetails?.name }}</h2>
       <img class="user-avatar" [src]="currentUserDetails?.avatar" alt="user" />
       <span class="open-my-profile"></span></div>
-    <mat-menu class="menu-box" #menu="matMenu" xPosition="before">
+    <mat-menu class="menu-box" #menu="matMenu" xPosition="before" >
         <div class="profileBubble">
-   <a (click)="openDialog()">Profil</a>
-   <a (click)="logoutUser(); $event.preventDefault()">Logout</a>
+           <a class="aMenu" (click)="openDialog()">Profil</a>
+           <a class="aMenu"  (click)="logoutUser(); $event.preventDefault()">Logout</a>
         </div>
     </mat-menu>
-
-
-
+</div>
+<div class="mobileContent" >
+  <img (click)="toggleMobileMenu()" class="user-avatar" [src]="currentUserDetails?.avatar" alt="user" />
+</div>
+<div class="mobile-menu" [ngClass]="{'visible': isMobileMenuVisible}" *ngIf="isMobileMenuVisible">
+  <div class="close" (click)="toggleMobileMenu()"></div>
+<div class="profileBubbleMobile">
+  <a (click)="openDialog()"><mat-icon>account_circle</mat-icon>Profil</a>
+  <a (click)="logoutUser(); $event.preventDefault()"><mat-icon>logout</mat-icon>Logout</a>
+</div>
+</div>

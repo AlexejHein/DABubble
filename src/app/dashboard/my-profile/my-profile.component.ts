@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import  { UserService } from '../../services/user.service';
@@ -11,14 +11,28 @@ import { AuthService} from "../../services/auth.service";
 })
 export class MyProfileComponent implements OnInit{
 
+  isMobileMenuVisible = false;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const clickedInside = this.elRef.nativeElement.contains(event.target);
+    if (!clickedInside && this.isMobileMenuVisible) {
+      this.toggleMobileMenu(); // Diese Funktion setzt isMobileMenuVisible auf false, um das Menü zu schließen
+    }
+  }
+
   currentUserId: string | null | undefined;
   currentUserDetails: any;
 
 
-  constructor(public dialog: MatDialog,
-              private userService: UserService,
-              private authService: AuthService
-) {}
+  constructor(private elRef: ElementRef, public dialog: MatDialog, private userService: UserService, private authService: AuthService
+) {
+    this.checkScreenSize();
+  }
 
   ngOnInit(): void {
     this.userService.getCurrentUserId().then(id => {
@@ -50,6 +64,13 @@ export class MyProfileComponent implements OnInit{
         right: '50px',
       }
     });
+  }
+
+  checkScreenSize() {
+    this.isMobileMenuVisible = window.innerWidth <= 768 && false;
+  }
+  toggleMobileMenu() {
+    this.isMobileMenuVisible = !this.isMobileMenuVisible;
   }
 
 }
