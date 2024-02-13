@@ -285,6 +285,7 @@ export class DashboardComponent implements OnInit {
   initializeCloseThread(): void {
     this.threadVisible = false;
     this.moveRight = "moveright";
+
   }
 
 
@@ -292,6 +293,7 @@ export class DashboardComponent implements OnInit {
     if(this.threadVisible) {
       this.threadVisible = false;
       this.moveRight = "moveright";
+      this.closeWorkspaceMenu();
     }
     else {
       this.threadVisible = true;
