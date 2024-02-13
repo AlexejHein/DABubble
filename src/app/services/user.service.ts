@@ -39,8 +39,6 @@ export class UserService {
       throw error;
     }
   }
-
-  // In der Datei src/app/services/user.service.ts
   getUsers() {
     return this.firestore.collection<User>('users').valueChanges({ idField: 'id' });
   }
@@ -60,7 +58,6 @@ export class UserService {
       this.auth.authState.subscribe(user => {
         console.log(user);
         if (user) {
-          console.log('User Display Name: ', user.displayName);
           resolve(user.displayName);
         } else {
           console.log('Kein Benutzer angemeldet');

@@ -5,7 +5,6 @@ import { map, startWith } from 'rxjs/operators';
 import { UserService } from "../../services/user.service";
 import { ThreadsService } from "../../services/threads.service";
 import { DashboardComponent } from "../dashboard.component";
-//import { ChannelListComponent} from "../channel-list/channel-list.component";
 import { ChannelService } from "../../services/channel.service";
 
 @Component({
@@ -29,13 +28,10 @@ export class SearchComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
-
-    // Abrufen von Benutzern
     this.userService.getUsers().subscribe((users: any[]) => {
       this.usersOrChannels = [...this.usersOrChannels, ...users.map(user => ({...user, type: 'user'}))];
     });
 
-    // Abrufen von Kanälen
     this.threadsService.getChannels().subscribe((channels: any[]) => {
       this.usersOrChannels = [...this.usersOrChannels, ...channels.map(channel => ({
         name: channel.title,
@@ -66,7 +62,6 @@ export class SearchComponent implements OnInit {
   }
 
   selectUser(user: any) {
-    console.log("Selected item: ", user);
     this.searchControl.setValue(user.name);
     this.searchControl.reset();
     if(user.type === 'user') {
@@ -75,7 +70,6 @@ export class SearchComponent implements OnInit {
       this.dashboard.loadMessages();
     } else if(user.type === 'channel') {
       this.channelService.channelClick(user);
-      //this.threadsService.setSelectedChannel(user);
     }
     // Weitere Aktionen...
   }
