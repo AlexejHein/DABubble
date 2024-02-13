@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Channel } from '../models/channel.class';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User.class';
@@ -33,7 +33,8 @@ export class DialogAddUserComponent implements OnInit {
 
   constructor(private userService: UserService,
     public dialog: MatDialog,
-    private threadsService: ThreadsService) {
+    private threadsService: ThreadsService,
+    public dialogRef: MatDialogRef<DialogAddUserComponent>) {
       this.filteredAllUsers = this.allUsers;
    
     }
@@ -107,6 +108,11 @@ saveUsersToChannel() {
   const coll = doc(this.firestore, 'channels', this.channelId);
   this.channel.users = this.loadChannelUsers;
     updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.dialogRef.close();
+    console.log("diealogref: ",this.dialogRef);
 }
 
 

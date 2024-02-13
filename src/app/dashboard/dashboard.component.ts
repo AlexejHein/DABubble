@@ -446,17 +446,17 @@ export class DashboardComponent implements OnInit {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
     docData(threadDoc).subscribe((channel) => {
-      this.channel = new Channel(channel);
-      if(this.dialog.openDialogs.length==0){
-        let dialog = this.dialog.open(DialogEditUsersComponent, {
-          width: '100%'
-      });
-        dialog.componentInstance.channel = new Channel(this.channel.toJSON());
-        dialog.componentInstance.channelId = this.channelId;
-    }
+      this.channel = new Channel(channel); 
     });
-
+    if(this.dialog.openDialogs.length==0){
+      let dialog = this.dialog.open(DialogEditUsersComponent, {
+        width: '100%'
+    });
+      dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+      dialog.componentInstance.channelId = this.channelId;
   }
+  }
+  
   focusMessageInput(): void {
     if (this.messageInput) {
       setTimeout(() => {
