@@ -56,12 +56,22 @@ export class MyProfileComponent implements OnInit{
   }
 
   openDialog(){
+    let dialogWidth = '500px';
+    let dialogHeight = '600px';
+    let dialogTop = '10%';
+    let dialogRight = '10%';
+    if (window.innerWidth <= 768) {
+      dialogWidth = '100%';
+      dialogHeight = '100%';
+      dialogTop = '0';
+      dialogRight = '0';
+    }
     this.dialog.open(UserMenuComponent, {
-      height: '600px',
-      width: '500px',
+      height: dialogHeight,
+      width: dialogWidth,
       position:{
-        top: '126px',
-        right: '50px',
+        top: dialogTop,
+        right: dialogRight
       }
     });
   }
