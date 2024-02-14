@@ -208,11 +208,14 @@ export class ThreadListComponent implements OnInit {
 
   loadSelectedThreadInfos(selectedThread: Thread): void {
     this.threadsService.setSelectedThread(selectedThread);
+    this.dashboard.isInputVisible = false;
+    this.dashboard.toggleVisibility();
   }
 
   showThread(){
     this.threadVisible = true;
     this.threadsService.setSelectedSidebarVisibility(this.threadVisible);
+
   }
 
   moveSidebar(){

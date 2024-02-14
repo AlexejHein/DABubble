@@ -27,7 +27,7 @@ export class ChannelListComponent implements OnInit {
     protected threadsService: ThreadsService,
     private workspaceService: WorkspaceService,
     private channelService: ChannelService,
-    private dashboardComponent: DashboardComponent
+    private dashboard: DashboardComponent
   ) {}
 
  async ngOnInit(): Promise<void> {
@@ -76,7 +76,9 @@ export class ChannelListComponent implements OnInit {
     console.log("Selected Channel ID:", selectedChannel.id);
     this.channelId = selectedChannel.id;
     this.workspaceService.addMessageClicked();
-    this.dashboardComponent.isInputVisible = false;
+    this.dashboard.isInputVisible = false;
+    this.dashboard.isInputVisible = false;
+    this.dashboard.toggleVisibility();
   }
 
 
