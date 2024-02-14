@@ -1,17 +1,26 @@
 <div class="container">
 <div class="header">
-    <div class="logo"><img src="assets/img/logo-full.svg"></div>
+    <div class="logo"  [ngClass]="{'hide': isHiddenLogo && isMobileView}"><img src="assets/img/logo-full.svg"></div>
+
+  <div class="workspace-header" [ngClass]="{'hide': isHiddenMenu && isMobileView }">
+    <mat-icon (click)="resetUI()">navigate_before</mat-icon>
+    <img src="assets/img/workspace-logo.svg">
+    <h3>Code learning</h3>
+  </div>
+
+
     <div class="search"><app-search></app-search></div>
     <div class="myprofile"><app-my-profile></app-my-profile></div>
 </div>
-<div (click)="closeWorkspaceMenu()" class="workspace-menu"><span class="close-menu {{ menuState }}">Workspace-Menü {{ menuString }}</span></div>
+
+<div (click)="closeWorkspaceMenu()" class="workspace-menu" ><span class="close-menu {{ menuState }}">Workspace-Menü {{ menuString }}</span></div>
 <div class="main-body">
 
-<div class="workspace-container {{ moveLeft }}">
+<div [ngClass]="{'hide': !workspaceMenuVisibleMobile && isMobileView}" class="workspace-container {{ moveLeft }}" >
 <app-workspace-menu *ngIf="workspaceMenuVisible" [@fade]></app-workspace-menu>
 </div>
 
-<div class="message-container" [@move]>
+<div class="message-container" [ngClass]="{'hide': !isInputVisibleMobile && isMobileView}" [@move]>
   <div class="chat-header">
     <div *ngIf="isInputVisible" class="neu-message">
     <h2>Neue Nachricht</h2>

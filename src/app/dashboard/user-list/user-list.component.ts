@@ -54,7 +54,9 @@ constructor(
 
   onUserClick(selectedUser: User): void {
     this.userService.setSelectedUser(selectedUser);
+    this.userService.onUserClick(selectedUser);
     this.dashboard.isInputVisible = false;
+    this.dashboard.toggleVisibility();
     //this.workspaceService.addMessageClicked();
   }
 

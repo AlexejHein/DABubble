@@ -21,6 +21,9 @@ import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {WorkspaceService} from "../services/workspace.service";
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {distinctUntilChanged, tap} from 'rxjs/operators';
+import { HostListener } from '@angular/core';
+import {flush} from "@angular/core/testing";
+
 
 @Component({
   selector: 'app-dashboard',
@@ -94,6 +97,7 @@ export class DashboardComponent implements OnInit {
   filteredAllChannels: any[] = [];
   dropdownVisible: boolean = false;
   loadAllChannels: boolean = false;
+  isMobileView: boolean = false;
   public newMessageInChannel = false;
   readonly breakpoint$ = this.breakpointObserver
   .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
@@ -115,7 +119,9 @@ export class DashboardComponent implements OnInit {
               private fireStorage: AngularFireStorage,
               private workspaceService: WorkspaceService,
               private breakpointObserver: BreakpointObserver,
-              ) {}
+              ) {
+    this.checkScreenWidth(window.innerWidth);
+  }
 
 
   async ngOnInit(): Promise<void> {
@@ -177,6 +183,18 @@ export class DashboardComponent implements OnInit {
       this.moveLeft = moveClassName;
       console.log("moveLeft: ", this.moveLeft);
     });
+    this.subscription = this.userService.userClick$.subscribe(user => {
+      if (user) {
+        // Logik hier, um UI-Elemente zu zeigen/verstecken oder zu aktualisieren
+        // Zum Beispiel: Klassen basierend auf Benutzerinteraktion ändern
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   clearHeader(): void {
@@ -261,11 +279,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
+
 
 
   closeWorkspaceMenu() {
@@ -353,6 +367,28 @@ export class DashboardComponent implements OnInit {
 
   chosen:any
   hideEmoticonMenu = signal<any | null>(null);
+  isHiddenLogo:boolean = false;
+  workspaceMenuVisibleMobile:boolean = true;
+  isInputVisibleMobile: boolean = false;
+  isHiddenMenu:boolean = true;
+
+  toggleVisibility() {
+    if (!this.isMobileView) return;
+    this.isHiddenLogo = !this.isHiddenLogo;
+    this.isHiddenMenu = !this.isHiddenMenu;
+    this.closeWorkspaceMenu();
+    this.isInputVisibleMobile = !this.isInputVisibleMobile;
+    // Sie können hier weitere Zustandsänderungen vornehmen, um andere Teile der UI entsprechend zu aktualisieren
+  }
+  resetUI() {
+    if (!this.isMobileView) return;
+    this.isHiddenLogo = !this.isHiddenLogo;
+    this.isHiddenMenu = !this.isHiddenMenu;
+    this.closeWorkspaceMenu();
+    this.workspaceMenuVisible = !this.workspaceMenuVisible;
+    this.workspaceMenuVisible = !this.workspaceMenuVisible;
+    this.isInputVisibleMobile = !this.isInputVisibleMobile;
+  }
 
   selectEmo(emoticon: string, messageId: string) {
     this.showReactions = true;
@@ -446,7 +482,7 @@ export class DashboardComponent implements OnInit {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
     docData(threadDoc).subscribe((channel) => {
-      this.channel = new Channel(channel); 
+      this.channel = new Channel(channel);
     });
     if(this.dialog.openDialogs.length==0){
       let dialog = this.dialog.open(DialogEditUsersComponent, {
@@ -456,7 +492,7 @@ export class DashboardComponent implements OnInit {
       dialog.componentInstance.channelId = this.channelId;
   }
   }
-  
+
   focusMessageInput(): void {
     if (this.messageInput) {
       setTimeout(() => {
@@ -571,5 +607,13 @@ writeMessageInChannel(selectedChannel: Channel): void {
     console.log(user)
     this.setSelectedUser(user);
     this.loadMessages();
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: { target: { innerWidth: number; }; }) {
+    this.checkScreenWidth(event.target.innerWidth);
+  }
+
+ checkScreenWidth(width: number) {
+    this.isMobileView = width < 1000;
   }
 }
