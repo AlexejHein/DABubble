@@ -346,6 +346,9 @@ app-search{
     width: 50px;
     height: 50px;
 }
+ .thread-prev:hover {
+  cursor: pointer;
+}
 }
 .workspace-container {
     width: calc(100% - 60px);
@@ -845,6 +848,11 @@ h3 {
   padding-left: 20px;
   @media (min-width: 1000px){
     display: none;
+  }
+  @media (max-width: 992px){
+    mat-icon {
+      cursor: pointer;
+  }
   }
   img{
     width: 50px;

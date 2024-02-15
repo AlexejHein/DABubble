@@ -24,7 +24,7 @@
   <div class="chat-header">
     <div *ngIf="isInputVisible" class="neu-message">
     <h2>Neue Nachricht</h2>
-    <input type="text" #filter name="newmessage" (keyup)="filterResults(filter.value)" placeholder="Name eingeben">
+    <input type="text" #filter name="newmessage" (keyup)="filterResults(filter.value)" placeholder="An: #channel oder @jemand">
     <div class="selectuser" *ngIf="dropdownVisible">
       <div class="dropdown">
         <div *ngIf="!loadAllChannels">
