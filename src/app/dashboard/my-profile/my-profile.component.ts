@@ -21,7 +21,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   onDocumentClick(event: MouseEvent) {
     const clickedInside = this.elRef.nativeElement.contains(event.target);
     if (!clickedInside && this.isMobileMenuVisible) {
-      this.toggleMobileMenu(); // Diese Funktion setzt isMobileMenuVisible auf false, um das Menü zu schließen
+      this.toggleMobileMenu();
     }
   }
 
