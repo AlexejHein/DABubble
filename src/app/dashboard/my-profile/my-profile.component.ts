@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import  { UserService } from '../../services/user.service';
@@ -9,7 +9,7 @@ import { AuthService} from "../../services/auth.service";
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss']
 })
-export class MyProfileComponent implements OnInit{
+export class MyProfileComponent implements OnInit, OnDestroy {
 
   isMobileMenuVisible = false;
 
@@ -21,7 +21,7 @@ export class MyProfileComponent implements OnInit{
   onDocumentClick(event: MouseEvent) {
     const clickedInside = this.elRef.nativeElement.contains(event.target);
     if (!clickedInside && this.isMobileMenuVisible) {
-      this.toggleMobileMenu(); // Diese Funktion setzt isMobileMenuVisible auf false, um das Menü zu schließen
+      this.toggleMobileMenu();
     }
   }
 
@@ -29,7 +29,10 @@ export class MyProfileComponent implements OnInit{
   currentUserDetails: any;
 
 
-  constructor(private elRef: ElementRef, public dialog: MatDialog, private userService: UserService, private authService: AuthService
+  constructor(private elRef: ElementRef,
+              public dialog: MatDialog,
+              private userService: UserService,
+              private authService: AuthService
 ) {
     this.checkScreenSize();
   }
@@ -47,9 +50,18 @@ export class MyProfileComponent implements OnInit{
     });
   }
 
+  ngOnDestroy(): void {
+    this.closeAllDialogs();
+  }
+
+  closeAllDialogs() {
+    this.dialog.closeAll();
+  }
+
   logoutUser(){
     if (this.userService.currentUser){
       this.authService.logout().then(r => {});
+      this.closeAllDialogs();
     }else {
       console.log('No user is logged in');
     }

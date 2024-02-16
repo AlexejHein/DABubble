@@ -12,8 +12,8 @@ export class UserMenuComponent implements OnInit{
   currentUserId: any;
   currentUserDetails: any;
   startEdit=false;
-  
-  
+
+
 
   constructor(public dialog: MatDialog,
     private userService: UserService,
@@ -31,12 +31,9 @@ export class UserMenuComponent implements OnInit{
       console.error("Error getting current user ID:", error);
     });
   }
-
-
   edit(){
    this.startEdit=true;
   }
-
   saveChanges(){
     this.userService.getCurrentUserId().then(id => {
       this.currentUserId = id;
@@ -53,8 +50,4 @@ export class UserMenuComponent implements OnInit{
       console.error("Error getting current user ID:", error);
     });
   }
-
-
-
-  
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, OnDestroy} from '@angular/core';
 import { Channel } from '../models/channel.class';
 import { Firestore, addDoc, collection, collectionData, doc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { ThreadsService } from '../services/threads.service';
   templateUrl: './dialog-add-channel.component.html',
   styleUrls: ['./dialog-add-channel.component.scss']
 })
-export class DialogAddChannelComponent implements OnInit {
+export class DialogAddChannelComponent implements OnInit, OnDestroy {
 
   currentUser: User | null | undefined;
   currentUserId: string | null = "";
@@ -47,10 +47,13 @@ export class DialogAddChannelComponent implements OnInit {
     }).catch(error => {
       console.error("Error getting current Author Name:", error);
     });
-
-
   }
 
+  ngOnDestroy(): void {
+    // Hier führen Sie die Bereinigung durch, bevor die Komponente zerstört wird
+    // Beispiel: Schließen Sie offene Dialoge, wenn diese Komponente für das Öffnen verantwortlich ist
+    this.dialog.closeAll();
+  }
   saveThread(){
   console.log(this.channel);
   console.log("current author name:", this.currentUserName);
@@ -67,7 +70,7 @@ export class DialogAddChannelComponent implements OnInit {
     this.addUserToChannel(this.channel,this.channel.id);
     this.threadService.setSelectedChannel(this.channel);
   }
-  
+
 
   addUserToChannel(channel:any, newChannelId:any){
     if(this.dialog.openDialogs.length==1){

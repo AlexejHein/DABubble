@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, OnDestroy} from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { ThreadsService } from '../services/threads.service';
   templateUrl: './dialog-add-user.component.html',
   styleUrls: ['./dialog-add-user.component.scss']
 })
-export class DialogAddUserComponent implements OnInit {
+export class DialogAddUserComponent implements OnInit, OnDestroy {
   firestore: Firestore = inject(Firestore);
   private subscription: Subscription | null = null;
   channel: Channel = new Channel();
@@ -36,7 +36,7 @@ export class DialogAddUserComponent implements OnInit {
     private threadsService: ThreadsService,
     public dialogRef: MatDialogRef<DialogAddUserComponent>) {
       this.filteredAllUsers = this.allUsers;
-   
+
     }
 
   async ngOnInit(): Promise<void> {
@@ -68,6 +68,12 @@ export class DialogAddUserComponent implements OnInit {
         ].filter(Boolean);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 filterResults(text: string) {
