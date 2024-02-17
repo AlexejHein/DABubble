@@ -1,4 +1,7 @@
 <div *ngFor="let thread of allThreadsFiltered; let i = index" (mouseenter)="showThreadMenu(i)" (mouseleave)="hideThreadMenu()">
+  <div class="date-hr" *ngIf="i === 0 || (allThreadsFiltered[i-1].createdAt | date) !== (thread.createdAt | date)">
+    <span><small>{{ thread.createdAt.toDate() | date:'dd.MM.yyyy' }}</small></span>
+  </div>
   <div class="message-direction">
     <div class="message-card">
       <div *ngFor="let user of allUsers">
@@ -13,7 +16,7 @@
           <div>
             <div class="message-head">
               <span class="message-user">{{ user.name }}</span>
-              <small>{{ thread.createdAt.toDate() | date:'short' }}</small>
+              <small>{{ thread.createdAt.toDate() | date:'HH:mm':'UTC' }}</small>
             </div>
             <div *ngIf="!thread.title.startsWith('http')" class="message-item">{{ thread.title }}</div>
             <div *ngIf="thread.title.startsWith('http')">

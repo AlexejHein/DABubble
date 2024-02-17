@@ -2,7 +2,24 @@
     width: 90%;
     margin: 0 auto;
 }
-
+.date-hr{
+  margin: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eceefe;
+  height: 2px;
+  span {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #eceefe;
+    border-radius: 30px;
+    height: 30px;
+    background-color: #ffffff;
+  }
+}
 .message-box {
     position: relative;
     display: flex;
