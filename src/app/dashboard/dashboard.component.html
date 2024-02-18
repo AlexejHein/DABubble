@@ -92,7 +92,7 @@
 
                         <div *ngIf="message.body.startsWith('http')">
                           <ng-container *ngIf="isImage(message.body)">
-                            <img [src]="message.body" class="styleImg" />
+                            <img [src]="message.body" class="styleImg"  />
                           </ng-container>
                           <ng-container *ngIf="isPDF(message.body)">
                             <a [href]="message.body" target="_blank">{{ getPDFFileName(message.body) }}</a>
