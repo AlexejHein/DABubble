@@ -31,7 +31,9 @@ h3 {
   gap: 15px;
   align-items: flex-end;
 }
-
+.message-box img.styleImg {
+  max-width: 100%!important;
+}
 .message-head {
     color: #000000;
     text-align: right;
