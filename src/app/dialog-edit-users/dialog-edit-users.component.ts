@@ -100,12 +100,9 @@ export class DialogEditUsersComponent implements OnInit {
     let threadDoc = doc(threadCollection, this.channelId);
     this.dialog.closeAll();
     docData(threadDoc).subscribe((channel) => {
-
       this.channel = new Channel(channel);
-      this.saveUsersToChannel(this.channel, this.channelId);
-
     });
-
+    this.saveUsersToChannel(this.channel, this.channelId);
   }
 
   saveUsersToChannel(channel:any, channelId:any){

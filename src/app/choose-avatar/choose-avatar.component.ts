@@ -55,12 +55,11 @@ export class ChooseAvatarComponent implements OnInit {
   async uploadFile(event: any) {
     const file = event.target.files[0];
     if (!file) return;
-
     const filePath = `avatars/${new Date().getTime()}_${file.name}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
-    this.isUploading = true;
 
+    this.isUploading = true;
     task.percentageChanges().subscribe(percent => {
       this.uploadPercent = percent;
     });

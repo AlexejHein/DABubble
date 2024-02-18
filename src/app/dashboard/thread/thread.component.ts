@@ -156,6 +156,7 @@ loadMessages() {
     });
 
   });
+
 }
 
   selectCurrentThread(threadId: any) {

@@ -31,7 +31,6 @@ export class LoginComponent {
           case 'auth/invalid-credential':
             this.loginError = 'Die eingegebenen Anmeldedaten sind ungültig oder abgelaufen.';
             break;
-          // Füge hier weitere Fälle für andere Firebase-Fehlercodes hinzu
           default:
             this.loginError = 'Ein unbekannter Fehler ist aufgetreten.';
         }

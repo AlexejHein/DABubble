@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, OnDestroy} from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Channel } from '../models/channel.class';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User.class';
@@ -13,7 +13,7 @@ import { ThreadsService } from '../services/threads.service';
   templateUrl: './dialog-add-user.component.html',
   styleUrls: ['./dialog-add-user.component.scss']
 })
-export class DialogAddUserComponent implements OnInit {
+export class DialogAddUserComponent implements OnInit, OnDestroy {
   firestore: Firestore = inject(Firestore);
   private subscription: Subscription | null = null;
   channel: Channel = new Channel();
@@ -33,9 +33,10 @@ export class DialogAddUserComponent implements OnInit {
 
   constructor(private userService: UserService,
     public dialog: MatDialog,
-    private threadsService: ThreadsService) {
+    private threadsService: ThreadsService,
+    public dialogRef: MatDialogRef<DialogAddUserComponent>) {
       this.filteredAllUsers = this.allUsers;
-   
+
     }
 
   async ngOnInit(): Promise<void> {
@@ -67,6 +68,12 @@ export class DialogAddUserComponent implements OnInit {
         ].filter(Boolean);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 filterResults(text: string) {
@@ -107,6 +114,11 @@ saveUsersToChannel() {
   const coll = doc(this.firestore, 'channels', this.channelId);
   this.channel.users = this.loadChannelUsers;
     updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.dialogRef.close();
+    console.log("diealogref: ",this.dialogRef);
 }
 
 

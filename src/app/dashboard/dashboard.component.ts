@@ -21,6 +21,9 @@ import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {WorkspaceService} from "../services/workspace.service";
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {distinctUntilChanged, tap} from 'rxjs/operators';
+import { HostListener } from '@angular/core';
+import {flush} from "@angular/core/testing";
+
 
 @Component({
   selector: 'app-dashboard',
@@ -94,6 +97,7 @@ export class DashboardComponent implements OnInit {
   filteredAllChannels: any[] = [];
   dropdownVisible: boolean = false;
   loadAllChannels: boolean = false;
+  isMobileView: boolean = false;
   public newMessageInChannel = false;
   readonly breakpoint$ = this.breakpointObserver
   .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
@@ -114,19 +118,22 @@ export class DashboardComponent implements OnInit {
               private changeDetector: ChangeDetectorRef,
               private fireStorage: AngularFireStorage,
               private workspaceService: WorkspaceService,
-              private breakpointObserver: BreakpointObserver) {}
+              private breakpointObserver: BreakpointObserver,
+              ) {
+    this.checkScreenWidth(window.innerWidth);
+  }
 
 
   async ngOnInit(): Promise<void> {
     this.breakpoint$.subscribe(() =>
   this.breakpointChanged()
-);
-const aCollection = collection(this.firestore, 'channels');
-this.items$ = collectionData(aCollection, { idField: 'id' });
-this.items$.subscribe((channels) => {
-  this.allChannels = channels;
-  console.log(channels);
-});
+    );
+    const aCollection = collection(this.firestore, 'channels');
+    this.items$ = collectionData(aCollection, { idField: 'id' });
+    this.items$.subscribe((channels) => {
+      this.allChannels = channels;
+      console.log(channels);
+    });
     this.workspaceService.addMessageClick$.subscribe(() => {
       this.isInputVisible = !this.isInputVisible;
     });
@@ -151,6 +158,7 @@ this.items$.subscribe((channels) => {
       this.selectedUser = user;
       this.selectedChannel = null;
       this.loadMessages();
+      setTimeout(() => this.scrollToBottom(), 100);
     });
     this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
       if (channel) {
@@ -158,6 +166,7 @@ this.items$.subscribe((channels) => {
         this.selectedUser = null;
         this.channelId = this.selectedChannel.id;
         this.channelUsers = this.selectedChannel.users;
+        setTimeout(() => this.scrollToBottom(), 100);
       }
     });
     this.focusService.focusMessageInput$.subscribe(() => {
@@ -174,6 +183,18 @@ this.items$.subscribe((channels) => {
       this.moveLeft = moveClassName;
       console.log("moveLeft: ", this.moveLeft);
     });
+    this.subscription = this.userService.userClick$.subscribe(user => {
+      if (user) {
+        // Logik hier, um UI-Elemente zu zeigen/verstecken oder zu aktualisieren
+        // Zum Beispiel: Klassen basierend auf Benutzerinteraktion ändern
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   clearHeader(): void {
@@ -200,8 +221,18 @@ this.items$.subscribe((channels) => {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
-      setTimeout(() => this.scrollToBottom(), 0);
+      //setTimeout(() => this.scrollToBottom(), 100);
     });
+  }
+
+  scrollToBottom(): void {
+    try {
+      if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      }
+    } catch(err) {
+      console.error('Fehler beim Scrollen:', err);
+    }
   }
 
   private breakpointChanged() {
@@ -226,14 +257,6 @@ this.items$.subscribe((channels) => {
     });
   }
 
-  scrollToBottom(): void {
-    try {
-      if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      }
-    } catch(err) { }
-  }
-
   saveMessage() {
     if (this.currentUserId && this.selectedUser && this.message.body.trim() !== '') {
       if (this.uploadedFileInfo) {
@@ -256,11 +279,7 @@ this.items$.subscribe((channels) => {
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
+
 
 
   closeWorkspaceMenu() {
@@ -280,6 +299,7 @@ this.items$.subscribe((channels) => {
   initializeCloseThread(): void {
     this.threadVisible = false;
     this.moveRight = "moveright";
+
   }
 
 
@@ -287,6 +307,7 @@ this.items$.subscribe((channels) => {
     if(this.threadVisible) {
       this.threadVisible = false;
       this.moveRight = "moveright";
+      this.closeWorkspaceMenu();
     }
     else {
       this.threadVisible = true;
@@ -303,7 +324,7 @@ this.items$.subscribe((channels) => {
   editChannel() {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
-    docData(threadDoc).subscribe((channel) => {
+    this.subscription = docData(threadDoc).subscribe((channel) => {
       this.channel = new Channel(channel);
       this.saveEditedChannel(this.channel, this.channelId);
     });
@@ -318,6 +339,9 @@ this.items$.subscribe((channels) => {
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = this.channelId;
     console.log("thread to edit:", this.selectedChannel);}
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   saveThread() {
@@ -343,6 +367,28 @@ this.items$.subscribe((channels) => {
 
   chosen:any
   hideEmoticonMenu = signal<any | null>(null);
+  isHiddenLogo:boolean = false;
+  workspaceMenuVisibleMobile:boolean = true;
+  isInputVisibleMobile: boolean = false;
+  isHiddenMenu:boolean = true;
+
+  toggleVisibility() {
+    if (!this.isMobileView) return;
+    this.isHiddenLogo = !this.isHiddenLogo;
+    this.isHiddenMenu = !this.isHiddenMenu;
+    this.closeWorkspaceMenu();
+    this.isInputVisibleMobile = !this.isInputVisibleMobile;
+    // Sie können hier weitere Zustandsänderungen vornehmen, um andere Teile der UI entsprechend zu aktualisieren
+  }
+  resetUI() {
+    if (!this.isMobileView) return;
+    this.isHiddenLogo = !this.isHiddenLogo;
+    this.isHiddenMenu = !this.isHiddenMenu;
+    this.closeWorkspaceMenu();
+    this.workspaceMenuVisible = !this.workspaceMenuVisible;
+    this.workspaceMenuVisible = !this.workspaceMenuVisible;
+    this.isInputVisibleMobile = !this.isInputVisibleMobile;
+  }
 
   selectEmo(emoticon: string, messageId: string) {
     this.showReactions = true;
@@ -437,16 +483,16 @@ this.items$.subscribe((channels) => {
     let threadDoc = doc(threadCollection, this.channelId);
     docData(threadDoc).subscribe((channel) => {
       this.channel = new Channel(channel);
-      if(this.dialog.openDialogs.length==0){
-        let dialog = this.dialog.open(DialogEditUsersComponent, {
-          width: '100%'
-      });
-        dialog.componentInstance.channel = new Channel(this.channel.toJSON());
-        dialog.componentInstance.channelId = this.channelId;
-    }
     });
-
+    if(this.dialog.openDialogs.length==0){
+      let dialog = this.dialog.open(DialogEditUsersComponent, {
+        width: '100%'
+    });
+      dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+      dialog.componentInstance.channelId = this.channelId;
   }
+  }
+
   focusMessageInput(): void {
     if (this.messageInput) {
       setTimeout(() => {
@@ -471,7 +517,12 @@ this.items$.subscribe((channels) => {
         name: file.name,
         url: url
       };
-      this.message.body= this.uploadedFileInfo.name
+      if (this.selectedChannel){
+        this.thread.title= this.uploadedFileInfo.name;
+      }
+      else {
+        this.message.body= this.uploadedFileInfo.name;
+      }
     }
   }
 
@@ -556,4 +607,18 @@ writeMessageInChannel(selectedChannel: Channel): void {
   this.threadsService.setSelectedChannel(selectedChannel);
   this.workspaceService.addMessageClicked();
 }
+
+  userClick(user: User) {
+    console.log(user)
+    this.setSelectedUser(user);
+    this.loadMessages();
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: { target: { innerWidth: number; }; }) {
+    this.checkScreenWidth(event.target.innerWidth);
+  }
+
+ checkScreenWidth(width: number) {
+    this.isMobileView = width < 1000;
+  }
 }

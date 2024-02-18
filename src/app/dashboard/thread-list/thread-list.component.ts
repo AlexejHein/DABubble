@@ -9,7 +9,7 @@ import {Reaction} from "../../models/reaction.class";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
-
+import { DashboardComponent } from "../dashboard.component";
 
 
 @Component({
@@ -57,8 +57,9 @@ export class ThreadListComponent implements OnInit {
                 protected threadsService: ThreadsService,
                 private changeDetector: ChangeDetectorRef,
                 private firestore: AngularFirestore,
-                private breakpointObserver: BreakpointObserver) {
-    this.threadsRef = this.firestore.collection('threads').ref;
+                private breakpointObserver: BreakpointObserver,
+                private dashboard: DashboardComponent) {
+  this.threadsRef = this.firestore.collection('threads').ref;
   }
 
   ngOnInit(): void {
@@ -90,7 +91,6 @@ export class ThreadListComponent implements OnInit {
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
       console.log(threads);
-
       this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
         this.selectedChannel = channel;
         this.selectedChannelId = channel?.id;
@@ -208,16 +208,20 @@ export class ThreadListComponent implements OnInit {
 
   loadSelectedThreadInfos(selectedThread: Thread): void {
     this.threadsService.setSelectedThread(selectedThread);
+    this.dashboard.isInputVisible = false;
+    this.dashboard.toggleVisibility();
   }
 
   showThread(){
     this.threadVisible = true;
     this.threadsService.setSelectedSidebarVisibility(this.threadVisible);
+
   }
 
   moveSidebar(){
     this.moveRight = "";
     this.threadsService.setselectedSidebarClassName(this.moveRight);
+    this.dashboard.closeWorkspaceMenu();
     if(this.currentBreakpoint == Breakpoints.Medium){
       console.log('Breakpoint: Medium');
       this.moveLeft = "moveleft";

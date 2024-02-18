@@ -18,6 +18,9 @@ export class UserService {
   currentUser = this.currentUserSubject.asObservable();
   selectedUser = this.selectedUserSubject.asObservable();
 
+  private userClickSource = new BehaviorSubject<any>(null);
+  userClick$ = this.userClickSource.asObservable();
+
   constructor(private firestore: AngularFirestore, private auth: AngularFireAuth) {}
 
   async registerUser(userData: { name: string, email: string, password: string }) {
@@ -40,7 +43,10 @@ export class UserService {
     }
   }
 
-  // In der Datei src/app/services/user.service.ts
+
+  onUserClick(user: any) {
+    this.userClickSource.next(user);
+  }
   getUsers() {
     return this.firestore.collection<User>('users').valueChanges({ idField: 'id' });
   }
@@ -60,7 +66,6 @@ export class UserService {
       this.auth.authState.subscribe(user => {
         console.log(user);
         if (user) {
-          console.log('User Display Name: ', user.displayName);
           resolve(user.displayName);
         } else {
           console.log('Kein Benutzer angemeldet');

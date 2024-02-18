@@ -1,9 +1,9 @@
 <div class="search-container">
-  <input type="text" placeholder="Code learning durchsuchen" aria-label="Search" [formControl]="searchControl">
+  <input type="text" placeholder="Gehe zu..." aria-label="Search" [formControl]="searchControl">
   <div class="autocomplete-options" *ngIf="searchControl.value && (filteredOptions | async) as users">
     <div class="autocomplete-option" *ngFor="let user of users" (click)="selectUser(user)">
       <img *ngIf="user.type === 'user'" [src]="user.avatar" class="user-avatar" alt="Avatar" width="24" height="24">
-      <mat-icon *ngIf="user.type === 'channel'">tag</mat-icon> <!-- Beispiel-Icon für Kanäle -->
+      <mat-icon *ngIf="user.type === 'channel'">tag</mat-icon>
       <span>{{ user.name }}</span>
       <small *ngIf="user.type === 'user'">{{ user.status }}</small>
     </div>
