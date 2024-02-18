@@ -1,6 +1,6 @@
 <div *ngFor="let thread of allThreadsFiltered; let i = index" (mouseenter)="showThreadMenu(i)" (mouseleave)="hideThreadMenu()">
-  <div class="date-hr" *ngIf="i === 0 || (allThreadsFiltered[i-1].createdAt | date) !== (thread.createdAt | date)">
-    <span><small>{{ thread.createdAt.toDate() | date:'dd.MM.yyyy' }}</small></span>
+  <div class="date-hr" *ngIf="i === 0 || (allThreadsFiltered[i-1].createdAt.toDate() | date:'dd.MM.yyyy') !== (thread.createdAt.toDate() | date:'dd.MM.yyyy')">
+    <span><small>{{ thread.createdAt?.toDate() | date:'dd.MM.yyyy' }}</small></span>
   </div>
   <div class="message-direction">
     <div class="message-card">
