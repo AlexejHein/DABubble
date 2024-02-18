@@ -517,7 +517,12 @@ export class DashboardComponent implements OnInit {
         name: file.name,
         url: url
       };
-      this.message.body= this.uploadedFileInfo.name
+      if (this.selectedChannel){
+        this.thread.title= this.uploadedFileInfo.name;
+      }
+      else {
+        this.message.body= this.uploadedFileInfo.name;
+      }
     }
   }
 
