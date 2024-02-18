@@ -86,7 +86,7 @@ export class ThreadListComponent implements OnInit {
       console.error("Error getting current user ID:", error);
     });
 
-    this.items$ = this.firestore.collection('threads').valueChanges({ idField: 'id' });
+    this.items$ = this.firestore.collection('threads', ref => ref.orderBy('createdAt', 'asc')).valueChanges({ idField: 'id' });
 
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
