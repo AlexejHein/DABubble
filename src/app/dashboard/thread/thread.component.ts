@@ -178,6 +178,7 @@ messageSelectedToThread(messageId:any){
 
 chosen:any
   hideEmoticonMenu = signal<any | null>(null);
+  isUploading: boolean = false;
   selectEmo(emoticon: string, messageId: string) {
     const messageExists = this.messages.some(message => message.id === messageId);
     if (!messageExists) {
@@ -233,6 +234,7 @@ showEmoticonMenu(i:number): void {
 }
 
 async upload(event:any){
+    this.isUploading = true;
   const file = event.target.files[0];
 
   if(file){
@@ -247,10 +249,12 @@ async upload(event:any){
     };
     this.message.body= this.uploadedFileInfo.name
   }
+  this.isUploading = false;
 }
 
 
 async uploadPDF(event: any) {
+    this.isUploading = true;
   try {
     const file = event.target.files[0];
 
@@ -273,6 +277,7 @@ async uploadPDF(event: any) {
   } catch (error) {
     console.error('Error uploading PDF:', error);
   }
+  this.isUploading = false;
 }
 
 isImage(url: string): boolean {
