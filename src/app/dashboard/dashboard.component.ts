@@ -254,7 +254,6 @@ export class DashboardComponent implements OnInit {
       const isCurrentUserSelected = this.selectedUser && this.currentUserId === this.selectedUser.id;
       const isFromSelectedUser = this.selectedUser ? m.user === this.selectedUser.id : false;
       const isToSelectedUser = this.selectedUser ? m.toUser === this.selectedUser.id : false;
-
       if (isCurrentUserSelected) {
         return isFromCurrentUser && isToCurrentUser;
       } else {
