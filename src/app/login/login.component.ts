@@ -46,9 +46,6 @@ export class LoginComponent {
         console.error("Google Login failed:", error);
       });
   }
-
-
-
   fillGuestCredentials() {
     this.email = this.guestEmail;
     this.password = this.guestPassword;

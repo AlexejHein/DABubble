@@ -371,6 +371,7 @@ export class DashboardComponent implements OnInit {
   workspaceMenuVisibleMobile:boolean = true;
   isInputVisibleMobile: boolean = false;
   isHiddenMenu:boolean = true;
+  isUploading: boolean = false;
 
   toggleVisibility() {
     if (!this.isMobileView) return;
@@ -378,7 +379,6 @@ export class DashboardComponent implements OnInit {
     this.isHiddenMenu = !this.isHiddenMenu;
     this.closeWorkspaceMenu();
     this.isInputVisibleMobile = !this.isInputVisibleMobile;
-    // Sie können hier weitere Zustandsänderungen vornehmen, um andere Teile der UI entsprechend zu aktualisieren
   }
   resetUI() {
     if (!this.isMobileView) return;
@@ -505,6 +505,7 @@ export class DashboardComponent implements OnInit {
 
 
   async upload(event:any){
+    this.isUploading = true;
     const file = event.target.files[0];
 
     if(file){
@@ -524,10 +525,12 @@ export class DashboardComponent implements OnInit {
         this.message.body= this.uploadedFileInfo.name;
       }
     }
+    this.isUploading = false;
   }
 
 
   async uploadPDF(event: any) {
+    this.isUploading = true;
     try {
       const file = event.target.files[0];
 
@@ -550,6 +553,8 @@ export class DashboardComponent implements OnInit {
     } catch (error) {
       console.error('Error uploading PDF:', error);
     }
+    this.isUploading = false;
+
   }
 
 

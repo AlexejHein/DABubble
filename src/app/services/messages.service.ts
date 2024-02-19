@@ -27,8 +27,6 @@ export class MessagesService {
     return this.firestore.collection('messages').doc(message.id).update(message);
   }
 
-
-
   getMessages() {
     return this.firestore.collection('messages', ref => ref.orderBy('createdAt', 'asc')).snapshotChanges();
   }

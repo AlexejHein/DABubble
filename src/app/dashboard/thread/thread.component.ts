@@ -91,20 +91,20 @@ ngOnInit(): void {
       this.threadMessages = currentThread.messages;
     }
   });
-
-
   const messageCollection = collection(this.firestore, 'messages')
   this.items$ = collectionData(messageCollection, { idField: 'id' });
   this.items$.subscribe((messages) => {
     this.allMessages = messages;
-    });
 
+    console.log(this.allMessages);
+    });
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
       this.loadMessages();
     });
   this.items$.subscribe((messages) => {
     this.allMessages = messages;
+    this.allMessages.sort((a, b) => a.createdAt - b.createdAt);
     this.messages = messages;
   });
 
@@ -141,23 +141,21 @@ updatethreadMessages(thread:any, message:any){
       updateDoc(coll, {messages: arrayUnion(message.id)}).then(r => console.log(r));
     }
 
-loadMessages() {
-  this.messagesService.getMessages().subscribe(data => {
-    const allMessages = data.map(e => {
-      const payloadData = e.payload.doc.data() as any;
-      const message: Message = {
-        id: e.payload.doc.id,
-        ...payloadData
-      };
-      if (payloadData.createdAt && payloadData.createdAt.seconds) {
-        message.createdAt = new Date(payloadData.createdAt.seconds * 1000);
-      }
-      return message;
+  loadMessages() {
+    this.messagesService.getMessages().subscribe(data => {
+      let allMessages = data.map(e => {
+        const payloadData = e.payload.doc.data() as any;
+        const message: Message = {
+          id: e.payload.doc.id,
+          ...payloadData
+        };
+        if (payloadData.createdAt && payloadData.createdAt.seconds) {
+          message.createdAt = new Date(payloadData.createdAt.seconds * 1000);
+        }
+        return message;
+      });
     });
-
-  });
-
-}
+  }
 
   selectCurrentThread(threadId: any) {
     if (threadId && this.selectedThread) {

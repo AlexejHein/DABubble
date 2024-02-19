@@ -97,11 +97,11 @@
                     <span class="message-user">{{ user.name }}</span>
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
                   </div>
-                  <div *ngIf="!message.body.startsWith('http')" class="message-item">{{ message.body }}</div>
+                  <div *ngIf="!message.body.startsWith('https')" class="message-item">{{ message.body }}</div>
 
-                        <div *ngIf="message.body.startsWith('http')">
+                        <div *ngIf="message.body.startsWith('https')">
                           <ng-container *ngIf="isImage(message.body)">
-                            <img [src]="message.body" class="styleImg"  />
+                            <img [src]="message.body" alt="Image" class="message-image">
                           </ng-container>
                           <ng-container *ngIf="isPDF(message.body)">
                             <a [href]="message.body" target="_blank">{{ getPDFFileName(message.body) }}</a>
@@ -186,7 +186,11 @@
         <textarea  [(ngModel)]="thread.title" placeholder="Nachricht an ..."></textarea>
       </div>
       <div class="message-send">
+        <mat-progress-bar mode="indeterminate" *ngIf="isUploading"></mat-progress-bar>
+
+
         <div class="message-icons">
+
 
           <mat-icon [matMenuTriggerFor]="addMenuThread" class="addBtn">add</mat-icon>
           <mat-menu #addMenuThread="matMenu" >
@@ -247,9 +251,13 @@
 
   <div *ngIf="!selectedChannel" class="message">
     <div class="chat-box">
+
       <div class="message-input">
+
       <textarea #messageInput [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>
-    </div>
+        <mat-progress-bar mode="indeterminate" *ngIf="isUploading"></mat-progress-bar>
+
+      </div>
     <div class="message-send">
       <div class="message-icons">
         <mat-icon [matMenuTriggerFor]="addMenu" class="addBtn">add</mat-icon>
