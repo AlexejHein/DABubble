@@ -221,7 +221,7 @@ export class DashboardComponent implements OnInit {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
-      //setTimeout(() => this.scrollToBottom(), 100);
+      console.log("Masseges: ", this.messages);
     });
   }
 
@@ -249,13 +249,21 @@ export class DashboardComponent implements OnInit {
 
   filterMessages(messages: any[]) {
     return messages.filter(m => {
-      const isFromCurrentUser = m.user as unknown as undefined === this.currentUserId;
-      const isToCurrentUser = m.toUser as unknown as undefined === this.currentUserId;
-      const isFromSelectedUser = this.selectedUser ? m.user as unknown as undefined === this.selectedUser.id : false;
-      const isToSelectedUser = this.selectedUser ? m.toUser as unknown as undefined === this.selectedUser.id : false;
-      return (isFromCurrentUser || isToCurrentUser) && (isFromSelectedUser || isToSelectedUser);
+      const isFromCurrentUser = m.user === this.currentUserId;
+      const isToCurrentUser = m.toUser === this.currentUserId;
+      const isCurrentUserSelected = this.selectedUser && this.currentUserId === this.selectedUser.id;
+      const isFromSelectedUser = this.selectedUser ? m.user === this.selectedUser.id : false;
+      const isToSelectedUser = this.selectedUser ? m.toUser === this.selectedUser.id : false;
+
+      if (isCurrentUserSelected) {
+        return isFromCurrentUser && isToCurrentUser;
+      } else {
+        return (isFromCurrentUser || isToCurrentUser) && (isFromSelectedUser || isToSelectedUser);
+      }
     });
   }
+
+
 
   saveMessage() {
     if (this.currentUserId && this.selectedUser && this.message.body.trim() !== '') {
@@ -320,7 +328,6 @@ export class DashboardComponent implements OnInit {
     this.moveRight = "";
   }
 
-
   editChannel() {
     let threadCollection = collection(this.firestore, 'channels');
     let threadDoc = doc(threadCollection, this.channelId);
@@ -328,7 +335,6 @@ export class DashboardComponent implements OnInit {
       this.channel = new Channel(channel);
       this.saveEditedChannel(this.channel, this.channelId);
     });
-
   }
 
   saveEditedChannel(channel:any, channelId:any){
@@ -475,7 +481,7 @@ export class DashboardComponent implements OnInit {
   });
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = this.channelId;
-}
+   }
   }
 
   showUsers(){

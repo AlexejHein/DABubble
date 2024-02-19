@@ -254,10 +254,12 @@
 
       <div class="message-input">
 
-      <textarea #messageInput [(ngModel)]="message.body" placeholder="Nachricht an ..."></textarea>
-        <mat-progress-bar mode="indeterminate" *ngIf="isUploading"></mat-progress-bar>
+      <textarea #messageInput [(ngModel)]="message.body" placeholder="Nachricht an ...">
+
+      </textarea>
 
       </div>
+      <mat-progress-bar mode="indeterminate" *ngIf="isUploading"></mat-progress-bar>
     <div class="message-send">
       <div class="message-icons">
         <mat-icon [matMenuTriggerFor]="addMenu" class="addBtn">add</mat-icon>
@@ -318,7 +320,7 @@
           </div>
         </mat-menu>
       </div>
-      <mat-icon class="send-btn" (click)="saveMessage()">send</mat-icon>
+      <mat-icon class="send-btn" (click)="isUploading ? null : saveMessage()">send</mat-icon>
     </div>
     </div>
   </div>
