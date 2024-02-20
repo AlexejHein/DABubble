@@ -12,7 +12,7 @@
             <img src="./assets/img/add_reaction.png">
             <img src="./assets/img/comment.png" (click)="loadSelectedThreadInfos(thread); showThread(); moveSidebar()">
           </div>
-          <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+          <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
           <div>
             <div class="message-head">
               <span class="message-user">{{ user.name }}</span>

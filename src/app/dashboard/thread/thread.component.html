@@ -5,7 +5,7 @@
     <div *ngFor="let user of allUsers">
       <div *ngIf="selectCurrentThreadAuthor(user.id, thread)">
         <div class="message-box" (mouseenter)="showEmoticonMenu(i)">
-          <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+          <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
           <div><div class="message-head">
               <b>{{ user.name }}</b>
               <small>{{ thread.createdAt.toDate() | date:'short' }}</small>
@@ -28,7 +28,7 @@
           <div class="message-card">
             <div *ngFor="let user of allUsers">
               <div class="message-box" *ngIf="user.id === message.user" (mouseenter)="showEmoticonMenu(i)">
-                <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+                <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
                 <div>
                   <div class="message-head">
                     <span class="message-user">{{ user.name }}</span>

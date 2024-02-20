@@ -1,7 +1,7 @@
 <div class="content">
 <div mat-button [matMenuTriggerFor]="menu" class="my-profile">
       <h2>{{ currentUserDetails?.name }}</h2>
-      <img class="user-avatar" [src]="currentUserDetails?.avatar" alt="user" />
+      <img class="user-avatar" [src]="currentUserDetails?.avatar ? currentUserDetails.avatar : 'assets/img/profile.png'" alt="user" />
       <span class="open-my-profile"></span></div>
     <mat-menu class="menu-box" #menu="matMenu" xPosition="before" >
         <div class="profileBubble">
@@ -11,7 +11,7 @@
     </mat-menu>
 </div>
 <div class="mobileContent" >
-  <img (click)="toggleMobileMenu()" class="user-avatar" [src]="currentUserDetails?.avatar" alt="user" />
+  <img (click)="toggleMobileMenu()" class="user-avatar" [src]="currentUserDetails?.avatar ? currentUserDetails.avatar : 'assets/img/profile.png'" alt="user" />
 </div>
 <div class="mobile-menu" [ngClass]="{'visible': isMobileMenuVisible}" *ngIf="isMobileMenuVisible">
   <div class="close" (click)="toggleMobileMenu()"></div>
