@@ -1,26 +1,26 @@
 <div class="dialog-container">
-  <h1>Leute hinzufügen</h1>   
+  <h1>Leute hinzufügen</h1>
    <p class="subtitle">{{channel.title}}</p>
   <div class="inputfieldbox">
 
     <div *ngFor="let user of allUsers">
       <div *ngIf="showUserInChannel(user.id)">
           <div class="user-prev addmem">
-              <img src="{{user.avatar}}" alt="User Avatar">
+              <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="User Avatar">
               <span>{{user.name}}
                 <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
               </span><span (click)="removeUserFromChannel(user.id)">x</span>
             </div>
       </div>
-    </div> 
-  
+    </div>
+
     <input type="text" #filter (keyup)="filterResults(filter.value)" placeholder="Name eingeben">
     <div class="selectuser" *ngIf="dropdownVisible">
       <div class="dropdown">
       <div *ngFor="let user of filteredAllUsers">
         <div (click)="addUserToChannel(user.id)">
             <div class="user-prev">
-                <img src="{{user.avatar}}" alt="User Avatar">
+                <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="User Avatar">
                 <div class="online-indicator" [ngStyle]="{'background-color': user.isOnline ? '#00FF00' : '#006400'}"></div>
                 <span>{{user.name}}
                   <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
@@ -28,9 +28,9 @@
               </div>
         </div>
       </div>
-      </div> 
+      </div>
     </div>
-    
+
     </div>
       <button (click)="saveUsersToChannel()">Hinzufügen</button>
     </div>

@@ -31,7 +31,7 @@
       <div *ngFor="let user of filteredAllUsers">
         <div (click)="chatWithSelectedUser(user)">
             <div class="user-prev">
-                <img src="{{user.avatar}}" alt="User Avatar">
+                <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="User Avatar">
                 <span>{{user.name}}
                   <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
                 </span>
@@ -56,7 +56,7 @@
     <h3><span *ngIf="selectedChannel" class="thread-title" (click)="editChannel()">
       <span class="thread-title-icon"></span>{{ selectedChannel.title }}</span>
       <div class="user-header" (click)="openDialog(selectedUser)">
-      <img *ngIf="selectedUser" [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
+      <img *ngIf="selectedUser" [src]="selectedUser.avatar ? selectedUser.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
       {{ selectedUser ? selectedUser.name : '' }}
       <span *ngIf="selectedUser?.id === currentUserId">(Du)</span>
       </div>
@@ -65,7 +65,7 @@
       <div *ngIf="selectedChannel" class="channelusers" (click)="showUsers()">
         <div *ngFor="let user of allUsers">
         <div *ngIf="findUserInChannel(user.id)">
-        <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+        <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
           <div class="message-card">
             <div *ngFor="let user of allUsers">
               <div class="message-box" *ngIf="user.id === message.user" (mouseenter)="showEmoticonMenu(i)">
-                <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+                <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
                 <div>
                   <div class="message-head">
                     <span class="message-user">{{ user.name }}</span>
@@ -171,7 +171,7 @@
     </div>
     <div *ngIf="selectedUser && (!messages || messages.length === 0)" class="no-message-container">
       <div class="no-message-container-header">
-      <img [src]="selectedUser.avatar" alt="Avatar" class="user-avatar">
+      <img [src]="selectedUser.avatar ? selectedUser.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">
       <h4>{{ selectedUser.name }}</h4>
       </div>
       <div class="user-details">
@@ -315,7 +315,7 @@
         <mat-icon style="cursor: pointer" [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
         <mat-menu class="addUserContainer" #selectUser="matMenu" >
           <div class="addUserBtn"  *ngFor="let user of allUsers" (click)="userClick(user)">
-          <img class="addUserAvatar" [src]="user.avatar" alt="userAvatar">
+          <img class="addUserAvatar" [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="userAvatar">
             {{user.name}}
           </div>
         </mat-menu>

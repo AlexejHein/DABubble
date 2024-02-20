@@ -2,7 +2,7 @@
   <input type="text" placeholder="Gehe zu..." aria-label="Search" [formControl]="searchControl">
   <div class="autocomplete-options" *ngIf="searchControl.value && (filteredOptions | async) as users">
     <div class="autocomplete-option" *ngFor="let user of users" (click)="selectUser(user)">
-      <img *ngIf="user.type === 'user'" [src]="user.avatar" class="user-avatar" alt="Avatar" width="24" height="24">
+      <img *ngIf="user.type === 'user'" [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" class="user-avatar" alt="Avatar" width="24" height="24">
       <mat-icon *ngIf="user.type === 'channel'">tag</mat-icon>
       <span>{{ user.name }}</span>
       <small *ngIf="user.type === 'user'">{{ user.status }}</small>

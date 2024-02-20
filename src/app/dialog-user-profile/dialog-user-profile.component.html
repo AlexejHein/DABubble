@@ -3,12 +3,12 @@
         <div>Profil</div>
         <img src="./assets/img/close.png" [mat-dialog-close]="true">
     </div>
-    
-    <img [src]="selectedUserDetails?.avatar" alt="user" class="profileimg">
+
+    <img [src]="selectedUserDetails.avatar ? selectedUserDetails.avatar : 'assets/img/profile.png'" alt="user" class="profileimg">
 
     <div class="profileName" *ngIf="!startEdit">
         <div>{{ selectedUserDetails?.name }}</div>
-     
+
     </div>
 
     <div class="status" *ngIf="!startEdit">
@@ -22,7 +22,7 @@
     </div>
     <div class="realEmail" *ngIf="!startEdit">{{ selectedUserDetails?.email }}</div>
 
-    <div *ngIf="startEdit"> 
+    <div *ngIf="startEdit">
         <div class="alignLabel">
             <div class="descProfile">
                 <img src="./assets/img/account_circle.png" alt="">

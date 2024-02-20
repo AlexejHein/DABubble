@@ -1,11 +1,11 @@
 <div class="dialog-container">
     <div class="dialog-content">
-    <h1>Mitglieder</h1>    
+    <h1>Mitglieder</h1>
     <div *ngFor="let user of allUsers">
         <div *ngIf="showUserInChannel(user.id)" (click)="openUserProfile(user)">
-       
+
             <div class="user-prev">
-                <img src="{{user.avatar}}" alt="User Avatar">
+                <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="User Avatar">
                 <div class="online-indicator" [ngStyle]="{'background-color': user.isOnline ? '#00FF00' : '#006400'}"></div>
                 <span>{{user.name}}
                   <span class="user" *ngIf="user.id === currentUserId">(Du)</span>
@@ -13,7 +13,7 @@
               </div>
 
         </div>
-      </div>     
+      </div>
     </div>
     <span (click)="addUserToChannel()" class="adduser">Mitglieder hinzufügen</span>
 </div>

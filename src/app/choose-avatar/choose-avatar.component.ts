@@ -78,8 +78,10 @@ export class ChooseAvatarComponent implements OnInit {
     try {
       const userId = await this.userService.getCurrentUserId();
       if (userId) {
-        await this.firestore.collection('users').doc(userId).update({ avatar: avatarUrl });
-        this.avatarUrl = avatarUrl;
+        // Setze den Standard-Avatar, falls kein avatarUrl übergeben wird
+        const avatarToSave = avatarUrl || this.currentAvatar;
+        await this.firestore.collection('users').doc(userId).update({ avatar: avatarToSave });
+        this.avatarUrl = avatarToSave;
       } else {
         console.error('No user ID found');
       }
@@ -87,6 +89,7 @@ export class ChooseAvatarComponent implements OnInit {
       console.error('Fehler beim Speichern des Avatars: ', error);
     }
   }
+
 
   goNext() {
     this.finish = true;
