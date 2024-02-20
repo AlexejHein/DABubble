@@ -36,7 +36,7 @@ export class AuthService {
   async loginWithGoogle() {
     try {
       const result = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.setAutoLogout(4 * 60 * 60 * 1000); // Set auto logout to 4 hours
+      this.setAutoLogout(4 * 60 * 60 * 1000);
       return result;
     } catch (error) {
       console.error('Error during login with Google', error);
@@ -46,11 +46,11 @@ export class AuthService {
 
   async logout() {
     try {
-      const user = await this.afAuth.currentUser; // Direktes Abfragen des aktuellen Benutzers
+      const user = await this.afAuth.currentUser;
       if (!user) {
         console.log('Kein Benutzer zum Ausloggen gefunden');
-        await this.router.navigate(['/login']); // Optional: Umleitung zur Login-Seite
-        return; // Beendet die Funktion hier, wenn kein Benutzer angemeldet ist
+        await this.router.navigate(['/login']);
+        return;
       }
 
       const userId = await this.userService.getCurrentUserId();
@@ -79,20 +79,4 @@ export class AuthService {
       clearTimeout(this.autoLogoutTimer);
     }
   }
-
-
-  //async sendVerificationEmail() {
-    //try {
-      //const user = firebase.auth().currentUser;
-     // if (user) {
-       // await user.sendEmailVerification();
-       // console.log('Verification email sent');
-     // } else {
-       // console.error('No user is currently logged in');
-     // }
-    //} catch (error) {
-      //console.error('Error during sending verification email', error);
-      //throw error;
-    //}
- // }
 }
