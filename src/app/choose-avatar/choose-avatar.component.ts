@@ -30,12 +30,11 @@ export class ChooseAvatarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadUserName().then(r => console.log('Benutzername geladen'));
-    this.loadUserData().then(r => console.log('Benutzerdaten geladen'));
+    this.loadUserName().then(r => {});
+    this.loadUserData().then(r => {});
   }
   async loadUserData() {
     this.userData = this.storageService.getUserData();
-    console.log('userData:', this.userData);
   }
 
   async loadUserName() {

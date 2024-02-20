@@ -24,7 +24,7 @@ export class LoginComponent {
   login() {
     this.authService.loginWithEmail(this.email, this.password)
       .then((result) => {
-        this.router.navigate(['/dashboard']).then(r => console.log(r));
+        this.router.navigate(['/dashboard']).then(r => {});
       })
       .catch((error) => {
         switch(error.code) {
@@ -40,7 +40,7 @@ export class LoginComponent {
   loginWithGoogle() {
     this.authService.loginWithGoogle()
       .then((result) => {
-        this.router.navigate(['/dashboard']).then(r => console.log(r));
+        this.router.navigate(['/dashboard']).then(r => {});
       })
       .catch((error) => {
         console.error("Google Login failed:", error);

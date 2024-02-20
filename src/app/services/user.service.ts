@@ -51,20 +51,13 @@ export class UserService {
     return this.firestore.collection<User>('users').valueChanges({ idField: 'id' });
   }
   async getCurrentUserId(): Promise<string | null> {
-    return new Promise((resolve, reject) => {
-      this.auth.authState.subscribe(user => {
-        if (user) {
-          resolve(user.uid);
-        } else {
-          reject('Kein Benutzer angemeldet.');
-        }
-      });
-    });
+    const user = await this.auth.currentUser;
+    return user ? user.uid : null;
   }
+
   async getCurrentUserName(): Promise<string | null> {
     return new Promise((resolve, reject) => {
       this.auth.authState.subscribe(user => {
-        console.log(user);
         if (user) {
           resolve(user.displayName);
         } else {

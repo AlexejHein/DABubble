@@ -20,7 +20,7 @@ isInputVisible = false;
 readonly breakpoint$ = this.breakpointObserver
     .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
     .pipe(
-      tap(value => console.log(value)),
+      tap(value => {}),
       distinctUntilChanged()
     );
 

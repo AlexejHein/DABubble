@@ -21,7 +21,6 @@ export class SendEmailComponent {
         setTimeout(() => {
           this.storageService.logInStep();
         },1500);
-        console.log('email sent');
       })
       .catch(() => {
         this.emailSent = false;

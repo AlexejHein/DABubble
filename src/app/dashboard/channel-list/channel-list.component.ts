@@ -35,8 +35,6 @@ export class ChannelListComponent implements OnInit {
     this.items$ = collectionData(aCollection, { idField: 'id' });
     this.items$.subscribe((channels) => {
       this.allChannels = channels;
-      console.log(channels);
-      console.log("Empfangener Kanal: ", channels);
       this.selectChannelByName('Gesuchter Kanalname');
     });
    this.channelService.searchQuery$.subscribe(query => {
@@ -46,9 +44,7 @@ export class ChannelListComponent implements OnInit {
      const foundChannel = this.allChannels.find(c => c.id === channel.id);
      if (foundChannel) {
        this.onChannelClick(foundChannel);
-       console.log("Kanal, der empfangen wurde: ", channel);
      } else {
-       console.log("Kein übereinstimmender Kanal für ID", channel.id, "gefunden.");
      }
    });
 
@@ -57,7 +53,6 @@ export class ChannelListComponent implements OnInit {
   searchChannel(query: string): void {
     if (query) {
       this.selectChannelByName(query);
-      console.log("Kanal mit dem Namen", query, "gesucht.");
     }
   }
 
@@ -66,14 +61,12 @@ export class ChannelListComponent implements OnInit {
     if (foundChannel) {
       this.onChannelClick(foundChannel);
     } else {
-      console.log("Kanal mit dem Namen", channelName, "nicht gefunden.");
+
     }
   }
 
   onChannelClick(selectedChannel: Channel): void {
     this.threadsService.setSelectedChannel(selectedChannel);
-    console.log("Selected Channel:", selectedChannel);
-    console.log("Selected Channel ID:", selectedChannel.id);
     this.channelId = selectedChannel.id;
     this.workspaceService.addMessageClicked();
     this.dashboard.isInputVisible = false;
@@ -84,7 +77,6 @@ export class ChannelListComponent implements OnInit {
 
    onThreadClick(selectedThread: Thread): void {
     this.threadsService.setSelectedThread(selectedThread);
-    console.log("Selected Thread:", selectedThread.id);
   }
 
 }

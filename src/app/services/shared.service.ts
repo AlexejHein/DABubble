@@ -14,3 +14,5 @@ export class UserService {
   }
 }
 
+export class SharedService {
+}

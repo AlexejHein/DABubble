@@ -107,7 +107,6 @@ addUserToChannel(usersId:any) {
 removeUserFromChannel(usersId:any) {
   let channelUserIndex = this.loadChannelUsers.indexOf(usersId);
   this.loadChannelUsers.splice(channelUserIndex, 1);
-  console.log('neue channelUsers:',  this.loadChannelUsers);
 }
 
 saveUsersToChannel() {
@@ -118,7 +117,6 @@ saveUsersToChannel() {
       this.subscription.unsubscribe();
     }
     this.dialogRef.close();
-    console.log("diealogref: ",this.dialogRef);
 }
 
 

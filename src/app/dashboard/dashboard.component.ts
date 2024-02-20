@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
   readonly breakpoint$ = this.breakpointObserver
   .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
   .pipe(
-    tap(value => console.log(value)),
+    tap(value => {}),
     distinctUntilChanged()
   );
 
@@ -132,18 +132,15 @@ export class DashboardComponent implements OnInit {
     this.items$ = collectionData(aCollection, { idField: 'id' });
     this.items$.subscribe((channels) => {
       this.allChannels = channels;
-      console.log(channels);
     });
     this.workspaceService.addMessageClick$.subscribe(() => {
       this.isInputVisible = !this.isInputVisible;
     });
     this.userService.getUsers().subscribe(users => {
       this.allUsers = users;
-      console.log("All Users:", this.allUsers);
     });
     this.userService.getCurrentUserId().then(id => {
       this.currentUserId = id;
-      console.log("Current User ID:", this.currentUserId);
     }).catch(error => {
       console.error("Error getting current user ID:", error);
     });
@@ -181,12 +178,10 @@ export class DashboardComponent implements OnInit {
     this.initializeCloseThread();
     this.subscription = this.threadsService.selectedLeftSidebarClassName.subscribe(moveClassName => {
       this.moveLeft = moveClassName;
-      console.log("moveLeft: ", this.moveLeft);
     });
     this.subscription = this.userService.userClick$.subscribe(user => {
       if (user) {
         // Logik hier, um UI-Elemente zu zeigen/verstecken oder zu aktualisieren
-        // Zum Beispiel: Klassen basierend auf Benutzerinteraktion ändern
       }
     });
   }
@@ -221,7 +216,6 @@ export class DashboardComponent implements OnInit {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
-      console.log("Masseges: ", this.messages);
     });
   }
 
@@ -274,7 +268,6 @@ export class DashboardComponent implements OnInit {
       this.message.toUser = this.selectedUser.id;
       this.message.createdAt = new Date();
       this.messagesService.saveMessage(this.message).then(() => {
-        console.log('Message saved successfully');
         this.message.body = '';
         setTimeout(() => this.scrollToBottom(), 0);
 
@@ -343,7 +336,7 @@ export class DashboardComponent implements OnInit {
   });
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = this.channelId;
-    console.log("thread to edit:", this.selectedChannel);}
+    }
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -514,11 +507,9 @@ export class DashboardComponent implements OnInit {
     const file = event.target.files[0];
 
     if(file){
-      console.log(file);
       const path=`messageImage/${file.name}`
       const uploadTask=  await this.fireStorage.upload(path,file)
       const url = await uploadTask.ref.getDownloadURL()
-      console.log(url);
       this.uploadedFileInfo = {
         name: file.name,
         url: url
@@ -543,7 +534,6 @@ export class DashboardComponent implements OnInit {
         const path = `messagePDF/${file.name}`;
         const uploadTask = await this.fireStorage.upload(path, file);
         const url = await uploadTask.ref.getDownloadURL();
-        console.log(url);
 
         this.uploadedFileInfo = {
           name: file.name,
@@ -593,10 +583,8 @@ filterResults(text: string) {
     return;
   }
   if (text.startsWith('#')) {
-    console.log('starts with #');
     this.loadAllChannels = true;
     this.filteredAllChannels = this.allChannels;
-    console.log(this.allChannels);
   }
   this.filteredAllUsers = this.allUsers.filter(
     allUsers => allUsers?.name.toLowerCase().includes(text.toLowerCase().replace('@',''))
@@ -604,7 +592,6 @@ filterResults(text: string) {
     this.filteredAllChannels = this.allChannels.filter(
     allChannels => allChannels?.title.toLowerCase().includes(text.toLowerCase().replace('#',''))
   );
-  console.log(this.filteredAllChannels);
   this.dropdownVisible = true;
 }
 
@@ -619,7 +606,6 @@ writeMessageInChannel(selectedChannel: Channel): void {
 }
 
   userClick(user: User) {
-    console.log(user)
     this.setSelectedUser(user);
     this.loadMessages();
   }

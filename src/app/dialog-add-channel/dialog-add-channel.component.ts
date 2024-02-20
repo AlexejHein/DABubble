@@ -36,14 +36,12 @@ export class DialogAddChannelComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userService.getCurrentUserId().then(id => {
       this.currentUserId = id;
-      console.log("Current Author ID:", this.currentUserId);
     }).catch(error => {
       console.error("Error getting current Author ID:", error);
     });
 
     this.userService.getCurrentUserName().then(name => {
       this.currentUserName = name;
-      console.log("Current Author Name:", this.currentUserName);
     }).catch(error => {
       console.error("Error getting current Author Name:", error);
     });
@@ -55,9 +53,6 @@ export class DialogAddChannelComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
   }
   saveThread(){
-  console.log(this.channel);
-  console.log("current author name:", this.currentUserName);
-  console.log("current author id:", this.currentUserId);
   this.channel.authorId = this.currentUserId;
   this.channel.authorName = this.currentUserName;
   this.loading = true;
@@ -77,7 +72,6 @@ export class DialogAddChannelComponent implements OnInit, OnDestroy {
     let dialog = this.dialog.open(DialogAddChannelAddUserComponent, {
       width: '100%'
   });
-  console.log('New channel id: ', newChannelId);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = newChannelId;
 }

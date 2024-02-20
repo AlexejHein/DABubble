@@ -46,7 +46,7 @@ export class ThreadListComponent implements OnInit {
   readonly breakpoint$ = this.breakpointObserver
     .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
     .pipe(
-      tap(value => console.log(value)),
+      tap(value => {}),
       distinctUntilChanged()
     );
 
@@ -68,20 +68,17 @@ export class ThreadListComponent implements OnInit {
   );
     this.userService.getUsers().subscribe(users => {
       this.allUsers = users;
-      console.log("All Users in thread:", this.allUsers);
     });
 
     this.userService.getUsers().subscribe(users => {
       this.currentUser = users.find(user => user.id === this.thread.authorId);
       if (this.currentUser) {
-        console.log("thread current user:", this.currentUser);
         this.user = this.currentUser.name;
         this.currentUserAvatar = this.currentUser.avatar;
       }
     });
     this.userService.getCurrentUserId().then(id => {
       this.currentUserId = id;
-      console.log("Current User ID:", this.currentUserId);
     }).catch(error => {
       console.error("Error getting current user ID:", error);
     });
@@ -90,12 +87,9 @@ export class ThreadListComponent implements OnInit {
 
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
-      console.log(threads);
       this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
         this.selectedChannel = channel;
         this.selectedChannelId = channel?.id;
-        console.log('neu selected channel id: ', this.selectedChannelId);
-        console.log('all threads: ', this.allThreads);
         this.allThreadsFiltered = this.allThreads.filter((f) =>
         this.selectedChannelId === f.toChannel)
       });
@@ -162,7 +156,6 @@ export class ThreadListComponent implements OnInit {
     threadRef.update({
       reactions: threadToUpdate.reactions
     }).then(() => {
-      console.log("Thread erfolgreich aktualisiert");
     }).catch((error: any) => {
       console.error("Fehler beim Aktualisieren des Threads: ", error);
     });
@@ -223,7 +216,6 @@ export class ThreadListComponent implements OnInit {
     this.threadsService.setselectedSidebarClassName(this.moveRight);
     this.dashboard.closeWorkspaceMenu();
     if(this.currentBreakpoint == Breakpoints.Medium){
-      console.log('Breakpoint: Medium');
       this.moveLeft = "moveleft";
       this.threadsService.setselectedLeftSidebarClassName(this.moveLeft);
     }

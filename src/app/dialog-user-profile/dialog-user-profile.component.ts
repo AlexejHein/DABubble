@@ -17,8 +17,8 @@ export class DialogUserProfileComponent implements OnInit{
   selectedUserDetails: any;
   startEdit=false;
   user = new User();
-  
-  
+
+
 
   constructor(public dialog: MatDialog,
     private userService: UserService,
@@ -34,7 +34,7 @@ ngOnInit(): void {
       this.selectedUserDetails = userDetails;
    });
   }); */
-  
+
   this.userService.selecteChannelUserId$.subscribe((value) => {
     this.selecteChannelUserId = value;
     this.selectedUserId = value;
@@ -50,7 +50,6 @@ onNoClick(): void {
 }
 
 sendMessage(selectedUser: User): void {
-  console.log("selected user test: ", selectedUser);
   this.userService.setSelectedUser(selectedUser);
   this.dialog.closeAll();
   this.focusService.triggerFocusMessageInput();

@@ -35,7 +35,7 @@ export class DialogAddChannelAddUserComponent implements OnInit {
     public dialog: MatDialog,
     private threadsService: ThreadsService) {
       this.filteredAllUsers = this.allUsers;
-   
+
     }
 
   async ngOnInit(): Promise<void> {
@@ -100,7 +100,6 @@ addUserToChannel(usersId:any) {
 removeUserFromChannel(usersId:any) {
   let channelUserIndex = this.loadChannelUsers.indexOf(usersId);
   this.loadChannelUsers.splice(channelUserIndex, 1);
-  console.log('neue channelUsers:',  this.loadChannelUsers);
 }
 
 saveUsersToChannel() {

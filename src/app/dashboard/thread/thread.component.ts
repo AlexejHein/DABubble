@@ -62,7 +62,6 @@ ngOnInit(): void {
   });
   this.userService.getCurrentUserId().then(id => {
     this.currentUserId = id;
-    console.log("Current User ID:", this.currentUserId);
   }).catch(error => {
     console.error("Error getting current user ID:", error);
   });
@@ -95,8 +94,6 @@ ngOnInit(): void {
   this.items$ = collectionData(messageCollection, { idField: 'id' });
   this.items$.subscribe((messages) => {
     this.allMessages = messages;
-
-    console.log(this.allMessages);
     });
     this.subscription = this.userService.selectedUser.subscribe(user => {
       this.selectedUser = user;
@@ -122,8 +119,6 @@ saveMessage(thread:any) {
     //this.message.toUser = this.selectedUser.id;
     this.message.createdAt = new Date();
     this.messagesService.saveMessage(this.message).then(() => {
-      console.log('Message saved successfully');
-      console.log("Nachricht hinzugefügt: ",thread.messages);
       this.message.body = '';
       this.updatethreadMessages(thread, this.message);
 
@@ -222,7 +217,6 @@ getReactionsSummary(message: Message): { emoji: string, count: number, userId?: 
 
 saveUpdatedMessage(message: Message) {
   this.messagesService.updateMessage(message).then(() => {
-    console.log("Nachricht erfolgreich aktualisiert");
   }).catch(error => {
     console.error("Fehler beim Aktualisieren der Nachricht:", error);
   });
@@ -238,11 +232,9 @@ async upload(event:any){
   const file = event.target.files[0];
 
   if(file){
-    console.log(file);
     const path=`messageImage/${file.name}`
     const uploadTask=  await this.fireStorage.upload(path,file)
     const url = await uploadTask.ref.getDownloadURL()
-    console.log(url);
     this.uploadedFileInfo = {
       name: file.name,
       url: url
@@ -262,8 +254,6 @@ async uploadPDF(event: any) {
       const path = `messagePDF/${file.name}`;
       const uploadTask = await this.fireStorage.upload(path, file);
       const url = await uploadTask.ref.getDownloadURL();
-      console.log(url);
-
       this.uploadedFileInfo = {
         name: file.name,
         url: url

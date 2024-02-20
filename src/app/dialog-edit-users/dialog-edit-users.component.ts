@@ -37,7 +37,6 @@ export class DialogEditUsersComponent implements OnInit {
 
     this.userService.getUsers().subscribe(users => {
       this.allUsers = users;
-      console.log("All Users:", this.allUsers);
     });
 
     this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
@@ -64,7 +63,7 @@ export class DialogEditUsersComponent implements OnInit {
     });
   }
 
-  
+
   saveUserToChannel() {
     const coll = doc(this.firestore, 'channels', this.channelId);
     updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));

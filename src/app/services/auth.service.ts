@@ -19,10 +19,9 @@ export class AuthService {
   async loginWithEmail(email: string, password: string) {
     try {
       const result = await this.afAuth.signInWithEmailAndPassword(email, password);
-      console.log('You are Successfully logged in!', result);
 
       if (!result.user?.emailVerified) {
-        await this.sendVerificationEmail();
+       // await this.sendVerificationEmail();
       }
 
       this.setAutoLogout(60 * 60 * 1000); //(4 * 60 * 60 * 1000) Set auto logout to 4 hours
@@ -37,10 +36,7 @@ export class AuthService {
   async loginWithGoogle() {
     try {
       const result = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      console.log('You are Successfully logged in with Google!', result);
-
       this.setAutoLogout(4 * 60 * 60 * 1000); // Set auto logout to 4 hours
-
       return result;
     } catch (error) {
       console.error('Error during login with Google', error);
@@ -50,20 +46,27 @@ export class AuthService {
 
   async logout() {
     try {
+      const user = await this.afAuth.currentUser; // Direktes Abfragen des aktuellen Benutzers
+      if (!user) {
+        console.log('Kein Benutzer zum Ausloggen gefunden');
+        await this.router.navigate(['/login']); // Optional: Umleitung zur Login-Seite
+        return; // Beendet die Funktion hier, wenn kein Benutzer angemeldet ist
+      }
+
       const userId = await this.userService.getCurrentUserId();
       if (userId) {
         await this.userService.setUserOnline(userId, false);
       }
-      await this.afAuth.signOut();
-      console.log('You are Successfully logged out!');
-      await this.router.navigate(['']);
 
+      await this.afAuth.signOut();
+      await this.router.navigate(['']);
       this.clearAutoLogout();
     } catch (error) {
       console.error('Error during logout', error);
       throw error;
     }
   }
+
 
   setAutoLogout(expirationDuration: number) {
     this.autoLogoutTimer = setTimeout(() => {
@@ -77,19 +80,19 @@ export class AuthService {
     }
   }
 
-  async sendVerificationEmail() {
-    try {
-      const user = firebase.auth().currentUser;
-      if (user) {
-        await user.sendEmailVerification();
-        console.log('Verification email sent');
-      } else {
-        console.error('No user is currently logged in');
-      }
-    } catch (error) {
-      console.error('Error during sending verification email', error);
-      throw error;
 
-    }
-  }
+  //async sendVerificationEmail() {
+    //try {
+      //const user = firebase.auth().currentUser;
+     // if (user) {
+       // await user.sendEmailVerification();
+       // console.log('Verification email sent');
+     // } else {
+       // console.error('No user is currently logged in');
+     // }
+    //} catch (error) {
+      //console.error('Error during sending verification email', error);
+      //throw error;
+    //}
+ // }
 }

@@ -2,13 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Channel } from '../models/channel.class';
-import {
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-dialog-edit-channel',
@@ -37,8 +31,6 @@ export class DialogEditChannelComponent implements OnInit {
   }
 
   saveThread(){
-    console.log(this.channel);
-
   const coll = doc(this.firestore, 'channels', this.channelId);
   updateDoc(coll, this.channel.toJSON()).then(r => console.log(r));
    }
