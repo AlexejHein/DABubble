@@ -606,8 +606,11 @@ writeMessageInChannel(selectedChannel: Channel): void {
 }
 
   userClick(user: User) {
-    this.setSelectedUser(user);
-    this.loadMessages();
+    // this.setSelectedUser(user);
+    // this.loadMessages();
+    this.message.body= `@${user.name}`;
+    console.log(user);
+    
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: { target: { innerWidth: number; }; }) {
@@ -617,4 +620,21 @@ writeMessageInChannel(selectedChannel: Channel): void {
  checkScreenWidth(width: number) {
     this.isMobileView = width < 1000;
   }
+
+  extractName(str: string): string | null {
+    const parts = str.split('@');
+    return parts.length > 1 ? parts[1].trim() : null;
+  }
+
+
+  handleClickUser(msgBody:any) {
+    const username = this.extractName(msgBody);
+    const userFind = this.allUsers.find(u => u.name === username);
+    
+    this.setSelectedUser(userFind);
+    this.loadMessages();
+  }
+
+
+
 }

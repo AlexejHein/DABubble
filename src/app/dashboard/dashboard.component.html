@@ -97,11 +97,13 @@
                     <span class="message-user">{{ user.name }}</span>
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
                   </div>
-                  <div *ngIf="!message.body.startsWith('https')" class="message-item">{{ message.body }}</div>
-
+                  <div *ngIf="!message.body.startsWith('https') && !message.body.startsWith('@')" class="message-item">{{ message.body }}</div>
+                  <div *ngIf="message.body.startsWith('@')" (click)="handleClickUser(message.body)" class="tagName">
+                    {{ message.body }}
+                  </div>
                         <div *ngIf="message.body.startsWith('https')">
                           <ng-container *ngIf="isImage(message.body)">
-                            <img [src]="message.body" alt="Image" class="message-image">
+                            <img [src]="message.body" alt="Image" class="message-image styleImg">
                           </ng-container>
                           <ng-container *ngIf="isPDF(message.body)">
                             <a [href]="message.body" target="_blank">{{ getPDFFileName(message.body) }}</a>
