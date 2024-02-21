@@ -51,26 +51,30 @@ export class DialogAddChannelComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
   }
 
-  saveThread(){
-  this.channel.authorId = this.currentUserId;
-  this.channel.authorName = this.currentUserName;
-  this.loading = true;
-  this.channel.users = [this.currentUserId!];
-  addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(docRef => {
-    this.channel.id =  docRef.id;
-  });
+  saveThread() {
+    this.channel.authorId = this.currentUserId;
+    this.channel.authorName = this.currentUserName;
+    this.channel.users = [this.currentUserId!];
+    this.loading = true;
 
-  this.loading = false;
-    this.addUserToChannel(this.channel,this.channel.id);
-    this.threadService.setSelectedChannel(this.channel);
+    addDoc(collection(this.firestore, 'channels'), this.channel.toJSON()).then(docRef => {
+      this.channel.id = docRef.id;
+      this.addUserToChannel(this.channel, this.channel.id);
+      this.threadService.setSelectedChannel(this.channel);
+      this.loading = false;
+    }).catch(error => {
+      console.error("Fehler beim Erstellen des Channels: ", error);
+      this.loading = false;
+    });
   }
 
 
   addUserToChannel(channel:any, newChannelId:any){
     if(this.dialog.openDialogs.length==1){
     let dialog = this.dialog.open(DialogAddChannelAddUserComponent, {
-      width: '100%'
-  });
+      width: '100%',
+      autoFocus: false
+    });
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = newChannelId;
    }

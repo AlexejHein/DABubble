@@ -478,20 +478,26 @@ export class DashboardComponent implements OnInit {
    }
   }
 
-  showUsers(){
-    let threadCollection = collection(this.firestore, 'channels');
-    let threadDoc = doc(threadCollection, this.channelId);
-    docData(threadDoc).subscribe((channel) => {
-      this.channel = new Channel(channel);
-    });
-    if(this.dialog.openDialogs.length==0){
-      let dialog = this.dialog.open(DialogEditUsersComponent, {
-        width: '100%'
-    });
-      dialog.componentInstance.channel = new Channel(this.channel.toJSON());
-      dialog.componentInstance.channelId = this.channelId;
+  showUsers() {
+    if (this.channelId) {
+      let threadCollection = collection(this.firestore, 'channels');
+      let threadDoc = doc(threadCollection, this.channelId);
+      docData(threadDoc).subscribe((channel) => {
+        this.channel = new Channel(channel);
+      });
+
+      if (this.dialog.openDialogs.length == 0) {
+        let dialog = this.dialog.open(DialogEditUsersComponent, {
+          width: '100%'
+        });
+        dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+        dialog.componentInstance.channelId = this.channelId;
+      }
+    } else {
+      console.error('channelId is empty or undefined');
+    }
   }
-  }
+
 
   focusMessageInput(): void {
     if (this.messageInput) {

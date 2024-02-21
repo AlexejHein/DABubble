@@ -73,7 +73,9 @@ private breakpointChanged() {
   }
 
   addChannel() {
-    this.dialog.open(DialogAddChannelComponent);
+    this.dialog.open(DialogAddChannelComponent , {
+      autoFocus: false
+    });
   }
 
   addMessage() {

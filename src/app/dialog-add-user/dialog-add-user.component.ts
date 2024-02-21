@@ -107,7 +107,7 @@ removeUserFromChannel(usersId:any) {
 saveUsersToChannel() {
   const coll = doc(this.firestore, 'channels', this.channelId);
   this.channel.users = this.loadChannelUsers;
-    updateDoc(coll, {users: this.channel.users}).then(r => console.log(r));
+    updateDoc(coll, {users: this.channel.users}).then(r => {});
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
