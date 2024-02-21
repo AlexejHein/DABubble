@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -6,6 +6,8 @@ import { UserService } from "../../services/user.service";
 import { ThreadsService } from "../../services/threads.service";
 import { DashboardComponent } from "../dashboard.component";
 import { ChannelService } from "../../services/channel.service";
+import { MessagesService } from "../../services/messages.service";
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-search',
@@ -13,22 +15,26 @@ import { ChannelService } from "../../services/channel.service";
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  searchControl = new FormControl();
+
+  firestore: Firestore = inject(Firestore)
+  items$!: Observable<any[]>;
+
   usersOrChannels: any[] = []; // Daten für Benutzer oder Kanäle
+  filteredUsersOrChannels: any[] = [];
   filteredOptions: Observable<any[]> | undefined;
+  dropdownVisible:boolean = false;
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
               protected dashboard: DashboardComponent,
-              private channelService: ChannelService) { }
+              private channelService: ChannelService,
+              private messageService: MessagesService) { }
 
   ngOnInit() {
-    this.filteredOptions = this.searchControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-    this.userService.getUsers().subscribe((users: any[]) => {
+   
+    const aCollection = collection(this.firestore, 'users');
+    this.items$ = collectionData(aCollection, { idField: 'id' });
+    this.items$.subscribe((users) => {
       this.usersOrChannels = [...this.usersOrChannels, ...users.map(user => ({...user, type: 'user'}))];
     });
 
@@ -41,37 +47,48 @@ export class SearchComponent implements OnInit {
         type: 'channel'
       }))];
     });
+
+    const messageCollection = collection(this.firestore, 'messages')
+    this.items$ = collectionData(messageCollection, { idField: 'id' });
+    this.items$.subscribe((messages) => {
+      this.usersOrChannels = [...this.usersOrChannels, ...messages.map(message => ({
+        name: message.body,
+        avatar: '',
+        status: '',
+        id: message.id,
+        type: 'message'
+      }))];
+    });
+
   }
 
-
-  private _filter(value: string): any[] {
-    if (value === null || value === undefined) {
-      return [];
+  private_filter(text: string) {
+    
+    if (!text) {
+      this.filteredUsersOrChannels = this.usersOrChannels;
+      this.dropdownVisible = false;
+      return;
     }
-    const filterValue = value.toLowerCase();
-
-    return this.usersOrChannels
-      .filter(item => item.name.toLowerCase().includes(filterValue))
-      .map(item => ({
-        name: item.name,
-        avatar: item.avatar,
-        status: item.status,
-        id: item.id,
-        type: item.type
-      }));
+    console.log('usersOrChannels: ',this.usersOrChannels, '- filtered: ');
+    this.filteredUsersOrChannels = this.usersOrChannels.filter(
+      usersOrChannels => usersOrChannels?.name.toLowerCase().includes(text.toLowerCase())
+    );
+    this.dropdownVisible = true;
+  
   }
 
   selectUser(user: any) {
-    this.searchControl.setValue(user.name);
-    this.searchControl.reset();
+
     if(user.type === 'user') {
       this.dashboard.setSelectedUser(user);
       this.dashboard.focusMessageInput();
       this.dashboard.loadMessages();
     } else if(user.type === 'channel') {
       this.channelService.channelClick(user);
+    } else if(user.type === 'message') {
+      console.log('open message');
+      this.messageService.messageClick(user);
     }
-    // Weitere Aktionen...
   }
 
 

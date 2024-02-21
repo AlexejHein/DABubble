@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {Message} from "../models/message.class";
+import { Message } from "../models/message.class";
+import { Subject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessagesService {
+  private messageClickedSource = new Subject<any>();
+  messageClicked$ = this.messageClickedSource.asObservable();
 
   constructor(
     private firestore: AngularFirestore,
     private auth: AngularFireAuth
   ) { }
+
+  messageClick(message: any) {
+    this.messageClickedSource.next(message);
+  }
 
   async saveMessage(message: any) {
     try {

@@ -1,5 +1,4 @@
 .search-container {
-  position: relative;
   display: inline-block;
   width: 100%;
   input{
@@ -14,7 +13,6 @@
 
 }
 .autocomplete-options {
-  width: 200px;
   position: absolute;
   top: 100%;
   left: 0;
