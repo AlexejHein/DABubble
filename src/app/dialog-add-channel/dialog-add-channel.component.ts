@@ -48,10 +48,9 @@ export class DialogAddChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Hier führen Sie die Bereinigung durch, bevor die Komponente zerstört wird
-    // Beispiel: Schließen Sie offene Dialoge, wenn diese Komponente für das Öffnen verantwortlich ist
     this.dialog.closeAll();
   }
+
   saveThread(){
   this.channel.authorId = this.currentUserId;
   this.channel.authorName = this.currentUserName;
@@ -74,8 +73,6 @@ export class DialogAddChannelComponent implements OnInit, OnDestroy {
   });
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channelId = newChannelId;
-}
+   }
   }
-
-
 }

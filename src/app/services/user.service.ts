@@ -21,26 +21,28 @@ export class UserService {
   private userClickSource = new BehaviorSubject<any>(null);
   userClick$ = this.userClickSource.asObservable();
 
-  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private auth: AngularFireAuth) {}
 
   async registerUser(userData: { name: string, email: string, password: string }) {
-    try {
-      const userCredential = await this.auth.createUserWithEmailAndPassword(userData.email, userData.password);
-      const userId = userCredential.user?.uid;
-      if (userId) {
-        const newUser = new User({
-          id: userId,
-          name: userData.name,
-          email: userData.email,
-        });
-        await this.firestore.collection('users').doc(newUser.id).set(newUser.toJSON());
-        return newUser;
-      } else {
-        throw new Error('Benutzer konnte nicht erstellt werden.');
+      try {
+        const userCredential = await this.auth.createUserWithEmailAndPassword(userData.email, userData.password);
+        const userId = userCredential.user?.uid;
+        if (userId) {
+          const newUser = new User({
+            id: userId,
+            name: userData.name,
+            email: userData.email,
+          });
+          await this.firestore.collection('users').doc(newUser.id).set(newUser.toJSON());
+          return newUser;
+        } else {
+          throw new Error('Benutzer konnte nicht erstellt werden.');
+        }
+      } catch (error) {
+        throw error;
       }
-    } catch (error) {
-      throw error;
-    }
   }
 
 

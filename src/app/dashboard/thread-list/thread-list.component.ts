@@ -85,18 +85,16 @@ export class ThreadListComponent implements OnInit {
 
     this.items$ = this.firestore.collection('threads', ref => ref.orderBy('createdAt', 'asc')).valueChanges({ idField: 'id' });
 
+
     this.items$.subscribe((threads) => {
       this.allThreads = threads;
       this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
         this.selectedChannel = channel;
         this.selectedChannelId = channel?.id;
         this.allThreadsFiltered = this.allThreads.filter((f) =>
-        this.selectedChannelId === f.toChannel)
+        this.selectedChannelId === f.toChannel);
       });
       });
-
-
-
   }
 
   private breakpointChanged() {

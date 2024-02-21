@@ -4,6 +4,7 @@ import { Router} from "@angular/router";
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth';
 import {UserService} from "./user.service";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 
 @Injectable({
@@ -14,7 +15,8 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserService,
+              private firestore: AngularFirestore ) { }
 
   async loginWithEmail(email: string, password: string) {
     try {
@@ -35,14 +37,32 @@ export class AuthService {
 
   async loginWithGoogle() {
     try {
-      const result = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.setAutoLogout(4 * 60 * 60 * 1000);
-      return result;
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const result = await this.afAuth.signInWithPopup(provider);
+      const user = result.user;
+
+      if (user) {
+        const userRef = this.firestore.collection('users').doc(user.uid);
+        const doc = await userRef.get().toPromise();
+        if (!doc?.exists) {
+          const newUser = {
+            id: user.uid,
+            name: user.displayName || 'Anonymer Nutzer',
+            email: user.email,
+          };
+          await userRef.set(newUser);
+          console.log('Benutzer erfolgreich in Firestore angelegt:', newUser);
+        } else {
+          console.log('Benutzer existiert bereits in Firestore.');
+        }
+      } else {
+        console.error('Google-Anmeldung fehlgeschlagen: Kein Benutzerobjekt erhalten.');
+      }
     } catch (error) {
-      console.error('Error during login with Google', error);
-      throw error;
+      console.error('Google-Anmeldung fehlgeschlagen:', error);
     }
   }
+
 
   async logout() {
     try {

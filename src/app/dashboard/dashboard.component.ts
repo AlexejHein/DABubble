@@ -123,7 +123,6 @@ export class DashboardComponent implements OnInit {
     this.checkScreenWidth(window.innerWidth);
   }
 
-
   async ngOnInit(): Promise<void> {
     this.breakpoint$.subscribe(() =>
   this.breakpointChanged()
@@ -345,13 +344,16 @@ export class DashboardComponent implements OnInit {
   saveThread() {
     if (this.uploadedFileInfo) {
       this.thread.title = this.uploadedFileInfo.url;
-      this.uploadedFileInfo = null; // Reset uploaded file information
+      this.uploadedFileInfo = null;
     }
     this.thread.authorId = this.currentUserId;
     this.thread.toChannel = this.channelId;
-    addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => console.log(r));
+    this.thread.createdAt = new Date();
+
+    addDoc(collection(this.firestore, 'threads'), this.thread.toJSON()).then(r => {});
     this.thread.title = '';
   }
+
 
   addEmoticon(emoticon: string) {
     this.message.body = (this.message.body || '') + emoticon;
@@ -610,7 +612,7 @@ writeMessageInChannel(selectedChannel: Channel): void {
     // this.loadMessages();
     this.message.body= `@${user.name}`;
     console.log(user);
-    
+
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: { target: { innerWidth: number; }; }) {
@@ -626,15 +628,11 @@ writeMessageInChannel(selectedChannel: Channel): void {
     return parts.length > 1 ? parts[1].trim() : null;
   }
 
-
   handleClickUser(msgBody:any) {
     const username = this.extractName(msgBody);
     const userFind = this.allUsers.find(u => u.name === username);
-    
+
     this.setSelectedUser(userFind);
     this.loadMessages();
   }
-
-
-
 }

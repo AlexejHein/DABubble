@@ -84,6 +84,8 @@ ngOnInit(): void {
 
   this.items$.subscribe((threads) => {
     this.allThreads = threads;
+    this.allThreads.sort((a, b) => a.createdAt - b.createdAt);
+
     const currentThread = this.allThreads.find(thread => thread.id === this.selectedThread?.id);
 
     if (currentThread) {
@@ -133,7 +135,7 @@ saveMessage(thread:any) {
 updatethreadMessages(thread:any, message:any){
       const coll = doc(this.firestore, 'threads', thread.id);
       //Add message ID to thread messages
-      updateDoc(coll, {messages: arrayUnion(message.id)}).then(r => console.log(r));
+      updateDoc(coll, {messages: arrayUnion(message.id)}).then(r => {});
     }
 
   loadMessages() {

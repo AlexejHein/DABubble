@@ -91,12 +91,7 @@ filterResults(text: string) {
 
 showUserInChannel(usersId:any){
   let indexChecked = this.channelUsers.indexOf(usersId);
-  if(indexChecked > -1){
-  return true;
-  }
-  else {
-    return false;
-  }
+  return indexChecked > -1;
 }
 
 addUserToChannel(usersId:any) {

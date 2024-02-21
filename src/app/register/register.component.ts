@@ -67,9 +67,8 @@ export class RegisterComponent {
     try {
       await this.userService.registerUser({ name, email, password });
       this.storageService.storeUserData({ name, email, password });
-
       this.storageService.plusStep();
-      this.disableForm=false;
+      this.disableForm = false;
     } catch (error) {
       console.error('Registrierungsfehler', error);
     }
