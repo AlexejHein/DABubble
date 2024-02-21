@@ -36,11 +36,12 @@ export class DialogAddUserComponent implements OnInit, OnDestroy {
     private threadsService: ThreadsService,
     public dialogRef: MatDialogRef<DialogAddUserComponent>) {
       this.filteredAllUsers = this.allUsers;
-
-    }
+  }
 
   async ngOnInit(): Promise<void> {
 
+
+    console.log('DialogAddUserComponent ngOnInit');
     this.subscription = this.threadsService.selectedChannel.subscribe(channel => {
       this.selectedChannel = channel;
       this.selectedUser = null;
@@ -74,6 +75,7 @@ export class DialogAddUserComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.dialogRef.close();
   }
 
 filterResults(text: string) {
@@ -113,6 +115,4 @@ saveUsersToChannel() {
     }
     this.dialogRef.close();
 }
-
-
 }

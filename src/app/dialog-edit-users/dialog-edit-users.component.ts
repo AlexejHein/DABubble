@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, OnDestroy} from '@angular/core';
 import { Firestore, addDoc, docData, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
   templateUrl: './dialog-edit-users.component.html',
   styleUrls: ['./dialog-edit-users.component.scss']
 })
-export class DialogEditUsersComponent implements OnInit {
+export class DialogEditUsersComponent implements OnInit, OnDestroy {
   firestore: Firestore = inject(Firestore);
   private subscription: Subscription | null = null;
   channel: Channel = new Channel();
@@ -61,6 +61,12 @@ export class DialogEditUsersComponent implements OnInit {
         ].filter(Boolean);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 
