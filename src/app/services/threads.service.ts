@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Channel } from '../models/channel.class';
 import { Thread } from '../models/thread.class';
+import { Subject } from 'rxjs';
 import {BehaviorSubject} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
@@ -8,6 +9,9 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
   providedIn: 'root'
 })
 export class ThreadsService {
+  private threadClickedSource = new Subject<any>();
+  channelClicked$ = this.threadClickedSource.asObservable();
+
   private selectedChannelSubject = new BehaviorSubject<Channel | null>(null);
   selectedChannel = this.selectedChannelSubject.asObservable();
 
@@ -24,6 +28,10 @@ export class ThreadsService {
   selectedLeftSidebarClassName = this.selectedLeftSidebarClass.asObservable();
 
   constructor(private firestore: AngularFirestore) { }
+
+  threadClick(thread: any) {
+    this.threadClickedSource.next(thread);
+  }
 
   setSelectedChannel(channel: Channel | null) {
    this.selectedChannelSubject.next(channel);

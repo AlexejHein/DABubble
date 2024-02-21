@@ -60,6 +60,18 @@ export class SearchComponent implements OnInit {
       }))];
     });
 
+    const threadsCollection = collection(this.firestore, 'threads')
+    this.items$ = collectionData(threadsCollection, { idField: 'id' });
+    this.items$.subscribe((threads) => {
+      this.usersOrChannels = [...this.usersOrChannels, ...threads.map(thread => ({
+        name: thread.title,
+        avatar: '',
+        status: '',
+        id: thread.id,
+        type: 'thread'
+      }))];
+    });
+
   }
 
   private_filter(text: string) {
@@ -85,6 +97,9 @@ export class SearchComponent implements OnInit {
       this.dashboard.loadMessages();
     } else if(user.type === 'channel') {
       this.channelService.channelClick(user);
+    } else if(user.type === 'thread') {
+      console.log('open thread');
+      this.threadsService.threadClick(user);
     } else if(user.type === 'message') {
       console.log('open message');
       this.messageService.messageClick(user);
