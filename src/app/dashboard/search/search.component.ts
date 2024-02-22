@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
 
   usersOrChannels: any[] = []; // Daten für Benutzer oder Kanäle
   filteredUsersOrChannels: any[] = [];
+  allThreads: any[] = [];
+  selectedThread: any;
   filteredOptions: Observable<any[]> | undefined;
   dropdownVisible:boolean = false;
   threadVisible = true;
@@ -67,6 +69,7 @@ export class SearchComponent implements OnInit {
     const threadsCollection = collection(this.firestore, 'threads')
     this.items$ = collectionData(threadsCollection, { idField: 'id' });
     this.items$.subscribe((threads) => {
+      this.allThreads = threads;
       this.usersOrChannels = [...this.usersOrChannels, ...threads.map(thread => ({
         ...thread,
         name: thread.title,
@@ -107,9 +110,17 @@ export class SearchComponent implements OnInit {
       this.showThread();
       this.moveSidebar();
     } else if(user.type === 'message') {
-      console.log('open message: ', user);
-      this.threadsService.setSelectedThread(user);
+      this.filterSelectedThreadId(user);
     }
+  }
+
+  filterSelectedThreadId(user:any) {
+    console.log('open message: ', user, 'thread id: ', user.toThread, 'all threads: ', this.allThreads);
+    this.selectedThread = this.allThreads.filter(thread => thread.id === user.toThread); // Nicht fertig
+    this.threadsService.setSelectedThread(this.selectedThread);
+    console.log('selected thread: ', this.selectedThread);
+    this.showThread();
+    this.moveSidebar();
   }
 
   showThread(){
