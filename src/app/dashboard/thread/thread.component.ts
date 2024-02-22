@@ -120,6 +120,7 @@ saveMessage(thread:any) {
     this.message.user = this.currentUserId;
     //this.message.toUser = this.selectedUser.id;
     this.message.createdAt = new Date();
+    this.message.toThread = thread.id;
     this.messagesService.saveMessage(this.message).then(() => {
       this.message.body = '';
       this.updatethreadMessages(thread, this.message);

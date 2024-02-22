@@ -6,6 +6,7 @@ export class Message{
     body: string;
     user: string;
     toUser: string;
+    toThread: string;
     createdAt: Date;
     updatedAt: Date;
     reactions: Reaction[];
@@ -16,6 +17,7 @@ export class Message{
             this.body = obj.body ?? '';
             this.user = obj.user ?? new User();
             this.toUser = obj.toUser ?? new User();
+            this.toThread = obj.toThread ?? new User();
             this.createdAt = obj.createdAt ?? new Date();
             this.updatedAt = obj.updatedAt ?? new Date();
             this.reactions = obj.reactions ?? [];
@@ -24,6 +26,7 @@ export class Message{
             this.body = '';
             this.user = '';
             this.toUser = '';
+            this.toThread = '';
             this.createdAt = new Date();
             this.updatedAt = new Date();
             this.reactions = [];
