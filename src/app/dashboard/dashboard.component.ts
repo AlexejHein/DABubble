@@ -616,7 +616,7 @@ writeMessageInChannel(selectedChannel: Channel): void {
   userClick(user: User) {
     // this.setSelectedUser(user);
     // this.loadMessages();
-    this.message.body= `@${user.name}`;
+    this.message.body+= `@${user.name}`;
     console.log(user);
 
   }
