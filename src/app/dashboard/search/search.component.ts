@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit {
     this.items$ = collectionData(messageCollection, { idField: 'id' });
     this.items$.subscribe((messages) => {
       this.usersOrChannels = [...this.usersOrChannels, ...messages.map(message => ({
+        ...message, 
         name: message.body,
         avatar: '',
         status: '',
