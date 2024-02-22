@@ -116,9 +116,8 @@ export class SearchComponent implements OnInit {
 
   filterSelectedThreadId(user:any) {
     console.log('open message: ', user, 'thread id: ', user.toThread, 'all threads: ', this.allThreads);
-    this.selectedThread = this.allThreads.filter(thread => thread.id === user.toThread); // Nicht fertig
-    this.threadsService.setSelectedThread(this.selectedThread);
-    console.log('selected thread: ', this.selectedThread);
+    this.selectedThread = this.allThreads.filter(thread => thread.id === user.toThread);
+    this.threadsService.setSelectedThread(this.selectedThread[0]);
     this.showThread();
     this.moveSidebar();
   }
