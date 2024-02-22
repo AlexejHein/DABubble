@@ -23,6 +23,9 @@ export class SearchComponent implements OnInit {
   filteredUsersOrChannels: any[] = [];
   filteredOptions: Observable<any[]> | undefined;
   dropdownVisible:boolean = false;
+  threadVisible = true;
+  moveRight:string = "";
+  moveLeft:string = "";
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -100,12 +103,25 @@ export class SearchComponent implements OnInit {
       this.channelService.channelClick(user);
     } else if(user.type === 'thread') {
       this.threadsService.setSelectedThread(user);
+      this.showThread();
+      this.moveSidebar();
     } else if(user.type === 'message') {
       console.log('open message: ', user);
       this.threadsService.setSelectedThread(user);
     }
   }
 
+  showThread(){
+    this.threadVisible = true;
+    this.threadsService.setSelectedSidebarVisibility(this.threadVisible);
+
+  }
+
+  moveSidebar(){
+    this.moveRight = "";
+    this.threadsService.setselectedSidebarClassName(this.moveRight);
+    this.dashboard.closeWorkspaceMenu();
+  }
 
   protected readonly of = of;
 }
