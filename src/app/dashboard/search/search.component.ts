@@ -64,6 +64,7 @@ export class SearchComponent implements OnInit {
     this.items$ = collectionData(threadsCollection, { idField: 'id' });
     this.items$.subscribe((threads) => {
       this.usersOrChannels = [...this.usersOrChannels, ...threads.map(thread => ({
+        ...thread,
         name: thread.title,
         avatar: '',
         status: '',
@@ -98,11 +99,10 @@ export class SearchComponent implements OnInit {
     } else if(user.type === 'channel') {
       this.channelService.channelClick(user);
     } else if(user.type === 'thread') {
-      console.log('open thread');
-      this.threadsService.threadClick(user);
+      this.threadsService.setSelectedThread(user);
     } else if(user.type === 'message') {
-      console.log('open message');
-      this.messageService.messageClick(user);
+      console.log('open message: ', user);
+      this.threadsService.setSelectedThread(user);
     }
   }
 
