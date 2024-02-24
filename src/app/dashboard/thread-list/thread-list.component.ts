@@ -10,6 +10,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 import { DashboardComponent } from "../dashboard.component";
+import { WorkspaceService } from 'src/app/services/workspace.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class ThreadListComponent implements OnInit {
   threadVisible = true;
   moveRight:string = "";
   moveLeft:string = "";
+  selectedUser:  User | null = null;
   protected hoveredIndex: number | undefined;
   hideThreadMenu = signal<any | null>(null);
   private chosen: string | undefined;
@@ -58,7 +60,8 @@ export class ThreadListComponent implements OnInit {
                 private changeDetector: ChangeDetectorRef,
                 private firestore: AngularFirestore,
                 private breakpointObserver: BreakpointObserver,
-                private dashboard: DashboardComponent) {
+                private dashboard: DashboardComponent,
+                private workspaceService: WorkspaceService,) {
   this.threadsRef = this.firestore.collection('threads').ref;
   }
 
@@ -93,8 +96,60 @@ export class ThreadListComponent implements OnInit {
         this.selectedChannelId = channel?.id;
         this.allThreadsFiltered = this.allThreads.filter((f) =>
         this.selectedChannelId === f.toChannel);
+        console.log(this.allThreadsFiltered);
+        this.allThreadsFiltered.forEach((item)=>{
+          if (item.title.includes('@')){
+            item.tag=this.getTag(item.title)
+          }
+          
+        })
       });
       });
+      
+  }
+
+  extractName(str: string): string | null {
+    const parts = str.split('@');
+    return parts.length > 1 ? parts[1].trim() : null;
+  }
+
+  handleClickUser(msgBody:any) {
+    const username = this.extractName(msgBody);
+    const userFind = this.allUsers.find(u => u.name === username);
+
+    this.chatWithSelectedUser(userFind);
+  }
+  setSelectedUser(user: any) {
+    this.selectedUser=user
+    this.changeDetector.detectChanges();
+  }
+
+  chatWithSelectedUser(selectedUser: any): void {
+    this.userService.setSelectedUser(selectedUser);
+    this.workspaceService.addMessageClicked();
+  }
+
+  getTag(msg:any){
+    let splitMsg:any= [];
+    console.log(msg);
+    let nameArray=this.allUsers.map((item)=>{
+      return `@${item.name}`;
+    })
+    console.log(nameArray);
+    
+
+    let regex = new RegExp(`(${nameArray.join('|')})`);
+
+    let parts = msg.split(regex);
+
+    parts.forEach((part:any) => {
+        if (part.trim() !== "") {
+            splitMsg.push(part.trim());
+        }
+    });
+    
+    console.log(splitMsg);
+    return splitMsg
   }
 
   private breakpointChanged() {
@@ -218,5 +273,7 @@ export class ThreadListComponent implements OnInit {
       this.threadsService.setselectedLeftSidebarClassName(this.moveLeft);
     }
   }
+
+  
 
 }

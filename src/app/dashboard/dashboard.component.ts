@@ -638,6 +638,19 @@ writeMessageInChannel(selectedChannel: Channel): void {
     console.log(user);
 
   }
+  userClick2(user: User) {
+    // this.setSelectedUser(user);
+    // this.loadMessages();
+    if(this.thread.title){
+      this.thread.title+=`@${user.name}`;
+    }
+    else{
+      this.thread.title=`@${user.name}`;
+    }
+    console.log(user);
+
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: { target: { innerWidth: number; }; }) {
     this.checkScreenWidth(event.target.innerWidth);
@@ -661,7 +674,6 @@ writeMessageInChannel(selectedChannel: Channel): void {
   }
 
 
-  // splitMsg: string[] = [];
   getTag(msg:any){
     let splitMsg:any= [];
     console.log(msg);

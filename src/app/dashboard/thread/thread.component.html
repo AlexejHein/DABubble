@@ -10,8 +10,12 @@
               <b>{{ user.name }}</b>
               <small>{{ thread.createdAt.toDate() | date:'short' }}</small>
            </div>
-           <div class="message-item">{{thread.title}}
-           </div>
+           <div *ngIf="!thread.title.startsWith('https') && !thread.title.includes('@')" class="message-item"> {{ thread.title }}</div>
+           <div *ngIf="!thread.title.startsWith('https') && thread.title.includes('@')" class="message-item" >
+           <span *ngFor="let word of thread.tag" >
+             <span *ngIf="word.startsWith('@')" (click)="handleClickUser(word)" class="tagName">{{word}}</span>
+             <span *ngIf="!word.startsWith('@')" >  {{word}}  </span>
+           </span>
            </div>
       </div>
      </div>
@@ -34,7 +38,13 @@
                     <span class="message-user">{{ user.name }}</span>
                     <small>{{ message.createdAt.toDate() | date:'short'}}</small>
                   </div>
-                  <div *ngIf="!message.body.startsWith('http')" class="message-item">{{ message.body }}</div>
+                  <div *ngIf="!message.body.startsWith('https') && !message.body.includes('@')" class="message-item"> {{ message.body }}</div>
+                  <div *ngIf="!message.body.startsWith('https') && message.body.includes('@')" class="message-item" >
+                  <span *ngFor="let word of message.tag" >
+                    <span *ngIf="word.startsWith('@')" (click)="handleClickUser(word)" class="tagName">{{word}}</span>
+                    <span *ngIf="!word.startsWith('@')" >  {{word}}  </span>
+                  </span>
+              </div>
 
                         <div *ngIf="message.body.startsWith('http')">
                           <ng-container *ngIf="isImage(message.body)">
@@ -178,9 +188,12 @@
             <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
           </div>
           </mat-menu>
-          <mat-icon [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
-          <mat-menu #selectUser="matMenu" >
-            <button  *ngFor="let user of allUsers">{{user.name}}</button>
+          <mat-icon style="cursor: pointer" [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
+          <mat-menu class="addUserContainer" #selectUser="matMenu" >
+            <div class="addUserBtn"  *ngFor="let user of allUsers" (click)="userClick(user)">
+            <img class="addUserAvatar" [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="userAvatar">
+              {{user.name}}
+            </div>
           </mat-menu>
         </div>
           <mat-icon class="send-btn" (click)="isUploading ? null : saveMessage(thread)">send</mat-icon>

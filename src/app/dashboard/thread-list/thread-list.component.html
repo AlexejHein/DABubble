@@ -18,7 +18,14 @@
               <span class="message-user">{{ user.name }}</span>
               <small>{{ thread.createdAt.toDate() | date:'HH:mm:ss':'UTC' }}</small>
             </div>
-            <div *ngIf="!thread.title.startsWith('http')" class="message-item">{{ thread.title }}</div>
+            <!-- <div *ngIf="!thread.title.startsWith('http')" class="message-item">{{ thread.title }}</div> -->
+            <div *ngIf="!thread.title.startsWith('https') && !thread.title.includes('@')" class="message-item"> {{ thread.title }}</div>
+            <div *ngIf="!thread.title.startsWith('https') && thread.title.includes('@')" class="message-item" >
+            <span *ngFor="let word of thread.tag" >
+              <span *ngIf="word.startsWith('@')" (click)="handleClickUser(word)" class="tagName">{{word}}</span>
+              <span *ngIf="!word.startsWith('@')" >  {{word}}  </span>
+            </span>
+            </div>
             <div *ngIf="thread.title.startsWith('http')">
               <ng-container *ngIf="isImage(thread.title)">
                 <img [src]="thread.title" class="styleImg" />

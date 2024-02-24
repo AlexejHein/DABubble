@@ -97,7 +97,7 @@
                     <span class="message-user">{{ user.name }}</span>
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
                   </div>
-                  <div *ngIf="!message.body.startsWith('https') && !message.body.includes('@')" class="message-item">{{ message.body }}</div>
+                  <div *ngIf="!message.body.startsWith('https') && !message.body.includes('@')" class="message-item"> {{ message.body }}</div>
                       <div *ngIf="!message.body.startsWith('https') && message.body.includes('@')" class="message-item" >
                       <span *ngFor="let word of message.tag" >
                         <span *ngIf="word.startsWith('@')" (click)="handleClickUser(word)" class="tagName">{{word}}</span>
@@ -247,7 +247,13 @@
             <button mat-menu-item (click)="addEmoticon('❌')">❌</button>
           </div>
           </mat-menu>
-          <mat-icon>alternate_email</mat-icon>
+          <mat-icon style="cursor: pointer" [matMenuTriggerFor]="selectUser">alternate_email</mat-icon>
+          <mat-menu class="addUserContainer" #selectUser="matMenu" >
+            <div class="addUserBtn"  *ngFor="let user of allUsers" (click)="userClick2(user)">
+            <img class="addUserAvatar" [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="userAvatar">
+              {{user.name}}
+            </div>
+          </mat-menu>
         </div>
         <mat-icon class="send-btn" (click)="saveThread()">send</mat-icon>
       </div>

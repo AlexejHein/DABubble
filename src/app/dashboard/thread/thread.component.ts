@@ -10,6 +10,7 @@ import {Reaction} from "../../models/reaction.class";
 import {collection, collectionData, doc, Firestore, updateDoc} from '@angular/fire/firestore';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {arrayUnion} from 'firebase/firestore';
+import { WorkspaceService } from 'src/app/services/workspace.service';
 
 @Component({
   selector: 'app-thread',
@@ -47,12 +48,14 @@ export class ThreadComponent implements OnInit {
   uploadedFileInfo: any;
   tooltipVisible = false;
   tooltipVisibleMap = new Map<string, boolean>();
+  
 
   constructor(  private userService: UserService,
     protected threadsService: ThreadsService,
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
-    private fireStorage: AngularFireStorage) {
+    private fireStorage: AngularFireStorage,
+    private workspaceService: WorkspaceService,) {
 }
 
 
@@ -85,7 +88,11 @@ ngOnInit(): void {
   this.items$.subscribe((threads) => {
     this.allThreads = threads;
     this.allThreads.sort((a, b) => a.createdAt - b.createdAt);
-
+    this.allThreads.forEach((item)=>{
+      if (item.title.includes('@')){
+        item.tag=this.getTag(item.title)
+      }
+    });
     const currentThread = this.allThreads.find(thread => thread.id === this.selectedThread?.id);
 
     if (currentThread) {
@@ -105,6 +112,14 @@ ngOnInit(): void {
     this.allMessages = messages;
     this.allMessages.sort((a, b) => a.createdAt - b.createdAt);
     this.messages = messages;
+    this.messages.forEach((item)=>{
+      if (item.body.includes('@')){
+        item.tag=this.getTag(item.body)
+      }
+      
+    })
+
+    console.log(this.messages);
   });
 
 }
@@ -152,6 +167,15 @@ updatethreadMessages(thread:any, message:any){
         }
         return message;
       });
+      
+      this.messages.forEach((item)=>{
+        if (item.body.includes('@')){
+          item.tag=this.getTag(item.body)
+        }
+        
+      })
+
+      console.log(this.messages);
     });
   }
 
@@ -295,6 +319,62 @@ getPDFFileName(url: string): string {
 
   addEmoticon(emoticon: string) {
     this.message.body = (this.message.body || '') + emoticon;
+  }
+
+
+  handleClickUser(msgBody:any) {
+    const username = this.extractName(msgBody);
+    const userFind = this.allUsers.find(u => u.name === username);
+    this.chatWithSelectedUser(userFind)
+  }
+
+  extractName(str: string): string | null {
+    const parts = str.split('@');
+    return parts.length > 1 ? parts[1].trim() : null;
+  }
+
+  setSelectedUser(user: any) {
+    this.selectedUser=user
+    this.changeDetector.detectChanges();
+  }
+
+  chatWithSelectedUser(selectedUser: any): void {
+    this.userService.setSelectedUser(selectedUser);
+    this.workspaceService.addMessageClicked();
+  }
+  userClick(user: User) {
+    // this.setSelectedUser(user);
+    // this.loadMessages();
+    if(this.message.body){
+      this.message.body+=`@${user.name}`;
+    }
+    else{
+      this.message.body=`@${user.name}`;
+    }
+    console.log(user);
+
+  }
+  getTag(msg:any){
+    let splitMsg:any= [];
+    console.log(msg);
+    let nameArray=this.allUsers.map((item)=>{
+      return `@${item.name}`;
+    })
+    console.log(nameArray);
+    
+
+    let regex = new RegExp(`(${nameArray.join('|')})`);
+
+    let parts = msg.split(regex);
+
+    parts.forEach((part:any) => {
+        if (part.trim() !== "") {
+            splitMsg.push(part.trim());
+        }
+    });
+    
+    console.log(splitMsg);
+    return splitMsg
   }
 
 }
