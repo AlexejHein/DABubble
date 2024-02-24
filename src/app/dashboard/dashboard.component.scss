@@ -871,7 +871,10 @@ h3 {
 }
 
 .tagName{
-  color: #444DF2;
-  text-decoration: underline;
+  color: #0bebdf;
   font-weight: bold;
+}
+
+.tagName:hover{
+  color: #064d9e;
 }

@@ -215,8 +215,21 @@ export class DashboardComponent implements OnInit {
         return message;
       });
       this.messages = this.filterMessages(allMessages);
+      
+      this.messages.forEach((item)=>{
+        if (item.body.includes('@')){
+          item.tag=this.getTag(item.body)
+        }
+        
+      })
+
+      console.log(this.messages);
+      
+      
     });
   }
+
+  tagMsg = { msg: [] };
 
   scrollToBottom(): void {
     try {
@@ -616,7 +629,12 @@ writeMessageInChannel(selectedChannel: Channel): void {
   userClick(user: User) {
     // this.setSelectedUser(user);
     // this.loadMessages();
-    this.message.body+= `@${user.name}`;
+    if(this.message.body){
+      this.message.body+=`@${user.name}`;
+    }
+    else{
+      this.message.body=`@${user.name}`;
+    }
     console.log(user);
 
   }
@@ -640,5 +658,30 @@ writeMessageInChannel(selectedChannel: Channel): void {
 
     this.setSelectedUser(userFind);
     this.loadMessages();
+  }
+
+
+  // splitMsg: string[] = [];
+  getTag(msg:any){
+    let splitMsg:any= [];
+    console.log(msg);
+    let nameArray=this.allUsers.map((item)=>{
+      return `@${item.name}`;
+    })
+    console.log(nameArray);
+    
+
+    let regex = new RegExp(`(${nameArray.join('|')})`);
+
+    let parts = msg.split(regex);
+
+    parts.forEach((part:any) => {
+        if (part.trim() !== "") {
+            splitMsg.push(part.trim());
+        }
+    });
+    
+    console.log(splitMsg);
+    return splitMsg
   }
 }

@@ -97,9 +97,12 @@
                     <span class="message-user">{{ user.name }}</span>
                     <small>{{ message.createdAt | date:'HH:mm':'UTC' }}</small>
                   </div>
-                  <div *ngIf="!message.body.startsWith('https') && !message.body.startsWith('@')" class="message-item">{{ message.body }}</div>
-                  <div *ngIf="message.body.startsWith('@')" (click)="handleClickUser(message.body)" class="tagName">
-                    {{ message.body }}
+                  <div *ngIf="!message.body.startsWith('https') && !message.body.includes('@')" class="message-item">{{ message.body }}</div>
+                      <div *ngIf="!message.body.startsWith('https') && message.body.includes('@')" class="message-item" >
+                      <span *ngFor="let word of message.tag" >
+                        <span *ngIf="word.startsWith('@')" (click)="handleClickUser(word)" class="tagName">{{word}}</span>
+                        <span *ngIf="!word.startsWith('@')" >  {{word}}  </span>
+                      </span>
                   </div>
                         <div *ngIf="message.body.startsWith('https')">
                           <ng-container *ngIf="isImage(message.body)">

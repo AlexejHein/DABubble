@@ -10,6 +10,7 @@ export class Message{
     createdAt: Date;
     updatedAt: Date;
     reactions: Reaction[];
+    tag:any;
 
     constructor(obj?: any) {
         if (obj) {
@@ -21,6 +22,7 @@ export class Message{
             this.createdAt = obj.createdAt ?? new Date();
             this.updatedAt = obj.updatedAt ?? new Date();
             this.reactions = obj.reactions ?? [];
+            this.tag = obj.tag ?? [];
         } else {
             this.id = '';
             this.body = '';
@@ -30,6 +32,7 @@ export class Message{
             this.createdAt = new Date();
             this.updatedAt = new Date();
             this.reactions = [];
+            this.tag = [];
         }
     }
 }
