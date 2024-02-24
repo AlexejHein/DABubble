@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
 
   usersOrChannels: any[] = []; // Daten für Benutzer oder Kanäle
   filteredUsersOrChannels: any[] = [];
+  filteredOfPrivateMessages: any[] = [];
   allThreads: any[] = [];
   selectedThread: any;
   filteredOptions: Observable<any[]> | undefined;
@@ -40,7 +41,7 @@ export class SearchComponent implements OnInit {
     const aCollection = collection(this.firestore, 'users');
     this.items$ = collectionData(aCollection, { idField: 'id' });
     this.items$.subscribe((users) => {
-      this.usersOrChannels = [...this.usersOrChannels, ...users.map(user => ({...user, type: 'user'}))];
+      this.usersOrChannels = [...this.usersOrChannels, ...users.map(user => ({...user, toThread: '', type: 'user'}))];
     });
 
     this.threadsService.getChannels().subscribe((channels: any[]) => {
@@ -48,6 +49,7 @@ export class SearchComponent implements OnInit {
         name: channel.title,
         avatar: '',
         status: '',
+        toThread: '',
         id: channel.id,
         type: 'channel'
       }))];
@@ -75,6 +77,7 @@ export class SearchComponent implements OnInit {
         name: thread.title,
         avatar: '',
         status: '',
+        toThread: '',
         id: thread.id,
         type: 'thread'
       }))];
@@ -83,15 +86,19 @@ export class SearchComponent implements OnInit {
   }
 
   private_filter(text: string) {
-    
+    this.filteredOfPrivateMessages = this.usersOrChannels.filter(
+      usersOrChannels =>(usersOrChannels.toThread !== undefined 
+      )
+    );
+    console.log('filteredOfPrivateMessages: ', this.filteredOfPrivateMessages);
     if (!text) {
-      this.filteredUsersOrChannels = this.usersOrChannels;
+      this.filteredUsersOrChannels = this.filteredOfPrivateMessages;
       this.dropdownVisible = false;
       return;
     }
-    console.log('usersOrChannels: ',this.usersOrChannels, '- filtered: ');
-    this.filteredUsersOrChannels = this.usersOrChannels.filter(
-      usersOrChannels => usersOrChannels?.name.toLowerCase().includes(text.toLowerCase())
+    console.log('usersOrChannels: ',this.filteredOfPrivateMessages, '- filtered: ');
+    this.filteredUsersOrChannels = this.filteredOfPrivateMessages.filter(
+      filteredOfPrivateMessages => filteredOfPrivateMessages?.name.toLowerCase().includes(text.toLowerCase())
     );
     this.dropdownVisible = true;
   
