@@ -96,7 +96,7 @@ export class ThreadListComponent implements OnInit {
         this.selectedChannelId = channel?.id;
         this.allThreadsFiltered = this.allThreads.filter((f) =>
         this.selectedChannelId === f.toChannel);
-        console.log(this.allThreadsFiltered);
+
         this.allThreadsFiltered.forEach((item)=>{
           if (item.title.includes('@')){
             item.tag=this.getTag(item.title)
@@ -131,15 +131,10 @@ export class ThreadListComponent implements OnInit {
 
   getTag(msg:any){
     let splitMsg:any= [];
-    console.log(msg);
     let nameArray=this.allUsers.map((item)=>{
       return `@${item.name}`;
     })
-    console.log(nameArray);
-    
-
     let regex = new RegExp(`(${nameArray.join('|')})`);
-
     let parts = msg.split(regex);
 
     parts.forEach((part:any) => {
@@ -148,7 +143,6 @@ export class ThreadListComponent implements OnInit {
         }
     });
     
-    console.log(splitMsg);
     return splitMsg
   }
 

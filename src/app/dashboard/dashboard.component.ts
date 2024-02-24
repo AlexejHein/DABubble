@@ -223,9 +223,6 @@ export class DashboardComponent implements OnInit {
         
       })
 
-      console.log(this.messages);
-      
-      
     });
   }
 
@@ -627,28 +624,21 @@ writeMessageInChannel(selectedChannel: Channel): void {
 }
 
   userClick(user: User) {
-    // this.setSelectedUser(user);
-    // this.loadMessages();
     if(this.message.body){
       this.message.body+=`@${user.name}`;
     }
     else{
       this.message.body=`@${user.name}`;
     }
-    console.log(user);
 
   }
   userClick2(user: User) {
-    // this.setSelectedUser(user);
-    // this.loadMessages();
     if(this.thread.title){
       this.thread.title+=`@${user.name}`;
     }
     else{
       this.thread.title=`@${user.name}`;
     }
-    console.log(user);
-
   }
 
   @HostListener('window:resize', ['$event'])
@@ -676,15 +666,10 @@ writeMessageInChannel(selectedChannel: Channel): void {
 
   getTag(msg:any){
     let splitMsg:any= [];
-    console.log(msg);
     let nameArray=this.allUsers.map((item)=>{
       return `@${item.name}`;
     })
-    console.log(nameArray);
-    
-
     let regex = new RegExp(`(${nameArray.join('|')})`);
-
     let parts = msg.split(regex);
 
     parts.forEach((part:any) => {
@@ -692,8 +677,7 @@ writeMessageInChannel(selectedChannel: Channel): void {
             splitMsg.push(part.trim());
         }
     });
-    
-    console.log(splitMsg);
+
     return splitMsg
   }
 }

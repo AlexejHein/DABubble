@@ -119,7 +119,6 @@ ngOnInit(): void {
       
     })
 
-    console.log(this.messages);
   });
 
 }
@@ -175,7 +174,6 @@ updatethreadMessages(thread:any, message:any){
         
       })
 
-      console.log(this.messages);
     });
   }
 
@@ -343,28 +341,19 @@ getPDFFileName(url: string): string {
     this.workspaceService.addMessageClicked();
   }
   userClick(user: User) {
-    // this.setSelectedUser(user);
-    // this.loadMessages();
     if(this.message.body){
       this.message.body+=`@${user.name}`;
     }
     else{
       this.message.body=`@${user.name}`;
     }
-    console.log(user);
-
   }
   getTag(msg:any){
     let splitMsg:any= [];
-    console.log(msg);
     let nameArray=this.allUsers.map((item)=>{
       return `@${item.name}`;
     })
-    console.log(nameArray);
-    
-
     let regex = new RegExp(`(${nameArray.join('|')})`);
-
     let parts = msg.split(regex);
 
     parts.forEach((part:any) => {
@@ -373,7 +362,6 @@ getPDFFileName(url: string): string {
         }
     });
     
-    console.log(splitMsg);
     return splitMsg
   }
 
