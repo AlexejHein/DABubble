@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
+  @ViewChild('filter') private filter: ElementRef | undefined;
   firestore: Firestore = inject(Firestore)
   items$!: Observable<any[]>;
 
@@ -29,6 +29,7 @@ export class SearchComponent implements OnInit {
   threadVisible = true;
   moveRight:string = "";
   moveLeft:string = "";
+
 
   constructor(private userService: UserService,
               private threadsService: ThreadsService,
@@ -105,7 +106,6 @@ export class SearchComponent implements OnInit {
   }
 
   selectUser(user: any) {
-
     if(user.type === 'user') {
       this.dashboard.setSelectedUser(user);
       this.dashboard.focusMessageInput();
@@ -118,6 +118,18 @@ export class SearchComponent implements OnInit {
       this.moveSidebar();
     } else if(user.type === 'message') {
       this.filterSelectedThreadId(user);
+    }
+    this.dropdownVisible = false;
+    this.clearInputField();
+  }
+
+  clearInputField(): void {
+    try {
+      if (this.filter && this.filter.nativeElement) {
+        this.filter.nativeElement.value = "";
+      }
+    } catch(err) {
+      console.error('Input not cleared:', err);
     }
   }
 

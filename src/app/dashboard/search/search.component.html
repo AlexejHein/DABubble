@@ -1,5 +1,5 @@
 <div class="search-container">
-  <input type="text" placeholder="Gehe zu..." aria-label="Search"   #filter (keyup)="private_filter(filter.value)">
+  <input type="text" placeholder="Gehe zu..." aria-label="Search" name="sitesearch"  #filter (keyup)="private_filter(filter.value)">
   <div class="autocomplete-options" *ngIf="dropdownVisible">
     <div class="autocomplete-option" *ngFor="let user of filteredUsersOrChannels" (click)="selectUser(user)">
       <img *ngIf="user.type === 'user'" [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" class="user-avatar" alt="Avatar" width="24" height="24">
