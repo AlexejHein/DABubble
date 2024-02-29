@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit {
               private messageService: MessagesService) { }
 
   ngOnInit() {
-   
+
     const aCollection = collection(this.firestore, 'users');
     this.items$ = collectionData(aCollection, { idField: 'id' });
     this.items$.subscribe((users) => {
@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
     this.items$ = collectionData(messageCollection, { idField: 'id' });
     this.items$.subscribe((messages) => {
       this.usersOrChannels = [...this.usersOrChannels, ...messages.map(message => ({
-        ...message, 
+        ...message,
         name: message.body,
         avatar: '',
         status: '',
@@ -88,21 +88,21 @@ export class SearchComponent implements OnInit {
 
   private_filter(text: string) {
     this.filteredOfPrivateMessages = this.usersOrChannels.filter(
-      usersOrChannels =>(usersOrChannels.toThread !== undefined 
+      usersOrChannels =>(usersOrChannels.toThread !== undefined
       )
     );
-    console.log('filteredOfPrivateMessages: ', this.filteredOfPrivateMessages);
+    //console.log('filteredOfPrivateMessages: ', this.filteredOfPrivateMessages);
     if (!text) {
       this.filteredUsersOrChannels = this.filteredOfPrivateMessages;
       this.dropdownVisible = false;
       return;
     }
-    console.log('usersOrChannels: ',this.filteredOfPrivateMessages, '- filtered: ');
+    //console.log('usersOrChannels: ',this.filteredOfPrivateMessages, '- filtered: ');
     this.filteredUsersOrChannels = this.filteredOfPrivateMessages.filter(
       filteredOfPrivateMessages => filteredOfPrivateMessages?.name.toLowerCase().includes(text.toLowerCase())
     );
     this.dropdownVisible = true;
-  
+
   }
 
   selectUser(user: any) {
@@ -134,7 +134,7 @@ export class SearchComponent implements OnInit {
   }
 
   filterSelectedThreadId(user:any) {
-    console.log('open message: ', user, 'thread id: ', user.toThread, 'all threads: ', this.allThreads);
+    //console.log('open message: ', user, 'thread id: ', user.toThread, 'all threads: ', this.allThreads);
     this.selectedThread = this.allThreads.filter(thread => thread.id === user.toThread);
     this.threadsService.setSelectedThread(this.selectedThread[0]);
     this.showThread();

@@ -228,3 +228,11 @@ img.user-avatar {
   color: #064d9e;
   cursor: pointer;
 }
+
+.emoticon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+}

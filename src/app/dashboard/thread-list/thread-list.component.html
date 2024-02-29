@@ -9,7 +9,48 @@
           <div *ngIf="hoveredIndex==i" class="choose">
             <div (click)="selectEmoForThread('✅', thread.id)">✅</div>
             <div (click)="selectEmoForThread('🙌', thread.id)">🙌</div>
-            <img src="./assets/img/add_reaction.png">
+            <img src="./assets/img/add_reaction.png" [matMenuTriggerFor]="emoticonsMenu">
+            <mat-menu #emoticonsMenu="matMenu" class="emoticon-menu">
+              <div class="emoticon-grid">
+                <button mat-menu-item (click)="selectEmoForThread('😀',thread.id)">😀</button>
+                <button mat-menu-item (click)="selectEmoForThread('😂',thread.id)">😂</button>
+                <button mat-menu-item (click)="selectEmoForThread('🤣',thread.id)">🤣</button>
+                <button mat-menu-item (click)="selectEmoForThread('😍',thread.id)">😍</button>
+                <button mat-menu-item (click)="selectEmoForThread('😘',thread.id)">😘</button>
+                <button mat-menu-item (click)="selectEmoForThread('😎',thread.id)">😎</button>
+                <button mat-menu-item (click)="selectEmoForThread('😛',thread.id)">😛</button>
+                <button mat-menu-item (click)="selectEmoForThread('😊',thread.id)">😊</button>
+                <button mat-menu-item (click)="selectEmoForThread('😋',thread.id)">😋</button>
+                <button mat-menu-item (click)="selectEmoForThread('😚',thread.id)">😚</button>
+                <button mat-menu-item (click)="selectEmoForThread('😜',thread.id)">😜</button>
+                <button mat-menu-item (click)="selectEmoForThread('😝',thread.id)">😝</button>
+                <button mat-menu-item (click)="selectEmoForThread('🥰',thread.id)">🥰</button>
+                <button mat-menu-item (click)="selectEmoForThread('😇',thread.id)">😇</button>
+                <button mat-menu-item (click)="selectEmoForThread('😐',thread.id)">😐</button>
+                <button mat-menu-item (click)="selectEmoForThread('😕',thread.id)">😕</button>
+                <button mat-menu-item (click)="selectEmoForThread('😟',thread.id)">😟</button>
+                <button mat-menu-item (click)="selectEmoForThread('😢',thread.id)">😢</button>
+                <button mat-menu-item (click)="selectEmoForThread('😭',thread.id)">😭</button>
+                <button mat-menu-item (click)="selectEmoForThread('😷',thread.id)">😷</button>
+                <button mat-menu-item (click)="selectEmoForThread('🤔',thread.id)">🤔</button>
+                <button mat-menu-item (click)="selectEmoForThread('🙄',thread.id)">🙄</button>
+                <button mat-menu-item (click)="selectEmoForThread('😏',thread.id)">😏</button>
+                <button mat-menu-item (click)="selectEmoForThread('😶',thread.id)">😶</button>
+                <button mat-menu-item (click)="selectEmoForThread('🤐',thread.id)">🤐</button>
+                <button mat-menu-item (click)="selectEmoForThread('😴',thread.id)">😴</button>
+                <button mat-menu-item (click)="selectEmoForThread('🥳',thread.id)">🥳</button>
+                <button mat-menu-item (click)="selectEmoForThread('🤯',thread.id)">🤯</button>
+                <button mat-menu-item (click)="selectEmoForThread('😵',thread.id)">😵</button>
+                <button mat-menu-item (click)="selectEmoForThread('👏',thread.id)">👏</button>
+                <button mat-menu-item (click)="selectEmoForThread('👍',thread.id)">👍</button>
+                <button mat-menu-item (click)="selectEmoForThread('👌',thread.id)">👌</button>
+                <button mat-menu-item (click)="selectEmoForThread('👊',thread.id)">👊</button>
+                <button mat-menu-item (click)="selectEmoForThread('🙌',thread.id)">🙌</button>
+                <button mat-menu-item (click)="selectEmoForThread('👋',thread.id)">👋</button>
+                <button mat-menu-item (click)="selectEmoForThread('✅',thread.id)">✅</button>
+                <button mat-menu-item (click)="selectEmoForThread('❌',thread.id)">❌</button>
+              </div>
+            </mat-menu>
             <img src="./assets/img/comment.png" (click)="loadSelectedThreadInfos(thread); showThread(); moveSidebar()">
           </div>
           <img [src]="user.avatar ? user.avatar : 'assets/img/profile.png'" alt="Avatar" class="user-avatar">

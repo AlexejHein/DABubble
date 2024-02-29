@@ -148,3 +148,10 @@
 .tagName:hover{
   color: #064d9e;
 }
+.emoticon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+}
